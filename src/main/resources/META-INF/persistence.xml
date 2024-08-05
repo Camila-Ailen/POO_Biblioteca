@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <persistence xmlns="http://xmlns.jcp.org/xml/ns/persistence" version="2.2">
     <persistence-unit name="bibliotecaPU" transaction-type="RESOURCE_LOCAL">
-        <class>unam.biblioteca.model.Autor</class>
-        <class>unam.biblioteca.model.Prestamo</class>
-        <class>unam.biblioteca.model.Libro</class>
-        <class>unam.biblioteca.model.Idioma</class>
-        <class>unam.biblioteca.model.Miembro</class>
-        <class>unam.biblioteca.model.Rack</class>
-        <class>unam.biblioteca.model.Rol</class>
-        <class>unam.biblioteca.model.Tematica</class>
-        <class>unam.biblioteca.model.Copia</class>
-        <class>unam.biblioteca.model.Editorial</class>
+        <class>com.unam.biblioteca.modelo.Autor</class>
+        <class>com.unam.biblioteca.modelo.Prestamo</class>
+        <class>com.unam.biblioteca.modelo.Libro</class>
+        <class>com.unam.biblioteca.modelo.Idioma</class>
+        <class>com.unam.biblioteca.modelo.Miembro</class>
+        <class>com.unam.biblioteca.modelo.Rack</class>
+        <class>com.unam.biblioteca.modelo.Rol</class>
+        <class>com.unam.biblioteca.modelo.Tematica</class>
+        <class>com.unam.biblioteca.modelo.Copia</class>
+        <class>com.unam.biblioteca.modelo.Editorial</class>
         <properties>
             <property name="jakarta.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/BIBLIOTECA"/>
             <property name="jakarta.persistence.jdbc.user" value="root"/>
