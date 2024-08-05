@@ -2,14 +2,8 @@ package com.unam.biblioteca.modelo;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToMany;
+
+import jakarta.persistence.*;
 
 
 @Entity
@@ -28,12 +22,14 @@ public class Copia implements Serializable {
 
     //relaciones
     @ManyToOne
-    private Rack idRack;
+    @JoinColumn(name = "fk_Rack")
+    private Rack unRack;
 
     @ManyToOne
-    private Libro idLibro;
+    @JoinColumn(name = "fk_Libro")
+    private Libro unLibro;
 
-    @OneToMany (mappedBy = "idCopia")
+    @OneToMany (mappedBy = "unCopia")
     private ArrayList<Prestamo> listaPrestamos;
 
     //definiciones de los enums
@@ -49,13 +45,13 @@ public class Copia implements Serializable {
     public Copia() {
     }
 
-    public Copia(int id, boolean referencia, Tipo tipo, Estado estado, Rack idRack, Libro idLibro, ArrayList<Prestamo> listaPrestamos) {
+    public Copia(int id, boolean referencia, Tipo tipo, Estado estado, Rack unRack, Libro unLibro, ArrayList<Prestamo> listaPrestamos) {
         this.id = id;
         this.referencia = referencia;
         this.tipo = tipo;
         this.estado = estado;
-        this.idRack = idRack;
-        this.idLibro = idLibro;
+        this.unRack = unRack;
+        this.unLibro = unLibro;
         this.listaPrestamos = listaPrestamos;
     }
 
@@ -91,20 +87,20 @@ public class Copia implements Serializable {
         this.estado = estado;
     }
 
-    public Rack getIdRack() {
-        return idRack;
+    public Rack getUnRack() {
+        return unRack;
     }
 
-    public void setIdRack(Rack idRack) {
-        this.idRack = idRack;
+    public void setUnRack(Rack unRack) {
+        this.unRack = unRack;
     }
 
-    public Libro getIdLibro() {
-        return idLibro;
+    public Libro getUnLibro() {
+        return unLibro;
     }
 
-    public void setIdLibro(Libro idLibro) {
-        this.idLibro = idLibro;
+    public void setUnLibro(Libro unLibro) {
+        this.unLibro = unLibro;
     }
 
     public ArrayList<Prestamo> getListaPrestamos() {
