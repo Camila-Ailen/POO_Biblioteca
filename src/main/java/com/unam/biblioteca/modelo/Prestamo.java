@@ -3,13 +3,8 @@ package com.unam.biblioteca.modelo;
 
 import java.io.Serializable;
 import java.util.Date;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.Temporal;
-import jakarta.persistence.TemporalType;
+
+import jakarta.persistence.*;
 
 @Entity
 public class Prestamo implements Serializable {
@@ -26,23 +21,25 @@ public class Prestamo implements Serializable {
 
     //relaciones
     @ManyToOne
-    private Miembro idMiembro;
+    @JoinColumn(name = "fk_Miembro")
+    private Miembro unMiembro;
 
     @ManyToOne
-    private Copia idCopia;
+    @JoinColumn(name = "fk_Copia")
+    private Copia unCopia;
 
     //controladores, getters y setters
 
     public Prestamo() {
     }
 
-    public Prestamo(int id, Date fechaRetiro, Date fechaDevuelto, double multa, Miembro idMiembro, Copia idCopia) {
+    public Prestamo(int id, Date fechaRetiro, Date fechaDevuelto, double multa, Miembro unMiembro, Copia unCopia) {
         this.id = id;
         this.fechaRetiro = fechaRetiro;
         this.fechaDevuelto = fechaDevuelto;
         this.multa = multa;
-        this.idMiembro = idMiembro;
-        this.idCopia = idCopia;
+        this.unMiembro = unMiembro;
+        this.unCopia = unCopia;
     }
 
     public int getId() {
@@ -77,20 +74,20 @@ public class Prestamo implements Serializable {
         this.multa = multa;
     }
 
-    public Miembro getIdMiembro() {
-        return idMiembro;
+    public Miembro getUnMiembro() {
+        return unMiembro;
     }
 
-    public void setIdMiembro(Miembro idMiembro) {
-        this.idMiembro = idMiembro;
+    public void setUnMiembro(Miembro unMiembro) {
+        this.unMiembro = unMiembro;
     }
 
-    public Copia getIdCopia() {
-        return idCopia;
+    public Copia getUnCopia() {
+        return unCopia;
     }
 
-    public void setIdCopia(Copia idCopia) {
-        this.idCopia = idCopia;
+    public void setUnCopia(Copia unCopia) {
+        this.unCopia = unCopia;
     }
 
 

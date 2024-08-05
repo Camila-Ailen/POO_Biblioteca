@@ -18,7 +18,7 @@ public class Rol implements Serializable {
     private String nombre;
 
     //relaciones
-    @OneToMany (mappedBy = "idRol")
+    @OneToMany (mappedBy = "unRol")
     private List<Miembro> listaMiembros;
 
     //controladores, getters y setters

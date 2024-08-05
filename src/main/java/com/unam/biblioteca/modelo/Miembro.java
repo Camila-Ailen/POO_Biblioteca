@@ -2,14 +2,8 @@ package com.unam.biblioteca.modelo;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToMany;
+
+import jakarta.persistence.*;
 
 @Entity
 public class Miembro implements Serializable {
@@ -28,11 +22,12 @@ public class Miembro implements Serializable {
     private Estado estado;
 
     //relaciones
-    @OneToMany (mappedBy = "idMiembro")
+    @OneToMany (mappedBy = "unMiembro")
     private ArrayList<Prestamo> listaPrestamos;
 
     @ManyToOne
-    private Rol idRol;
+    @JoinColumn(name = "fk_Rol")
+    private Rol unRol;
 
     //definiciones de los enums
     public enum Estado {
@@ -44,7 +39,7 @@ public class Miembro implements Serializable {
     public Miembro() {
     }
 
-    public Miembro(int id, String clave, String apellido, String nombre, String telefono, String email, Estado estado, ArrayList<Prestamo> listaPrestamos, Rol idRol) {
+    public Miembro(int id, String clave, String apellido, String nombre, String telefono, String email, Estado estado, ArrayList<Prestamo> listaPrestamos, Rol unRol) {
         this.id = id;
         this.clave = clave;
         this.apellido = apellido;
@@ -53,7 +48,7 @@ public class Miembro implements Serializable {
         this.email = email;
         this.estado = estado;
         this.listaPrestamos = listaPrestamos;
-        this.idRol = idRol;
+        this.unRol = unRol;
     }
 
     public int getId() {
@@ -120,12 +115,12 @@ public class Miembro implements Serializable {
         this.listaPrestamos = listaPrestamos;
     }
 
-    public Rol getIdRol() {
-        return idRol;
+    public Rol getUnRol() {
+        return unRol;
     }
 
-    public void setIdRol(Rol idRol) {
-        this.idRol = idRol;
+    public void setUnRol(Rol unRol) {
+        this.unRol = unRol;
     }
 
 
