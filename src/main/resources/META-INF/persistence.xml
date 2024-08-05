@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence xmlns="http://xmlns.jcp.org/xml/ns/persistence" version="2.2">
+    <persistence-unit name="bibliotecaPU" transaction-type="RESOURCE_LOCAL">
+        <class>unam.biblioteca.model.Autor</class>
+        <class>unam.biblioteca.model.Prestamo</class>
+        <class>unam.biblioteca.model.Libro</class>
+        <class>unam.biblioteca.model.Idioma</class>
+        <class>unam.biblioteca.model.Miembro</class>
+        <class>unam.biblioteca.model.Rack</class>
+        <class>unam.biblioteca.model.Rol</class>
+        <class>unam.biblioteca.model.Tematica</class>
+        <class>unam.biblioteca.model.Copia</class>
+        <class>unam.biblioteca.model.Editorial</class>
+        <properties>
+            <property name="jakarta.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/BIBLIOTECA"/>
+            <property name="jakarta.persistence.jdbc.user" value="root"/>
+            <property name="jakarta.persistence.jdbc.password" value=""/>
+            <property name="jakarta.persistence.jdbc.driver" value="com.mysql.cj.jdbc.Driver"/>
+            <property name="eclipselink.logging.level" value="FINE"/>
+            <property name="eclipselink.ddl-generation" value="create-tables"/>
+        </properties>
+    </persistence-unit>
+</persistence>
