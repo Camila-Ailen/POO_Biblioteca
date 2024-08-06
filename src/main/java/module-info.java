@@ -7,6 +7,8 @@ module com.unam.biblioteca {
 
 
     opens com.unam.biblioteca to javafx.fxml;
+    opens com.unam.biblioteca.controlador to javafx.fxml;
     opens com.unam.biblioteca.modelo to eclipselink, javafx.base;
     exports com.unam.biblioteca;
+    exports com.unam.biblioteca.controlador;
 }
