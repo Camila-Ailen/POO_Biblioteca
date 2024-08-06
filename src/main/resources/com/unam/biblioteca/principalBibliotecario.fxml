@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="665.0" prefWidth="951.0"
+            xmlns="http://javafx.com/javafx/17.0.2-ea"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.unam.biblioteca.controlador.PrincipalBibliotecarioController">
+   <children>
+      <BorderPane prefHeight="665.0" prefWidth="951.0">
+         <left>
+            <VBox prefHeight="454.0" prefWidth="152.0" BorderPane.alignment="CENTER">
+               <children>
+                  <Button fx:id="btnNavLibros" mnemonicParsing="false" prefHeight="40.0" prefWidth="120.0" text="LIBROS">
+                     <VBox.margin>
+                        <Insets />
+                     </VBox.margin>
+                  </Button>
+                  <Button fx:id="btnNavCopias" mnemonicParsing="false" prefHeight="40.0" prefWidth="120.0" text="COPIAS">
+                     <VBox.margin>
+                        <Insets />
+                     </VBox.margin>
+                  </Button>
+                  <Button fx:id="btnNavPrestamos" mnemonicParsing="false" prefHeight="40.0" prefWidth="120.0" text="PRESTAMOS">
+                     <VBox.margin>
+                        <Insets />
+                     </VBox.margin>
+                  </Button>
+                  <Button fx:id="btnNavRegistro" mnemonicParsing="false" prefHeight="40.0" prefWidth="120.0" text="REGISTRO">
+                     <VBox.margin>
+                        <Insets />
+                     </VBox.margin>
+                  </Button>
+                  <Button fx:id="btnNavDevolucion" mnemonicParsing="false" prefHeight="40.0" prefWidth="120.0" text="DEVOLUCION">
+                     <VBox.margin>
+                        <Insets />
+                     </VBox.margin>
+                  </Button>
+                  <Button fx:id="btnNavUsuario" mnemonicParsing="false" prefHeight="40.0" prefWidth="120.0" text="USUARIO">
+                     <VBox.margin>
+                        <Insets />
+                     </VBox.margin>
+                  </Button>
+                  <Button fx:id="btnNavParametros" mnemonicParsing="false" prefHeight="40.0" prefWidth="120.0" text="PARAMETROS">
+                     <VBox.margin>
+                        <Insets />
+                     </VBox.margin>
+                  </Button>
+                  <Button fx:id="btnNavAutor" mnemonicParsing="false" prefHeight="40.0" prefWidth="120.0" text="AUTOR">
+                     <VBox.margin>
+                        <Insets />
+                     </VBox.margin>
+                  </Button>
+                  <Button fx:id="btnNavTematica" mnemonicParsing="false" prefHeight="40.0" prefWidth="120.0" text="TEMATICA">
+                     <VBox.margin>
+                        <Insets />
+                     </VBox.margin>
+                  </Button>
+                  <Button fx:id="btnNavEditorial" mnemonicParsing="false" prefHeight="40.0" prefWidth="120.0" text="EDITORIAL">
+                     <VBox.margin>
+                        <Insets />
+                     </VBox.margin>
+                  </Button>
+                  <Button fx:id="btnNavRack" mnemonicParsing="false" prefHeight="40.0" prefWidth="120.0" text="RACK" />
+               </children>
+            </VBox>
+         </left>
+         <center>
+            <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
+               <children>
+                  <HBox prefHeight="100.0" prefWidth="200.0">
+                     <children>
+                        <ComboBox fx:id="cmbTitulo" prefWidth="150.0" promptText="TITULO" />
+                        <ComboBox fx:id="cmbAutor" prefWidth="150.0" promptText="AUTOR" />
+                        <ComboBox fx:id="cmbTematica" prefWidth="150.0" promptText="TEMATICA" />
+                     </children>
+                  </HBox>
+                  <TableView prefHeight="200.0" prefWidth="200.0">
+                    <columns>
+                      <TableColumn prefWidth="75.0" text="ISBN" />
+                      <TableColumn prefWidth="75.0" text="TITULO" />
+                        <TableColumn prefWidth="75.0" text="AUTOR" />
+                        <TableColumn prefWidth="75.0" text="TEMATICA" />
+                        <TableColumn prefWidth="75.0" text="IDIOMA" />
+                    </columns>
+                  </TableView>
+                  <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
+                     <children>
+                        <Label text="TITULO DEL LIBRO" />
+                        <Label text="AUTOR DEL LIBRO" />
+                        <HBox prefHeight="44.0" prefWidth="634.0">
+                           <children>
+                              <Label text="TIPO A:" />
+                              <Label text="CANTIDAD DISPONIBLE" />
+                           </children>
+                        </HBox>
+                        <HBox prefHeight="41.0" prefWidth="634.0">
+                           <children>
+                              <Label text="TIPO B:" />
+                              <Label text="CANTIDAD DISPONIBLE" />
+                           </children>
+                        </HBox>
+                        <HBox prefHeight="53.0" prefWidth="634.0">
+                           <children>
+                              <Label text="TIPO C:" />
+                              <Label text="CANTIDAD DISPONIBLE" />
+                           </children>
+                        </HBox>
+                        <HBox prefHeight="43.0" prefWidth="634.0">
+                           <children>
+                              <Label text="TIPO D:" />
+                              <Label text="CANTIDAD DISPONIBLE" />
+                           </children>
+                        </HBox>
+                     </children>
+                  </VBox>
+               </children>
+            </VBox>
+         </center>
+         <top>
+            <HBox alignment="CENTER_RIGHT" prefHeight="38.0" prefWidth="765.0" BorderPane.alignment="CENTER">
+               <children>
+                  <Label fx:id="lblNombreUsuario" alignment="CENTER_RIGHT" text="Bienvenido Usuario" />
+               </children>
+            </HBox>
+         </top>
+         <right>
+            <VBox prefHeight="435.0" prefWidth="100.0" BorderPane.alignment="CENTER">
+               <children>
+                  <Button fx:id="btnCrearLibro" mnemonicParsing="false" prefHeight="40.0" prefWidth="100.0" text="CREAR">
+                     <VBox.margin>
+                        <Insets top="5.0" />
+                     </VBox.margin>
+                  </Button>
+                  <Button fx:id="btnModificarLibro" mnemonicParsing="false" prefHeight="40.0" prefWidth="100.0" text="MODIFICAR">
+                     <VBox.margin>
+                        <Insets top="5.0" />
+                     </VBox.margin>
+                  </Button>
+                  <Button fx:id="btnEliminarLibro" mnemonicParsing="false" prefHeight="40.0" prefWidth="100.0" text="ELIMINAR">
+                     <VBox.margin>
+                        <Insets top="5.0" />
+                     </VBox.margin>
+                  </Button>
+                  <Button fx:id="btnRecargarTabla" mnemonicParsing="false" prefHeight="80.0" prefWidth="100.0" text="RECARGAR TABLA" textAlignment="CENTER" wrapText="true">
+                     <VBox.margin>
+                        <Insets top="5.0" />
+                     </VBox.margin>
+                  </Button>
+               </children>
+            </VBox>
+         </right>
+      </BorderPane>
+   </children>
+</AnchorPane>
