@@ -124,6 +124,10 @@ public class Servicio {
         }
     }
 
+    public List<Copia> listarCopiasPorLibro(Libro unLibro) {
+        return this.repositorio.buscarCopiasPorLibro(unLibro);
+    }
+
     //Modificar un libro
 
 

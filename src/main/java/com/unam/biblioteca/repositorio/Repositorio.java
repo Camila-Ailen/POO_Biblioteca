@@ -1,5 +1,7 @@
 package com.unam.biblioteca.repositorio;
 
+import com.unam.biblioteca.modelo.Copia;
+import com.unam.biblioteca.modelo.Libro;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.criteria.CriteriaBuilder;
@@ -84,6 +86,14 @@ public class Repositorio {
         // el atributo de origen definido en orden
         consulta.orderBy(cb.asc(origen.get(orden)));
         // ejecuto y obtengo el resultado
+        return em.createQuery(consulta).getResultList();
+    }
+
+    public List<Copia> buscarCopiasPorLibro(Libro unLibro) {
+        CriteriaBuilder cb = this.em.getCriteriaBuilder();
+        CriteriaQuery<Copia> consulta = cb.createQuery(Copia.class);
+        Root<Copia> origen = consulta.from(Copia.class);
+        consulta.select(origen).where(cb.equal(origen.get("unLibro"), unLibro));
         return em.createQuery(consulta).getResultList();
     }
 }

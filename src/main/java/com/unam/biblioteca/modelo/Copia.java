@@ -2,6 +2,9 @@ package com.unam.biblioteca.modelo;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.EnumMap;
+import java.util.List;
+import java.util.Map;
 
 import jakarta.persistence.*;
 
@@ -109,6 +112,18 @@ public class Copia implements Serializable {
 
     public void setListaPrestamos(ArrayList<Prestamo> listaPrestamos) {
         this.listaPrestamos = listaPrestamos;
+    }
+
+
+
+    public static Map<Tipo, Integer> contarCopiasPorTipo(List<Copia> copias) {
+        Map<Tipo, Integer> conteo = new EnumMap<>(Tipo.class);
+        for (Copia copia : copias) {
+            Tipo tipo = copia.getTipo();
+            conteo.put(tipo, conteo.getOrDefault(tipo, 0) + 1);
+        }
+        System.out.println("Hasta el metodo del Copia todo ok");
+        return conteo;
     }
 
 
