@@ -79,6 +79,7 @@
                 <HBox alignment="CENTER_RIGHT" prefHeight="38.0" prefWidth="765.0" BorderPane.alignment="CENTER">
                     <children>
                         <Label fx:id="lblNombreUsuario" alignment="CENTER_RIGHT" text="Bienvenido Usuario" />
+                  <Button fx:id="btnNavLogout" mnemonicParsing="false" onAction="#cerrarSesion" text="Cerrar Sesion" />
                     </children>
                 </HBox>
             </top>

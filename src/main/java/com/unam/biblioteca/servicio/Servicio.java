@@ -15,6 +15,18 @@ public class Servicio {
         this.repositorio = p;
     }
 
+    //MIEMBRO
+
+    // Busqueda
+
+    //Busca un miembro segun su id y devuelve el objeto
+    public Miembro buscarMiembro(int id) {
+        return this.repositorio.buscar(Miembro.class, id);
+    }
+
+
+
+
     // Listados
 
     /** Se obtienen solo los proveedores activos

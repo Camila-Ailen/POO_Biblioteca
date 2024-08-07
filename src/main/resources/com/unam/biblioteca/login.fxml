@@ -3,13 +3,15 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.unam.biblioteca.controlador.loginController">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/22"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.unam.biblioteca.controlador.loginController">
    <children>
       <TextField fx:id="txtUsuario" layoutX="205.0" layoutY="148.0" />
       <PasswordField fx:id="txtPassword" layoutX="205.0" layoutY="228.0" />
       <Label layoutX="107.0" layoutY="152.0" text="Usuario:" />
       <Label layoutX="107.0" layoutY="232.0" text="Password:" />
-      <Button fx:id="btnIngresar" layoutX="253.0" layoutY="314.0" mnemonicParsing="false" text="Ingresar" />
+      <Button fx:id="btnIngresar" layoutX="253.0" layoutY="314.0" mnemonicParsing="false" onAction="#ingresarSistema" text="Ingresar" />
       <Label layoutX="253.0" layoutY="61.0" text="Login" />
       <Label fx:id="lblMensaje" layoutX="264.0" layoutY="271.0" text="" />
    </children>

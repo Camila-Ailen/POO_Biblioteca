@@ -17,6 +17,8 @@ public class Repositorio {
         this.em = emf.createEntityManager();
     }
 
+
+
     public void iniciarTransaccion() {
         em.getTransaction().begin();
     }
