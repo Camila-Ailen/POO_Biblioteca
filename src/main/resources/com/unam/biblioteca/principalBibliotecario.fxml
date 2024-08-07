@@ -10,57 +10,57 @@
          <left>
             <VBox prefHeight="454.0" prefWidth="152.0" BorderPane.alignment="CENTER">
                <children>
-                  <Button fx:id="btnNavLibros" mnemonicParsing="false" prefHeight="40.0" prefWidth="120.0" text="LIBROS">
+                  <Button fx:id="btnNavLibros" mnemonicParsing="false" onAction="#navLibros" prefHeight="40.0" prefWidth="120.0" text="LIBROS">
                      <VBox.margin>
                         <Insets />
                      </VBox.margin>
                   </Button>
-                  <Button fx:id="btnNavCopias" mnemonicParsing="false" prefHeight="40.0" prefWidth="120.0" text="COPIAS">
+                  <Button fx:id="btnNavCopias" mnemonicParsing="false" onAction="#navCopias" prefHeight="40.0" prefWidth="120.0" text="COPIAS">
                      <VBox.margin>
                         <Insets />
                      </VBox.margin>
                   </Button>
-                  <Button fx:id="btnNavPrestamos" mnemonicParsing="false" prefHeight="40.0" prefWidth="120.0" text="PRESTAMOS">
+                  <Button fx:id="btnNavPrestamos" mnemonicParsing="false" onAction="#navPrestamos" prefHeight="40.0" prefWidth="120.0" text="PRESTAMOS">
                      <VBox.margin>
                         <Insets />
                      </VBox.margin>
                   </Button>
-                  <Button fx:id="btnNavRegistro" mnemonicParsing="false" prefHeight="40.0" prefWidth="120.0" text="REGISTRO">
+                  <Button fx:id="btnNavRegistro" mnemonicParsing="false" onAction="#navRegistro" prefHeight="40.0" prefWidth="120.0" text="REGISTRO">
                      <VBox.margin>
                         <Insets />
                      </VBox.margin>
                   </Button>
-                  <Button fx:id="btnNavDevolucion" mnemonicParsing="false" prefHeight="40.0" prefWidth="120.0" text="DEVOLUCION">
+                  <Button fx:id="btnNavDevolucion" mnemonicParsing="false" onAction="#navDevolucion" prefHeight="40.0" prefWidth="120.0" text="DEVOLUCION">
                      <VBox.margin>
                         <Insets />
                      </VBox.margin>
                   </Button>
-                  <Button fx:id="btnNavUsuario" mnemonicParsing="false" prefHeight="40.0" prefWidth="120.0" text="USUARIO">
+                  <Button fx:id="btnNavUsuario" mnemonicParsing="false" onAction="#navUsuario" prefHeight="40.0" prefWidth="120.0" text="USUARIO">
                      <VBox.margin>
                         <Insets />
                      </VBox.margin>
                   </Button>
-                  <Button fx:id="btnNavParametros" mnemonicParsing="false" prefHeight="40.0" prefWidth="120.0" text="PARAMETROS">
+                  <Button fx:id="btnNavParametros" mnemonicParsing="false" onAction="#navParametros" prefHeight="40.0" prefWidth="120.0" text="PARAMETROS">
                      <VBox.margin>
                         <Insets />
                      </VBox.margin>
                   </Button>
-                  <Button fx:id="btnNavAutor" mnemonicParsing="false" prefHeight="40.0" prefWidth="120.0" text="AUTOR">
+                  <Button fx:id="btnNavAutor" mnemonicParsing="false" onAction="#navAutor" prefHeight="40.0" prefWidth="120.0" text="AUTOR">
                      <VBox.margin>
                         <Insets />
                      </VBox.margin>
                   </Button>
-                  <Button fx:id="btnNavTematica" mnemonicParsing="false" prefHeight="40.0" prefWidth="120.0" text="TEMATICA">
+                  <Button fx:id="btnNavTematica" mnemonicParsing="false" onAction="#navTematica" prefHeight="40.0" prefWidth="120.0" text="TEMATICA">
                      <VBox.margin>
                         <Insets />
                      </VBox.margin>
                   </Button>
-                  <Button fx:id="btnNavEditorial" mnemonicParsing="false" prefHeight="40.0" prefWidth="120.0" text="EDITORIAL">
+                  <Button fx:id="btnNavEditorial" mnemonicParsing="false" onAction="#navEditorial" prefHeight="40.0" prefWidth="120.0" text="EDITORIAL">
                      <VBox.margin>
                         <Insets />
                      </VBox.margin>
                   </Button>
-                  <Button fx:id="btnNavRack" mnemonicParsing="false" prefHeight="40.0" prefWidth="120.0" text="RACK" />
+                  <Button fx:id="btnNavRack" mnemonicParsing="false" onAction="#navRack" prefHeight="40.0" prefWidth="120.0" text="RACK" />
                </children>
             </VBox>
          </left>
@@ -120,28 +120,32 @@
             <HBox alignment="CENTER_RIGHT" prefHeight="38.0" prefWidth="765.0" BorderPane.alignment="CENTER">
                <children>
                   <Label fx:id="lblNombreUsuario" alignment="CENTER_RIGHT" text="Bienvenido Usuario" />
+                  <Button fx:id="btnNavLogout" mnemonicParsing="false" onAction="#cerrarSesion" text="Cerrar Sesion">
+                     <HBox.margin>
+                        <Insets left="20.0" right="5.0" />
+                     </HBox.margin></Button>
                </children>
             </HBox>
          </top>
          <right>
             <VBox prefHeight="435.0" prefWidth="100.0" BorderPane.alignment="CENTER">
                <children>
-                  <Button fx:id="btnCrearLibro" mnemonicParsing="false" prefHeight="40.0" prefWidth="100.0" text="CREAR">
+                  <Button fx:id="btnCrearLibro" mnemonicParsing="false" onAction="#crear" prefHeight="40.0" prefWidth="100.0" text="CREAR">
                      <VBox.margin>
                         <Insets top="5.0" />
                      </VBox.margin>
                   </Button>
-                  <Button fx:id="btnModificarLibro" mnemonicParsing="false" prefHeight="40.0" prefWidth="100.0" text="MODIFICAR">
+                  <Button fx:id="btnModificarLibro" mnemonicParsing="false" onAction="#modificar" prefHeight="40.0" prefWidth="100.0" text="MODIFICAR">
                      <VBox.margin>
                         <Insets top="5.0" />
                      </VBox.margin>
                   </Button>
-                  <Button fx:id="btnEliminarLibro" mnemonicParsing="false" prefHeight="40.0" prefWidth="100.0" text="ELIMINAR">
+                  <Button fx:id="btnEliminarLibro" mnemonicParsing="false" onAction="#eliminar" prefHeight="40.0" prefWidth="100.0" text="ELIMINAR">
                      <VBox.margin>
                         <Insets top="5.0" />
                      </VBox.margin>
                   </Button>
-                  <Button fx:id="btnRecargarTabla" mnemonicParsing="false" prefHeight="80.0" prefWidth="100.0" text="RECARGAR TABLA" textAlignment="CENTER" wrapText="true">
+                  <Button fx:id="btnRecargarTabla" mnemonicParsing="false" onAction="#recargarTabla" prefHeight="80.0" prefWidth="100.0" text="RECARGAR TABLA" textAlignment="CENTER" wrapText="true">
                      <VBox.margin>
                         <Insets top="5.0" />
                      </VBox.margin>

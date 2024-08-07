@@ -1,70 +1,75 @@
 package com.unam.biblioteca.controlador;
 
 import com.unam.biblioteca.App;
+import com.unam.biblioteca.modelo.Miembro;
+import com.unam.biblioteca.modelo.UsrLogueado;
+import com.unam.biblioteca.servicio.Servicio;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.TextField;
 
 import java.io.IOException;
 
 
 public class loginController {
 
-    /*
     @FXML
     private TextField txtUsuario;
 
     @FXML
     private TextField txtPassword;
-    */
+
 
     @FXML
     private Button btnIngresar;
 
-    /*
+
     private Miembro miembro;
-    private Repositorio repositorio;*/
+    private Servicio servicio;
 
-    /*
-    @Override
-    public void initialize(URL location, ResourceBundle resources) {
-        EntityManagerFactory emf = Persistence.createEntityManagerFactory("bibliotecaPU");
-        this.repositorio = new Repositorio(emf);
-    }*/
 
-    /*
+
     @FXML
-    private void ingresarSistema(ActionEvent e) {
-        Object evt = e.getSource();
+    private void initialize() {
+        servicio = App.getServicio();
+
+    }
+
+    @FXML
+    private void ingresarSistema(ActionEvent event) throws IOException {
+        //Object evt = event.getSource();
 
         if (!txtUsuario.getText().isEmpty() && !txtPassword.getText().isEmpty()) {
             try {
                 int usuarioId = Integer.parseInt(txtUsuario.getText());
-                System.out.println("Usuario ID: " + usuarioId);
-                miembro = repositorio.buscar(Miembro.class, usuarioId);
+                miembro = servicio.buscarMiembro(usuarioId);
             } catch (NumberFormatException ex) {
-                System.out.println("El ID de usuario debe ser un número entero");
+                Alerta.mostrarAlerta(Alert.AlertType.ERROR, "Error", "El ID de usuario debe ser un número entero", ex.getMessage());
             }
             if (miembro != null) {
                 if (miembro.getClave().equals(txtPassword.getText())) {
-                    JOptionPane.showMessageDialog(null, "Bienvenido " + miembro.getNombre());
+                    UsrLogueado.getInstancia().setVariableGlobal(miembro);
+                    if (miembro.getUnRol().getNombre().equalsIgnoreCase("bibliotecario")) {
+                        App.setRoot("principalBibliotecario");
+                    } else if (miembro.getUnRol().getNombre().equalsIgnoreCase("usuario")) {
+                        App.setRoot("principalUsuario");
+                    } else {
+                        Alerta.mostrarAlerta(Alert.AlertType.ERROR, "Error", "Rol no válido", "El rol del usuario no es válido");
+                    }
                 } else {
-                    JOptionPane.showMessageDialog(null, "Contraseña incorrecta");
+                    Alerta.mostrarAlerta(Alert.AlertType.ERROR, "Error", "Contraseña incorrecta", "La contraseña ingresada no coincide con la registrada");
                 }
             } else {
-                JOptionPane.showMessageDialog(null, "No hay usuarios registrados");
+                Alerta.mostrarAlerta(Alert.AlertType.ERROR, "Error", "No hay usuarios registrados", "No hay usuarios registrados");
             }
         } else {
-            JOptionPane.showMessageDialog(null, "Llene los campos");
+            Alerta.mostrarAlerta(Alert.AlertType.ERROR, "Error", "Campos incompletos", "Llene los campos vacios");
         }
-    }*/
-
-    @FXML
-    private void ingresarSistema (ActionEvent event) throws IOException {
-        System.out.println("Pasando parte 1");
-        App.setRoot("principalBibliotecario");
-        System.out.println("Finalizando parte 1");
     }
+
+
 
     /*
     @FXML

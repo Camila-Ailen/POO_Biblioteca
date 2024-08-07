@@ -36,11 +36,8 @@ public class App extends Application {
     }
 
     public static FXMLLoader setRoot(String fxml) throws IOException {
-        System.out.println("Empezando parte 2");
         FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource(fxml + ".fxml"));
-        System.out.println("Parte2.2");
         scene.setRoot(fxmlLoader.load());
-        System.out.println("Parte2.3");
         return fxmlLoader;
     }
 
