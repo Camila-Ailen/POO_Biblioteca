@@ -39,8 +39,7 @@ public class Miembro implements Serializable {
     public Miembro() {
     }
 
-    public Miembro(int id, String clave, String apellido, String nombre, String telefono, String email, Estado estado, ArrayList<Prestamo> listaPrestamos, Rol unRol) {
-        this.id = id;
+    public Miembro(String clave, String apellido, String nombre, String telefono, String email, Estado estado, ArrayList<Prestamo> listaPrestamos, Rol unRol) {
         this.clave = clave;
         this.apellido = apellido;
         this.nombre = nombre;

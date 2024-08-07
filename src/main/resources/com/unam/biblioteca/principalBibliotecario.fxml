@@ -74,7 +74,7 @@
                         <ComboBox fx:id="cmbTematica" prefWidth="150.0" promptText="TEMATICA" />
                      </children>
                   </HBox>
-                  <TableView prefHeight="200.0" prefWidth="200.0">
+                  <TableView fx:id="tblLibros" prefHeight="200.0" prefWidth="200.0">
                     <columns>
                       <TableColumn prefWidth="75.0" text="ISBN" />
                       <TableColumn prefWidth="75.0" text="TITULO" />
