@@ -2,13 +2,14 @@ package com.unam.biblioteca.controlador;
 
 import com.unam.biblioteca.App;
 
+import com.unam.biblioteca.modelo.Libro;
 import com.unam.biblioteca.modelo.Miembro;
 import com.unam.biblioteca.modelo.UsrLogueado;
 import com.unam.biblioteca.servicio.Servicio;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
+import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 
 import java.io.IOException;
 
@@ -50,6 +51,22 @@ public class PrincipalBibliotecarioController {
     @FXML
     private Button btnRecargarTabla;
 
+    //Tabla
+    @FXML
+    private TableColumn<Libro, String> colIsbn;
+    @FXML
+    private TableColumn<Libro, String> colTitulo;
+    @FXML
+    private TableColumn<Libro, String> colAutor;
+    @FXML
+    private TableColumn<Libro, String> colEditorial;
+    @FXML
+    private TableColumn<Libro, String> colTematica;
+    @FXML
+    private TableColumn<Libro, String> colIdioma;
+    @FXML
+    private TableView<Libro> tblLibros;
+
     @FXML
     private Label lblNombreUsuario;
 
@@ -62,6 +79,22 @@ public class PrincipalBibliotecarioController {
         Miembro miembro = (Miembro) UsrLogueado.getInstancia().getVariableGlobal();
         if (miembro != null) {
             lblNombreUsuario.setText("Bienvenido " + miembro.getNombre());
+        }
+
+        //inicilizar tabla
+        colIsbn.setCellValueFactory(new PropertyValueFactory<>("isbn"));
+        colTitulo.setCellValueFactory(new PropertyValueFactory<>("titulo"));
+        colAutor.setCellValueFactory(new PropertyValueFactory<>("nombreAutor"));
+        colEditorial.setCellValueFactory(new PropertyValueFactory<>("nombreEditorial"));
+        colTematica.setCellValueFactory(new PropertyValueFactory<>("nombreTematica"));
+        colIdioma.setCellValueFactory(new PropertyValueFactory<>("nombreIdioma"));
+
+        tblLibros.getSelectionModel().selectedItemProperty().addListener(e -> cargarDatos());
+
+        try {
+            tblLibros.getItems().addAll(servicio.listarTodosLosLibros());
+        } catch (Exception e) {
+            Alerta.mostrarAlerta(Alert.AlertType.ERROR, "Error", "Error al iniciar", e.getMessage());
         }
 
     }
@@ -147,6 +180,13 @@ public class PrincipalBibliotecarioController {
     @FXML
     private void recargarTabla(ActionEvent event) {
 
+    }
+
+
+    // agregado a mano (no definido en el FXML)
+    private void cargarDatos() {
+        var libro = tblLibros.getSelectionModel().getSelectedItem();
+        //aca agregar para cargar el cuadrito de abajo (?
     }
 
 

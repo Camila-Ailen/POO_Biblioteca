@@ -41,7 +41,6 @@ public class Libro implements Serializable {
     }
 
     public Libro(String titulo, String isbn, double precio, Tematica unTematica, Autor unAutor, Idioma unIdioma, Editorial unEditorial, ArrayList<Copia> listaCopias) {
-        this.id = id;
         this.titulo = titulo;
         this.isbn = isbn;
         this.precio = precio;
@@ -125,6 +124,21 @@ public class Libro implements Serializable {
     }
 
 
+    public String getNombreAutor(){
+        return unAutor != null ? unAutor.getNombre() : "";
+    }
+
+    public String getNombreEditorial(){
+        return unEditorial != null ? unEditorial.getNombre() : "";
+    }
+
+    public String getNombreTematica(){
+        return unTematica != null ? unTematica.getNombre() : "";
+    }
+
+    public String getNombreIdioma(){
+        return unIdioma != null ? unIdioma.getNombre() : "";
+    }
 
 
 }
