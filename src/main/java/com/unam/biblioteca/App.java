@@ -12,23 +12,39 @@ import jakarta.persistence.Persistence;
 import java.io.IOException;
 
 public class App extends Application {
+    private static Scene scene;
+    private static Servicio servicio;
+
     private static EntityManagerFactory emf;
 
     @Override
     public void start(Stage stage) throws IOException {
+        // Inicializar JPA
+        var emf = Persistence.createEntityManagerFactory("bibliotecaPU");
+        servicio = new Servicio(new Repositorio(emf));
+
+        // Cargar la escena principal
         FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("login.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), 600, 400);
+        scene = new Scene(fxmlLoader.load(), 1200, 800);
         stage.setTitle("Login");
         stage.setScene(scene);
         stage.show();
     }
 
-    public static void main(String[] args) {
-        // Inicializar JPA
-        emf = Persistence.createEntityManagerFactory("bibliotecaPU");
-        Repositorio repositorio = new Repositorio(emf);
-        Servicio servicio = new Servicio(repositorio);
+    public static Servicio getServicio() {
+        return servicio;
+    }
 
+    public static FXMLLoader setRoot(String fxml) throws IOException {
+        System.out.println("Empezando parte 2");
+        FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource(fxml + ".fxml"));
+        System.out.println("Parte2.2");
+        scene.setRoot(fxmlLoader.load());
+        System.out.println("Parte2.3");
+        return fxmlLoader;
+    }
+
+    public static void main(String[] args) {
         // Lanzar la aplicación JavaFX
         launch();
     }

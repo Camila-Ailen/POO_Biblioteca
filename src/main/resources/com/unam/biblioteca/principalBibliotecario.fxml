@@ -4,12 +4,9 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane prefHeight="665.0" prefWidth="951.0"
-            xmlns="http://javafx.com/javafx/17.0.2-ea"
-            xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="com.unam.biblioteca.controlador.PrincipalBibliotecarioController">
+<AnchorPane prefHeight="800.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.unam.biblioteca.controlador.PrincipalBibliotecarioController">
    <children>
-      <BorderPane prefHeight="665.0" prefWidth="951.0">
+      <BorderPane prefHeight="800.0" prefWidth="1000.0">
          <left>
             <VBox prefHeight="454.0" prefWidth="152.0" BorderPane.alignment="CENTER">
                <children>
