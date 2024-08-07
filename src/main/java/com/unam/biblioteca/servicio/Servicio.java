@@ -1,9 +1,7 @@
 package com.unam.biblioteca.servicio;
 
 
-import com.unam.biblioteca.modelo.Miembro;
-import com.unam.biblioteca.modelo.Prestamo;
-import com.unam.biblioteca.modelo.Rol;
+import com.unam.biblioteca.modelo.*;
 import com.unam.biblioteca.repositorio.Repositorio;
 
 import java.util.ArrayList;
@@ -30,7 +28,7 @@ public class Servicio {
         var miembros = this.repositorio.buscarTodos(Miembro.class);
         var listado = new ArrayList<Miembro>();
         for (var miembro : miembros) {
-            if (miembro.isActivo() == true) {
+            if (miembro.getEstado().equals(Miembro.Estado.ACTIVO)) {
                 listado.add(miembro);
             }
         }
@@ -99,6 +97,38 @@ public class Servicio {
             throw e;
         }
     }
+
+
+    //LIBRO
+    //Busca un libro segun su id y devuelve el objeto
+    public Libro buscarLibro(int id) {
+        return this.repositorio.buscar(Libro.class, id);
+    }
+
+    //Listado de todos los libros
+    public List<Libro> listarTodosLosLibros() {
+        return this.repositorio.buscarTodos(Libro.class);
+    }
+
+    //Insertar un libro
+    public void insertarLibro(String titulo, String isbn, double precio, Tematica unTematica, Autor unAutor, Idioma unIdioma, Editorial unEditorial, ArrayList<Copia> listaCopias) {
+        try {
+            this.repositorio.iniciarTransaccion();
+            var libro = new Libro(titulo, isbn, precio, unTematica, unAutor, unIdioma, unEditorial, listaCopias);
+            this.repositorio.insertar(libro);
+            this.repositorio.confirmarTransaccion();
+        } catch (Exception e) {
+            this.repositorio.descartarTransaccion();
+            // lanzo nuevamente la excepción para que sea manejada en la capa superior
+            throw e;
+        }
+    }
+
+    //Modificar un libro
+
+
+    //Eliminar un libro (dar de baja)
+
 
 
 

@@ -123,13 +123,5 @@ public class Miembro implements Serializable {
     }
 
 
-    public boolean isActivo() {
-        boolean es = false;
-        if (estado == Estado.ACTIVO) {
-            es = true;
-        }
-        return es;
-    }
-
 
 }

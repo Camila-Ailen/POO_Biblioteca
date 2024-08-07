@@ -40,7 +40,7 @@ public class Libro implements Serializable {
     public Libro() {
     }
 
-    public Libro(int id, String titulo, String isbn, double precio, Tematica unTematica, Autor unAutor, Idioma unIdioma, Editorial unEditorial, ArrayList<Copia> listaCopias) {
+    public Libro(String titulo, String isbn, double precio, Tematica unTematica, Autor unAutor, Idioma unIdioma, Editorial unEditorial, ArrayList<Copia> listaCopias) {
         this.id = id;
         this.titulo = titulo;
         this.isbn = isbn;
