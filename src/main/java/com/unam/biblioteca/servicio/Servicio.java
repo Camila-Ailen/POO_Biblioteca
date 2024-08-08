@@ -28,7 +28,7 @@ public class Servicio {
         var miembros = this.repositorio.buscarTodos(Miembro.class);
         var listado = new ArrayList<Miembro>();
         for (var miembro : miembros) {
-            if (miembro.getEstado().equals(Miembro.Estado.ACTIVO)) {
+            if (miembro.getActivo() == true) {
                 listado.add(miembro);
             }
         }
@@ -41,10 +41,10 @@ public class Servicio {
     }
 
     //Insertar un miembro
-    public void insertarMiembro(String clave, String apellido, String nombre, String telefono, String email, Miembro.Estado estado, ArrayList<Prestamo> listaPrestamos, Rol unRol) {
+    public void insertarMiembro(String clave, String apellido, String nombre, String telefono, String email, Boolean activo, Rol unRol) {
         try {
             this.repositorio.iniciarTransaccion();
-            var miembro = new Miembro(clave, apellido, nombre, telefono, email, estado, listaPrestamos, unRol);
+            var miembro = new Miembro(clave, apellido, nombre, telefono, email, activo, unRol);
             this.repositorio.insertar(miembro);
             this.repositorio.confirmarTransaccion();
         } catch (Exception e) {
@@ -55,7 +55,7 @@ public class Servicio {
     }
 
     //Modificar un miembro
-    public void modificarMiembro(int id, String clave, String apellido, String nombre, String telefono, String email, Miembro.Estado estado, ArrayList<Prestamo> listaPrestamos, Rol unRol) {
+    public void modificarMiembro(int id, String clave, String apellido, String nombre, String telefono, String email, Boolean activo, ArrayList<Prestamo> listaPrestamos, Rol unRol) {
         try {
             this.repositorio.iniciarTransaccion();
             var miembro = this.repositorio.buscar(Miembro.class, id);
@@ -65,6 +65,7 @@ public class Servicio {
                 miembro.setNombre(nombre);
                 miembro.setTelefono(telefono);
                 miembro.setEmail(email);
+                miembro.setActivo(activo);
                 miembro.setListaPrestamos(listaPrestamos);
                 miembro.setUnRol(unRol);
                 this.repositorio.modificar(miembro);
@@ -84,8 +85,8 @@ public class Servicio {
             this.repositorio.iniciarTransaccion();
             var miembro = this.repositorio.buscar(Miembro.class, id);
             // se controla que exista el miembro y que no se encuentre de baja
-            if (miembro != null && miembro.getEstado().equals(Miembro.Estado.ACTIVO)) {
-                miembro.setEstado(Miembro.Estado.INACTIVO);
+            if (miembro != null && miembro.getActivo() == true) {
+                miembro.setActivo(false);
                 // Pregunta: no deben cancelarse los pedidos abiertos de dicho proveedor
                 this.repositorio.modificar(miembro);
                 this.repositorio.confirmarTransaccion();

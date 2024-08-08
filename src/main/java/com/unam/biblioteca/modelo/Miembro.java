@@ -16,10 +16,7 @@ public class Miembro implements Serializable {
     private String nombre;
     private String telefono;
     private String email;
-
-    //enums
-    @Enumerated(EnumType.STRING)
-    private Estado estado;
+    private Boolean activo = true;
 
     //relaciones
     @OneToMany (mappedBy = "unMiembro")
@@ -29,24 +26,17 @@ public class Miembro implements Serializable {
     @JoinColumn(name = "fk_Rol")
     private Rol unRol;
 
-    //definiciones de los enums
-    public enum Estado {
-        ACTIVO, INACTIVO
-    }
-
     //controladores, getters y setters
 
     public Miembro() {
     }
 
-    public Miembro(String clave, String apellido, String nombre, String telefono, String email, Estado estado, ArrayList<Prestamo> listaPrestamos, Rol unRol) {
+    public Miembro(String clave, String apellido, String nombre, String telefono, String email, Boolean activo, Rol unRol) {
         this.clave = clave;
         this.apellido = apellido;
         this.nombre = nombre;
         this.telefono = telefono;
         this.email = email;
-        this.estado = estado;
-        this.listaPrestamos = listaPrestamos;
         this.unRol = unRol;
     }
 
@@ -98,12 +88,12 @@ public class Miembro implements Serializable {
         this.email = email;
     }
 
-    public Estado getEstado() {
-        return estado;
+    public Boolean getActivo() {
+        return activo;
     }
 
-    public void setEstado(Estado estado) {
-        this.estado = estado;
+    public void setActivo(Boolean activo) {
+        this.activo = activo;
     }
 
     public ArrayList<Prestamo> getListaPrestamos() {
