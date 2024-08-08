@@ -1,18 +1,38 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/22"
-            xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="com.unam.biblioteca.controlador.loginController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.unam.biblioteca.controlador.loginController">
    <children>
-      <TextField fx:id="txtUsuario" layoutX="205.0" layoutY="148.0" />
-      <PasswordField fx:id="txtPassword" layoutX="205.0" layoutY="228.0" />
-      <Label layoutX="107.0" layoutY="152.0" text="Usuario:" />
-      <Label layoutX="107.0" layoutY="232.0" text="Password:" />
-      <Button fx:id="btnIngresar" layoutX="253.0" layoutY="314.0" mnemonicParsing="false" onAction="#ingresarSistema" text="Ingresar" />
-      <Label layoutX="253.0" layoutY="61.0" text="Login" />
+      <TextField fx:id="txtUsuario" layoutX="451.0" layoutY="171.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" style="-fx-border-color: #4682b4; -fx-background-color: transparent; -fx-border-width: 0px 0px 2px 0px;" />
+      <PasswordField fx:id="txtPassword" layoutX="451.0" layoutY="222.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" style="-fx-border-color: #4682b4; -fx-background-color: transparent; -fx-border-width: 0px 0px 2px 0px;" />
+      <Label layoutX="356.0" layoutY="174.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" text="Usuario">
+         <font>
+            <Font size="15.0" />
+         </font></Label>
+      <Label layoutX="350.0" layoutY="236.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" text="Contraseña">
+         <font>
+            <Font size="15.0" />
+         </font></Label>
+      <Button fx:id="btnIngresar" layoutX="415.0" layoutY="309.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#ingresarSistema" prefHeight="30.0" prefWidth="133.0" style="-fx-background-color: #4682b4;" text="Iniciar" textFill="#fffefe" />
+      <Label layoutX="408.0" layoutY="82.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" text="Iniciar sesión  ">
+         <font>
+            <Font name="Calibri Bold" size="25.0" />
+         </font></Label>
       <Label fx:id="lblMensaje" layoutX="264.0" layoutY="271.0" text="" />
+      <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="279.0" style="-fx-background-color: #4682b4;">
+         <children>
+            <Label layoutX="50.0" layoutY="191.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" text="Blue Library" textFill="WHITE">
+               <font>
+                  <Font name="Calibri Bold" size="36.0" />
+               </font>
+            </Label>
+         </children>
+      </AnchorPane>
    </children>
 </AnchorPane>
