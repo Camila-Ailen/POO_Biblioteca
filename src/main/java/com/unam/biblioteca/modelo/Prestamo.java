@@ -18,6 +18,7 @@ public class Prestamo implements Serializable {
     private Date fechaDevuelto;
 
     private double multa;
+    private boolean activo = true;
 
     //relaciones
     @ManyToOne
@@ -33,11 +34,12 @@ public class Prestamo implements Serializable {
     public Prestamo() {
     }
 
-    public Prestamo(int id, Date fechaRetiro, Date fechaDevuelto, double multa, Miembro unMiembro, Copia unCopia) {
+    public Prestamo(int id, Date fechaRetiro, Date fechaDevuelto, double multa, boolean activo, Miembro unMiembro, Copia unCopia) {
         this.id = id;
         this.fechaRetiro = fechaRetiro;
         this.fechaDevuelto = fechaDevuelto;
         this.multa = multa;
+        this.activo = activo;
         this.unMiembro = unMiembro;
         this.unCopia = unCopia;
     }
@@ -72,6 +74,14 @@ public class Prestamo implements Serializable {
 
     public void setMulta(double multa) {
         this.multa = multa;
+    }
+
+    public boolean getActivo() {
+        return activo;
+    }
+
+    public void setActivo(boolean activo) {
+        this.activo = activo;
     }
 
     public Miembro getUnMiembro() {

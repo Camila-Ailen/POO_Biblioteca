@@ -15,6 +15,7 @@ public class Rack implements Serializable {
     @GeneratedValue(strategy=GenerationType.SEQUENCE)
     private int id;
     private String descripcion;
+    private boolean activo = true;
 
     //relaciones
     @OneToMany (mappedBy = "unRack")
@@ -25,9 +26,10 @@ public class Rack implements Serializable {
     public Rack() {
     }
 
-    public Rack(int id, String descripcion, ArrayList<Copia> listaCopias) {
+    public Rack(int id, String descripcion, boolean activo, ArrayList<Copia> listaCopias) {
         this.id = id;
         this.descripcion = descripcion;
+        this.activo = activo;
         this.listaCopias = listaCopias;
     }
 
@@ -45,6 +47,14 @@ public class Rack implements Serializable {
 
     public void setDescripcion(String descripcion) {
         this.descripcion = descripcion;
+    }
+
+    public boolean getActivo() {
+        return activo;
+    }
+
+    public void setActivo(boolean activo) {
+        this.activo = activo;
     }
 
     public ArrayList<Copia> getListaCopias() {

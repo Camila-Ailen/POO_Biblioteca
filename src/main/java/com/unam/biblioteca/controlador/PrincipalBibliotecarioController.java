@@ -2,10 +2,7 @@ package com.unam.biblioteca.controlador;
 
 import com.unam.biblioteca.App;
 
-import com.unam.biblioteca.modelo.Copia;
-import com.unam.biblioteca.modelo.Libro;
-import com.unam.biblioteca.modelo.Miembro;
-import com.unam.biblioteca.modelo.UsrLogueado;
+import com.unam.biblioteca.modelo.*;
 import com.unam.biblioteca.servicio.Servicio;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -207,14 +204,14 @@ public class PrincipalBibliotecarioController {
 
         if (unLibro != null) {
             List<Copia> copias = servicio.listarCopiasPorLibro(unLibro);
-            Map<Copia.Tipo, Integer> conteo = Copia.contarCopiasPorTipo(copias);
+            Map<CopiaTipo, Integer> conteo = Copia.contarCopiasPorTipo(copias);
 
             lblTituloLibro.setText("TITULO: " + unLibro.getTitulo());
             lblAutorLibro.setText("AUTOR: " + unLibro.getNombreAutor());
-            lblCantidadA.setText(String.valueOf(conteo.getOrDefault(Copia.Tipo.TAPA_DURA, 0)));
-            lblCantidadB.setText(String.valueOf(conteo.getOrDefault(Copia.Tipo.LIBRO_EN_RUSTICA, 0)));
-            lblCantidadC.setText(String.valueOf(conteo.getOrDefault(Copia.Tipo.AUDIOLIBRO, 0)));
-            lblCantidadD.setText(String.valueOf(conteo.getOrDefault(Copia.Tipo.LIBRO_ELECTRONICO, 0)));
+            lblCantidadA.setText(String.valueOf(conteo.getOrDefault(CopiaTipo.TAPA_DURA, 0)));
+            lblCantidadB.setText(String.valueOf(conteo.getOrDefault(CopiaTipo.LIBRO_EN_RUSTICA, 0)));
+            lblCantidadC.setText(String.valueOf(conteo.getOrDefault(CopiaTipo.AUDIOLIBRO, 0)));
+            lblCantidadD.setText(String.valueOf(conteo.getOrDefault(CopiaTipo.LIBRO_ELECTRONICO, 0)));
         } else {
             lblTituloLibro.setText("TITULO DEL LIBRO");
             lblAutorLibro.setText("AUTOR DEL LIBRO");

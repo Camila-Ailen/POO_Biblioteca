@@ -15,6 +15,7 @@ public class Tematica implements Serializable {
     @GeneratedValue(strategy=GenerationType.SEQUENCE)
     private int id;
     private String nombre;
+    private boolean activo = true;
 
     //relaciones
     @OneToMany (mappedBy = "unTematica")
@@ -25,9 +26,10 @@ public class Tematica implements Serializable {
     public Tematica() {
     }
 
-    public Tematica(int id, String nombre, ArrayList<Libro> listaLibros) {
+    public Tematica(int id, String nombre, boolean activo, ArrayList<Libro> listaLibros) {
         this.id = id;
         this.nombre = nombre;
+        this.activo = activo;
         this.listaLibros = listaLibros;
     }
 
@@ -45,6 +47,14 @@ public class Tematica implements Serializable {
 
     public void setNombre(String nombre) {
         this.nombre = nombre;
+    }
+
+    public boolean getActivo() {
+        return activo;
+    }
+
+    public void setActivo(boolean activo) {
+        this.activo = activo;
     }
 
     public ArrayList<Libro> getListaLibros() {

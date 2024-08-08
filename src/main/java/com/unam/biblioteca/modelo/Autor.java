@@ -15,7 +15,7 @@ public class Autor implements Serializable {
     @GeneratedValue(strategy=GenerationType.SEQUENCE)
     private int id;
     private String nombre;
-    private String apellido;
+    private boolean activo = true;
 
     //relaciones
     @OneToMany (mappedBy = "unAutor")
@@ -26,10 +26,10 @@ public class Autor implements Serializable {
     public Autor() {
     }
 
-    public Autor(int id, String nombre, String apellido, ArrayList<Libro> listaLibros) {
+    public Autor(int id, String nombre, boolean activo, ArrayList<Libro> listaLibros) {
         this.id = id;
         this.nombre = nombre;
-        this.apellido = apellido;
+        this.activo = activo;
         this.listaLibros = listaLibros;
     }
 
@@ -49,12 +49,12 @@ public class Autor implements Serializable {
         this.nombre = nombre;
     }
 
-    public String getApellido() {
-        return apellido;
+    public boolean getActivo() {
+        return activo;
     }
 
-    public void setApellido(String apellido) {
-        this.apellido = apellido;
+    public void setActivo(boolean activo) {
+        this.activo = activo;
     }
 
     public ArrayList<Libro> getListaLibros() {

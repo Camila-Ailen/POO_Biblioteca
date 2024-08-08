@@ -16,12 +16,13 @@ public class Copia implements Serializable {
     @GeneratedValue(strategy=GenerationType.SEQUENCE)
     private int id;
     private boolean referencia;
+    private boolean activo = true;
 
     //enums
     @Enumerated(EnumType.STRING)
-    private Tipo tipo;
+    private CopiaTipo tipo;
     @Enumerated(EnumType.STRING)
-    private Estado estado;
+    private CopiaEstado estado;
 
     //relaciones
     @ManyToOne
@@ -35,22 +36,15 @@ public class Copia implements Serializable {
     @OneToMany (mappedBy = "unCopia")
     private ArrayList<Prestamo> listaPrestamos;
 
-    //definiciones de los enums
-    public enum Tipo {
-        TAPA_DURA, LIBRO_EN_RUSTICA, AUDIOLIBRO, LIBRO_ELECTRONICO
-    }
-    public enum Estado {
-        DISPONIBLE, PRESTADA, PERDIDA
-    }
-
     //controladores, getters y setters
 
     public Copia() {
     }
 
-    public Copia(int id, boolean referencia, Tipo tipo, Estado estado, Rack unRack, Libro unLibro, ArrayList<Prestamo> listaPrestamos) {
+    public Copia(int id, boolean referencia, boolean activo, CopiaTipo tipo, CopiaEstado estado, Rack unRack, Libro unLibro, ArrayList<Prestamo> listaPrestamos) {
         this.id = id;
         this.referencia = referencia;
+        this.activo = activo;
         this.tipo = tipo;
         this.estado = estado;
         this.unRack = unRack;
@@ -74,19 +68,27 @@ public class Copia implements Serializable {
         this.referencia = referencia;
     }
 
-    public Tipo getTipo() {
+    public boolean isActivo() {
+        return activo;
+    }
+
+    public void setActivo(boolean activo) {
+        this.activo = activo;
+    }
+
+    public CopiaTipo getTipo() {
         return tipo;
     }
 
-    public void setTipo(Tipo tipo) {
+    public void setTipo(CopiaTipo tipo) {
         this.tipo = tipo;
     }
 
-    public Estado getEstado() {
+    public CopiaEstado getEstado() {
         return estado;
     }
 
-    public void setEstado(Estado estado) {
+    public void setEstado(CopiaEstado estado) {
         this.estado = estado;
     }
 
@@ -116,13 +118,15 @@ public class Copia implements Serializable {
 
 
 
-    public static Map<Tipo, Integer> contarCopiasPorTipo(List<Copia> copias) {
-        Map<Tipo, Integer> conteo = new EnumMap<>(Tipo.class);
+    public static Map<CopiaTipo, Integer> contarCopiasPorTipo(List<Copia> copias) {
+        Map<CopiaTipo, Integer> conteo = new EnumMap<>(CopiaTipo.class);
         for (Copia copia : copias) {
-            Tipo tipo = copia.getTipo();
-            conteo.put(tipo, conteo.getOrDefault(tipo, 0) + 1);
+            if (copia.getEstado().equals(CopiaEstado.DISPONIBLE)) {
+                CopiaTipo tipo = copia.getTipo();
+                conteo.put(tipo, conteo.getOrDefault(tipo, 0) + 1);
+            }
+
         }
-        System.out.println("Hasta el metodo del Copia todo ok");
         return conteo;
     }
 

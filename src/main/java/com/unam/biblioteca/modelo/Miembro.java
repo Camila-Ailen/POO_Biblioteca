@@ -16,7 +16,7 @@ public class Miembro implements Serializable {
     private String nombre;
     private String telefono;
     private String email;
-    private Boolean activo = true;
+    private boolean activo = true;
 
     //relaciones
     @OneToMany (mappedBy = "unMiembro")
@@ -31,12 +31,13 @@ public class Miembro implements Serializable {
     public Miembro() {
     }
 
-    public Miembro(String clave, String apellido, String nombre, String telefono, String email, Boolean activo, Rol unRol) {
+    public Miembro(String clave, String apellido, String nombre, String telefono, String email, boolean activo, Rol unRol) {
         this.clave = clave;
         this.apellido = apellido;
         this.nombre = nombre;
         this.telefono = telefono;
         this.email = email;
+        this.activo = activo;
         this.unRol = unRol;
     }
 
@@ -88,11 +89,11 @@ public class Miembro implements Serializable {
         this.email = email;
     }
 
-    public Boolean getActivo() {
+    public boolean getActivo() {
         return activo;
     }
 
-    public void setActivo(Boolean activo) {
+    public void setActivo(boolean activo) {
         this.activo = activo;
     }
 

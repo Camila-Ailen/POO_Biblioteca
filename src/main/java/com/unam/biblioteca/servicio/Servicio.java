@@ -112,10 +112,10 @@ public class Servicio {
     }
 
     //Insertar un libro
-    public void insertarLibro(String titulo, String isbn, double precio, Tematica unTematica, Autor unAutor, Idioma unIdioma, Editorial unEditorial, ArrayList<Copia> listaCopias) {
+    public void insertarLibro(String titulo, String isbn, double precio, boolean activo, Tematica unTematica, Autor unAutor, Idioma unIdioma, Editorial unEditorial, ArrayList<Copia> listaCopias) {
         try {
             this.repositorio.iniciarTransaccion();
-            var libro = new Libro(titulo, isbn, precio, unTematica, unAutor, unIdioma, unEditorial, listaCopias);
+            var libro = new Libro(titulo, isbn, precio, activo, unTematica, unAutor, unIdioma, unEditorial, listaCopias);
             this.repositorio.insertar(libro);
             this.repositorio.confirmarTransaccion();
         } catch (Exception e) {

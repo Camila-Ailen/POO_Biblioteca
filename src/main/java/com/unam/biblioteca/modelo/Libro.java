@@ -14,6 +14,7 @@ public class Libro implements Serializable {
     private String titulo;
     private String isbn;
     private double precio;
+    private boolean activo = true;
 
     //relaciones
     @ManyToOne
@@ -40,10 +41,11 @@ public class Libro implements Serializable {
     public Libro() {
     }
 
-    public Libro(String titulo, String isbn, double precio, Tematica unTematica, Autor unAutor, Idioma unIdioma, Editorial unEditorial, ArrayList<Copia> listaCopias) {
+    public Libro(String titulo, String isbn, double precio, boolean activo, Tematica unTematica, Autor unAutor, Idioma unIdioma, Editorial unEditorial, ArrayList<Copia> listaCopias) {
         this.titulo = titulo;
         this.isbn = isbn;
         this.precio = precio;
+        this.activo = activo;
         this.unTematica = unTematica;
         this.unAutor = unAutor;
         this.unIdioma = unIdioma;
@@ -81,6 +83,14 @@ public class Libro implements Serializable {
 
     public void setPrecio(double precio) {
         this.precio = precio;
+    }
+
+    public boolean isActivo() {
+        return activo;
+    }
+
+    public void setActivo(boolean activo) {
+        this.activo = activo;
     }
 
     public Tematica getUnTematica() {
