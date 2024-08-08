@@ -12,24 +12,27 @@ public class Prestamo implements Serializable {
     @Id
     @GeneratedValue(strategy=GenerationType.SEQUENCE)
     private int id;
+    @Column(nullable = false)
     @Temporal(TemporalType.TIMESTAMP)
     private Date fechaRetiro;
+    @Column(nullable = true)
     @Temporal(TemporalType.TIMESTAMP)
     private Date fechaDevuelto;
-
+    @Column(nullable = true)
     private double multa;
+    @Column(nullable = false)
     private boolean activo = true;
 
     //relaciones
     @ManyToOne
-    @JoinColumn(name = "fk_Miembro")
+    @JoinColumn(name = "fk_Miembro", nullable = false)
     private Miembro unMiembro;
 
     @ManyToOne
-    @JoinColumn(name = "fk_Copia")
+    @JoinColumn(name = "fk_Copia", nullable = false)
     private Copia unCopia;
 
-    //controladores, getters y setters
+    //constructores, getters y setters
 
     public Prestamo() {
     }

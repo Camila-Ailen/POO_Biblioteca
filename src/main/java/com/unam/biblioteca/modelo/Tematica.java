@@ -2,11 +2,8 @@ package com.unam.biblioteca.modelo;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
+
+import jakarta.persistence.*;
 
 @Entity
 public class Tematica implements Serializable {
@@ -14,14 +11,16 @@ public class Tematica implements Serializable {
     @Id
     @GeneratedValue(strategy=GenerationType.SEQUENCE)
     private int id;
+    @Column(nullable = false, length = 100)
     private String nombre;
+    @Column(nullable = false)
     private boolean activo = true;
 
     //relaciones
-    @OneToMany (mappedBy = "unTematica")
+    @OneToMany (orphanRemoval = true, cascade = CascadeType.ALL, mappedBy = "unTematica")
     private ArrayList<Libro> listaLibros;
 
-    //controladores, getters y setters
+    //constructores, getters y setters
 
     public Tematica() {
     }

@@ -2,11 +2,8 @@ package com.unam.biblioteca.modelo;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
+
+import jakarta.persistence.*;
 
 @Entity
 public class Rack implements Serializable {
@@ -14,14 +11,16 @@ public class Rack implements Serializable {
     @Id
     @GeneratedValue(strategy=GenerationType.SEQUENCE)
     private int id;
+    @Column(nullable = false, length = 200)
     private String descripcion;
+    @Column(nullable = false)
     private boolean activo = true;
 
     //relaciones
-    @OneToMany (mappedBy = "unRack")
+    @OneToMany (orphanRemoval = true, cascade = CascadeType.ALL, mappedBy = "unRack")
     private ArrayList<Copia> listaCopias;
 
-    //controladores, getters y setters
+    //constructores, getters y setters
 
     public Rack() {
     }

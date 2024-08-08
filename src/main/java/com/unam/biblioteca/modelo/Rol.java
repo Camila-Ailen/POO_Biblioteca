@@ -3,11 +3,8 @@ package com.unam.biblioteca.modelo;
 
 import java.io.Serializable;
 import java.util.List;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
+
+import jakarta.persistence.*;
 
 @Entity
 public class Rol implements Serializable {
@@ -15,14 +12,16 @@ public class Rol implements Serializable {
     @Id
     @GeneratedValue(strategy=GenerationType.SEQUENCE)
     private int id;
+    @Column(nullable = false, length = 100)
     private String nombre;
+    @Column(nullable = false)
     private boolean activo = true;
 
     //relaciones
-    @OneToMany (mappedBy = "unRol")
+    @OneToMany (orphanRemoval = true, cascade = CascadeType.ALL, mappedBy = "unRol")
     private List<Miembro> listaMiembros;
 
-    //controladores, getters y setters
+    //constructores, getters y setters
 
     public Rol() {
     }

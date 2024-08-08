@@ -11,22 +11,28 @@ public class Miembro implements Serializable {
     @Id
     @GeneratedValue(strategy=GenerationType.SEQUENCE)
     private int id;
+    @Column(nullable = false, length = 100)
     private String clave;
+    @Column(nullable = false, length = 100)
     private String apellido;
+    @Column(nullable = false, length = 100)
     private String nombre;
+    @Column(nullable = true, length = 15)
     private String telefono;
+    @Column(nullable = false, length = 100)
     private String email;
+    @Column(nullable = false)
     private boolean activo = true;
 
     //relaciones
-    @OneToMany (mappedBy = "unMiembro")
+    @OneToMany (orphanRemoval = true, cascade = CascadeType.ALL, mappedBy = "unMiembro")
     private ArrayList<Prestamo> listaPrestamos;
 
     @ManyToOne
-    @JoinColumn(name = "fk_Rol")
+    @JoinColumn(name = "fk_Rol", nullable = false)
     private Rol unRol;
 
-    //controladores, getters y setters
+    //constructores, getters y setters
 
     public Miembro() {
     }
@@ -78,6 +84,12 @@ public class Miembro implements Serializable {
     }
 
     public void setTelefono(String telefono) {
+        if (telefono != null && !telefono.matches("[0-9]+")) {
+            throw new IllegalArgumentException("El numero de telefono solo puede contener números");
+        }
+        if (telefono != null && telefono.length() > 15) {
+            throw new IllegalArgumentException("El telefono no puede tener más de 15 caracteres");
+        }
         this.telefono = telefono;
     }
 

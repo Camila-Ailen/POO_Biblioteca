@@ -11,32 +11,36 @@ public class Libro implements Serializable {
     @Id
     @GeneratedValue(strategy=GenerationType.SEQUENCE)
     private int id;
+    @Column(nullable = false, length = 100)
     private String titulo;
+    @Column(nullable = false, length = 13)
     private String isbn;
+    @Column(nullable = false)
     private double precio;
+    @Column(nullable = false)
     private boolean activo = true;
 
     //relaciones
     @ManyToOne
-    @JoinColumn(name = "fk_Tematica")
+    @JoinColumn(name = "fk_Tematica", nullable = false)
     private Tematica unTematica;
 
     @ManyToOne
-    @JoinColumn(name = "fk_Autor")
+    @JoinColumn(name = "fk_Autor", nullable = false)
     private Autor unAutor;
 
     @ManyToOne
-    @JoinColumn(name = "fk_Idioma")
+    @JoinColumn(name = "fk_Idioma", nullable = false)
     private Idioma unIdioma;
 
     @ManyToOne
-    @JoinColumn(name = "fk_Editorial")
+    @JoinColumn(name = "fk_Editorial", nullable = false)
     private Editorial unEditorial;
 
-    @OneToMany (mappedBy = "unLibro")
+    @OneToMany (mappedBy = "unLibro", orphanRemoval = true, cascade = CascadeType.ALL)
     private ArrayList<Copia> listaCopias;
 
-    //controladores, getters y setters
+    //constructores, getters y setters
 
     public Libro() {
     }
@@ -132,7 +136,6 @@ public class Libro implements Serializable {
     public void setListaCopias(ArrayList<Copia> listaCopias) {
         this.listaCopias = listaCopias;
     }
-
 
     public String getNombreAutor(){
         return unAutor != null ? unAutor.getNombre() : "";

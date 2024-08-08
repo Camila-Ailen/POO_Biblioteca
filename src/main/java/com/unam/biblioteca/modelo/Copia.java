@@ -15,28 +15,32 @@ public class Copia implements Serializable {
     @Id
     @GeneratedValue(strategy=GenerationType.SEQUENCE)
     private int id;
-    private boolean referencia;
+    @Column(nullable = false)
+    private boolean referencia = false;
+    @Column(nullable = false)
     private boolean activo = true;
 
     //enums
     @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
     private CopiaTipo tipo;
     @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
     private CopiaEstado estado;
 
     //relaciones
     @ManyToOne
-    @JoinColumn(name = "fk_Rack")
+    @JoinColumn(name = "fk_Rack", nullable = false)
     private Rack unRack;
 
     @ManyToOne
-    @JoinColumn(name = "fk_Libro")
+    @JoinColumn(name = "fk_Libro", nullable = false)
     private Libro unLibro;
 
-    @OneToMany (mappedBy = "unCopia")
+    @OneToMany (orphanRemoval = true, cascade = CascadeType.ALL, mappedBy = "unCopia")
     private ArrayList<Prestamo> listaPrestamos;
 
-    //controladores, getters y setters
+    //constructores, getters y setters
 
     public Copia() {
     }
@@ -117,7 +121,7 @@ public class Copia implements Serializable {
     }
 
 
-
+    //metodo para contar las copias disponibles segun su tipo
     public static Map<CopiaTipo, Integer> contarCopiasPorTipo(List<Copia> copias) {
         Map<CopiaTipo, Integer> conteo = new EnumMap<>(CopiaTipo.class);
         for (Copia copia : copias) {
@@ -125,7 +129,6 @@ public class Copia implements Serializable {
                 CopiaTipo tipo = copia.getTipo();
                 conteo.put(tipo, conteo.getOrDefault(tipo, 0) + 1);
             }
-
         }
         return conteo;
     }
