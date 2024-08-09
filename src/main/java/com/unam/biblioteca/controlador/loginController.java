@@ -9,6 +9,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyEvent;
 
 import java.io.IOException;
 
@@ -34,7 +35,6 @@ public class loginController {
     @FXML
     private void initialize() {
         servicio = App.getServicio();
-
     }
 
     @FXML
@@ -48,7 +48,7 @@ public class loginController {
             } catch (NumberFormatException ex) {
                 Alerta.mostrarAlerta(Alert.AlertType.ERROR, "Error", "El ID de usuario debe ser un número entero", ex.getMessage());
             }
-            if (miembro != null) {
+            if (miembro != null && miembro.getActivo()) {
                 if (miembro.getClave().equals(txtPassword.getText())) {
                     UsrLogueado.getInstancia().setVariableGlobal(miembro);
                     if (miembro.getUnRol().getNombre().equalsIgnoreCase("bibliotecario")) {
@@ -62,7 +62,7 @@ public class loginController {
                     Alerta.mostrarAlerta(Alert.AlertType.ERROR, "Error", "Contraseña incorrecta", "La contraseña ingresada no coincide con la registrada");
                 }
             } else {
-                Alerta.mostrarAlerta(Alert.AlertType.ERROR, "Error", "No hay usuarios registrados", "No hay usuarios registrados");
+                Alerta.mostrarAlerta(Alert.AlertType.ERROR, "Error", "Usuario inexistente o inactivo", "No se ha encontrado activo un usuario con el ID ingresado, o se encuentra INACTIVO");
             }
         } else {
             Alerta.mostrarAlerta(Alert.AlertType.ERROR, "Error", "Campos incompletos", "Llene los campos vacios");
@@ -71,12 +71,17 @@ public class loginController {
 
 
 
-    /*
+
     @FXML
     private void cargarUsuario(KeyEvent e) {
         String c = e.getCharacter();
-        if (c.equalsIgnoreCase(" ")) {
+        if (!c.matches("\\d")) {
             e.consume();
+            String usuario = txtUsuario.getText();
+            if (usuario.length() > 0) {
+                txtUsuario.setText(usuario.substring(0, usuario.length() - 1));
+            }
+            Alerta.mostrarAlerta(Alert.AlertType.INFORMATION, "Información", "Solo se permiten números", "Su usuario es el numero de usuario que se le asigno");
         }
-    }*/
+    }
 }

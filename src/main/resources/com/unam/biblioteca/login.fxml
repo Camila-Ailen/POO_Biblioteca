@@ -9,7 +9,9 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.unam.biblioteca.controlador.loginController">
    <children>
-      <TextField fx:id="txtUsuario" layoutX="451.0" layoutY="171.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" style="-fx-border-color: #4682b4; -fx-background-color: transparent; -fx-border-width: 0px 0px 2px 0px;" />
+      <TextField fx:id="txtUsuario" layoutX="451.0" layoutY="171.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
+                 onKeyTyped="#cargarUsuario"
+                 style="-fx-border-color: #4682b4; -fx-background-color: transparent; -fx-border-width: 0px 0px 2px 0px;" />
       <PasswordField fx:id="txtPassword" layoutX="451.0" layoutY="222.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" style="-fx-border-color: #4682b4; -fx-background-color: transparent; -fx-border-width: 0px 0px 2px 0px;" />
       <Label layoutX="356.0" layoutY="174.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" text="Usuario">
          <font>
