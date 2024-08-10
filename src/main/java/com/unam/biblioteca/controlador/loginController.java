@@ -35,6 +35,11 @@ public class loginController {
     @FXML
     private void initialize() {
         servicio = App.getServicio();
+
+        txtUsuario.addEventFilter(KeyEvent.KEY_TYPED, keyEvent -> {
+            if (!keyEvent.getCharacter().matches("\\d")) {
+                keyEvent.consume();}
+        });
     }
 
     @FXML
@@ -42,12 +47,8 @@ public class loginController {
         //Object evt = event.getSource();
 
         if (!txtUsuario.getText().isEmpty() && !txtPassword.getText().isEmpty()) {
-            try {
                 int usuarioId = Integer.parseInt(txtUsuario.getText());
                 miembro = servicio.buscarMiembro(usuarioId);
-            } catch (NumberFormatException ex) {
-                Alerta.mostrarAlerta(Alert.AlertType.ERROR, "Error", "El ID de usuario debe ser un número entero", ex.getMessage());
-            }
             if (miembro != null && miembro.getActivo()) {
                 if (miembro.getClave().equals(txtPassword.getText())) {
                     UsrLogueado.getInstancia().setVariableGlobal(miembro);

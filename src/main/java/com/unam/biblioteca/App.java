@@ -28,7 +28,7 @@ public class App extends Application {
         // Cargar la escena principal
         FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("login.fxml"));
         scene = new Scene(fxmlLoader.load());
-        stage.setTitle("Login");
+        stage.setTitle("BLUE LIBRARY");
         stage.setScene(scene);
         stage.show();
     }
@@ -37,13 +37,24 @@ public class App extends Application {
         return servicio;
     }
 
-    /*
+
     public static FXMLLoader setRoot(String fxml) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource(fxml + ".fxml"));
-        scene.setRoot(fxmlLoader.load());
-        return fxmlLoader;
-    }*/
+        //scene.setRoot(fxmlLoader.load());
+        Parent root = fxmlLoader.load();
 
+        Stage stage = (Stage) scene.getWindow();
+        scene.setRoot(root);
+
+        stage.setWidth(root.prefWidth(-1));
+        stage.setHeight(root.prefHeight(-1));
+
+        stage.centerOnScreen();
+
+        return fxmlLoader;
+    }
+
+    /*
     public static FXMLLoader setRoot(String fxml) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource(fxml + ".fxml"));
         Parent root = fxmlLoader.load();
@@ -75,7 +86,7 @@ public class App extends Application {
         }
 
         return fxmlLoader;
-    }
+    }*/
 
         public static void main(String[] args) {
         // Lanzar la aplicación JavaFX

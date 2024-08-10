@@ -28,7 +28,7 @@
    <right>
       <AnchorPane prefHeight="500.0" prefWidth="408.0" BorderPane.alignment="CENTER">
          <children>
-            <TextField fx:id="txtUsuario" onKeyTyped="#cargarUsuario" layoutX="101.0" layoutY="187.0" promptText="Usuario"
+            <TextField fx:id="txtUsuario" onKeyTyped="#cargarUsuario" layoutX="101.0" layoutY="187.0" promptText="Numero de Usuario"
                        style="-fx-border-color: #4682b4; -fx-border-width: 0px 0px 2px 0px; -fx-background-color: transparent;"/>
 
             <PasswordField fx:id="txtPassword" layoutX="100.0" layoutY="263.0" promptText="Contraseña"
