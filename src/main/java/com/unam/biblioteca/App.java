@@ -26,7 +26,7 @@ public class App extends Application {
         servicio = new Servicio(new Repositorio(emf));
 
         // Cargar la escena principal
-        FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("vistaAutor.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("login.fxml"));
         scene = new Scene(fxmlLoader.load());
         stage.setTitle("BLUE LIBRARY");
         stage.setScene(scene);
@@ -38,20 +38,16 @@ public class App extends Application {
     }
 
 
-    public static FXMLLoader setRoot(String fxml) throws IOException {
+    public static void setRoot(String fxml) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource(fxml + ".fxml"));
         //scene.setRoot(fxmlLoader.load());
         Parent root = fxmlLoader.load();
-
-        Stage stage = (Stage) scene.getWindow();
         scene.setRoot(root);
 
+        Stage stage = (Stage) scene.getWindow();
         stage.setWidth(root.prefWidth(-1));
         stage.setHeight(root.prefHeight(-1));
-
         stage.centerOnScreen();
-
-        return fxmlLoader;
     }
 
     /*

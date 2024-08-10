@@ -11,7 +11,8 @@
 <?import javafx.scene.text.Font?>
 
 <GridPane alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0"
-          xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.unam.biblioteca.controlador.AutorController">
+          xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.unam.biblioteca.controlador.AutorController"
+            fx:id="rootAutor">
 
    <children>
       <Label alignment="CENTER" text="Vista Autor">

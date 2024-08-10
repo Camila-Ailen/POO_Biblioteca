@@ -6,9 +6,18 @@ import com.unam.biblioteca.modelo.UsrLogueado;
 import com.unam.biblioteca.servicio.Servicio;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Region;
+import javafx.scene.layout.StackPane;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 
 import java.io.IOException;
 
@@ -44,6 +53,14 @@ public class NavegacionController {
     @FXML
     private Label lblNombreUsuario;
 
+    //Contenedor stackpane
+    @FXML
+    private StackPane contenedor;
+
+    //Pantallas a conectar
+    private GridPane rootAutor;
+    private GridPane rootTematica;
+
     private Servicio servicio;
 
 
@@ -56,8 +73,9 @@ public class NavegacionController {
         }
 
         //Agregar manejadores de eventos a los botones
-        if (miembro.getUnRol().getNombre().equals("BIBLIOTECARIO")){
-            seleccionarBotonNav(btnNavCopias);
+
+        if (miembro != null && miembro.getUnRol().getNombre().equals("BIBLIOTECARIO")){
+            /*seleccionarBotonNav(btnNavCopias);
             seleccionarBotonNav(btnNavPrestamos);
             seleccionarBotonNav(btnNavRegistro);
             seleccionarBotonNav(btnNavDevolucion);
@@ -65,10 +83,40 @@ public class NavegacionController {
             seleccionarBotonNav(btnNavAutor);
             seleccionarBotonNav(btnNavTematica);
             seleccionarBotonNav(btnNavEditorial);
-            seleccionarBotonNav(btnNavRack);
+            seleccionarBotonNav(btnNavRack);*/
+
+            btnNavAutor.setOnAction(event -> cambiarVista("vistaAutor.fxml"));
+            btnNavTematica.setOnAction(event -> cambiarVista("vistaTematica.fxml"));
+            btnNavEditorial.setOnAction(event -> {
+                cambiarVista("com/unam/biblioteca/vistaEditorial.fxml");
+            });
+            btnNavRack.setOnAction(event -> {
+                cambiarVista("com/unam/biblioteca/vistaRack.fxml");
+            });
         }
+        /*
         seleccionarBotonNav(btnNavLibros);
-        seleccionarBotonNav(btnNavUsuario);
+        seleccionarBotonNav(btnNavUsuario);*/
+        btnNavLibros.setOnAction(event -> {
+            cambiarVista("com/unam/biblioteca/vistaLibro.fxml");
+        });
+        btnNavUsuario.setOnAction(event -> {
+            cambiarVista("com/unam/biblioteca/vistaUsuario.fxml");
+        });
+
+        //Cargar las pantallas
+        /*
+        try {
+            Node rootAutor = cargarVistas("com/unam/biblioteca/vistaAutor.fxml");
+            Node rootTematica = cargarVistas("com/unam/biblioteca/vistaTematica.fxml");
+            if (rootAutor != null && rootTematica != null) {
+                contenedor.getChildren().addAll(rootAutor, rootTematica);
+                rootAutor.setVisible(true);
+                rootTematica.setVisible(false);
+            }
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }*/
 
     }
 
@@ -101,6 +149,65 @@ public class NavegacionController {
     @FXML
     private void cerrarSesion(ActionEvent event) throws IOException {
         App.setRoot("login");
+    }
+
+    @FXML
+    public void navegar(ActionEvent e) throws IOException {
+        Object evt = e.getSource();
+
+        if (evt.equals(btnNavAutor)) {
+            rootAutor.setVisible(true);
+            rootTematica.setVisible(false);
+        } else if (evt.equals(btnNavTematica)) {
+            rootAutor.setVisible(false);
+            rootTematica.setVisible(true);
+        }
+
+    }
+
+
+
+
+    private Node cargarVista (String url) throws IOException {
+        return FXMLLoader.load(getClass().getResource("/com/unam/biblioteca/" + url));
+    }
+
+    private void cambiarVista (String url) {
+        try {
+            if (url.startsWith("vista")) {
+                Node vista = cargarVista(url);
+                if (vista != null) {
+                    contenedor.getChildren().clear();
+                    contenedor.getChildren().add(vista);
+                    ajustarTamanio(vista);
+                }
+            } else if (url.startsWith("am")) {
+                abrirNuevaVentana(url);
+            } else {
+                App.setRoot(url);
+            }
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    private void abrirNuevaVentana(String url) throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("/com/unam/biblioteca/" + url));
+        Parent root = fxmlLoader.load();
+        Stage stage = new Stage();
+        stage.initModality(Modality.APPLICATION_MODAL);
+        stage.setScene(new Scene(root));
+        stage.showAndWait();
+    }
+
+    private void ajustarTamanio(Node vista) {
+        if (vista instanceof Region){
+            Region region = (Region) vista;
+            region.setPrefWidth(contenedor.getWidth());
+            region.setPrefHeight(contenedor.getHeight());
+        } else {
+            throw new IllegalArgumentException("La vista no es una region");
+        }
     }
 
 }

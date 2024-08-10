@@ -33,67 +33,67 @@
                     </VBox.margin>
                 </Separator>
                 <Button mnemonicParsing="false" prefHeight="26.0" prefWidth="112.0" style="-fx-background-color: #e5e8e8; -fx-border-color: WHITE; -fx-border-radius: 5px; -fx-background-radius: 5px;"
-                        text="Libros" fx:id="btnNavLibros">
+                        text="Libros" fx:id="btnNavLibros" onAction="#navegar">
                     <VBox.margin>
                         <Insets top="35.0" />
                     </VBox.margin>
                 </Button>
                 <Button mnemonicParsing="false" prefHeight="26.0" prefWidth="112.0" style="-fx-background-color: #e5e8e8; -fx-border-color: WHITE; -fx-border-radius: 5px; -fx-background-radius: 5px;"
-                        text="Copias" fx:id="btnNavCopias">
+                        text="Copias" fx:id="btnNavCopias" onAction="#navegar">
                     <VBox.margin>
                         <Insets top="5.0" />
                     </VBox.margin>
                 </Button>
                 <Button mnemonicParsing="false" prefHeight="26.0" prefWidth="112.0" style="-fx-background-color: #e5e8e8; -fx-border-color: WHITE; -fx-border-radius: 5px; -fx-background-radius: 5px;"
-                        text="Préstamos" fx:id="btnNavPrestamos">
+                        text="Préstamos" fx:id="btnNavPrestamos" onAction="#navegar">
                     <VBox.margin>
                         <Insets top="5.0" />
                     </VBox.margin>
                 </Button>
                 <Button mnemonicParsing="false" prefHeight="26.0" prefWidth="112.0" style="-fx-background-color: #e5e8e8; -fx-border-color: WHITE; -fx-border-radius: 5px; -fx-background-radius: 5px;"
-                        text="Registro" fx:id="btnNavRegistro">
+                        text="Registro" fx:id="btnNavRegistro" onAction="#navegar">
                     <VBox.margin>
                         <Insets top="5.0" />
                     </VBox.margin>
                 </Button>
                 <Button mnemonicParsing="false" prefHeight="26.0" prefWidth="112.0" style="-fx-background-color: #e5e8e8; -fx-border-color: WHITE; -fx-border-radius: 5px; -fx-background-radius: 5px;"
-                        text="Devolución" fx:id="btnNavDevolucion">
+                        text="Devolución" fx:id="btnNavDevolucion" onAction="#navegar">
                     <VBox.margin>
                         <Insets top="5.0" />
                     </VBox.margin>
                 </Button>
                 <Button mnemonicParsing="false" prefHeight="26.0" prefWidth="112.0" style="-fx-background-color: #e5e8e8; -fx-border-color: WHITE; -fx-border-radius: 5px; -fx-background-radius: 5px;"
-                        text="Usuario" fx:id="btnNavUsuario">
+                        text="Usuario" fx:id="btnNavUsuario" onAction="#navegar">
                     <VBox.margin>
                         <Insets top="5.0" />
                     </VBox.margin>
                 </Button>
                 <Button mnemonicParsing="false" prefHeight="26.0" prefWidth="112.0" style="-fx-background-color: #e5e8e8; -fx-border-color: WHITE; -fx-border-radius: 5px; -fx-background-radius: 5px;"
-                        text="Parámetros" fx:id="btnNavParametros">
+                        text="Parámetros" fx:id="btnNavParametros" onAction="#navegar">
                     <VBox.margin>
                         <Insets top="5.0" />
                     </VBox.margin>
                 </Button>
                 <Button mnemonicParsing="false" prefHeight="26.0" prefWidth="112.0" style="-fx-background-color: #e5e8e8; -fx-border-color: WHITE; -fx-border-radius: 5px; -fx-background-radius: 5px;"
-                        text="Autor" fx:id="btnNavAutor">
+                        text="Autor" fx:id="btnNavAutor" onAction="#navegar">
                     <VBox.margin>
                         <Insets top="5.0" />
                     </VBox.margin>
                 </Button>
                 <Button mnemonicParsing="false" prefHeight="26.0" prefWidth="112.0" style="-fx-background-color: #e5e8e8; -fx-border-color: WHITE; -fx-border-radius: 5px; -fx-background-radius: 5px;"
-                        text="Temática" fx:id="btnNavTematica">
+                        text="Temática" fx:id="btnNavTematica" onAction="#navegar">
                     <VBox.margin>
                         <Insets top="5.0" />
                     </VBox.margin>
                 </Button>
                 <Button mnemonicParsing="false" prefHeight="26.0" prefWidth="112.0" style="-fx-background-color: #e5e8e8; -fx-border-color: WHITE; -fx-border-radius: 5px; -fx-background-radius: 5px;"
-                        text="Editorial" fx:id="btnNavEditorial">
+                        text="Editorial" fx:id="btnNavEditorial" onAction="#navegar">
                     <VBox.margin>
                         <Insets top="5.0" />
                     </VBox.margin>
                 </Button>
                 <Button mnemonicParsing="false" prefHeight="26.0" prefWidth="112.0" style="-fx-background-color: #e5e8e8; -fx-border-color: WHITE; -fx-border-radius: 5px; -fx-background-radius: 5px;"
-                        text="Rack" fx:id="btnNavRack">
+                        text="Rack" fx:id="btnNavRack" onAction="#navegar">
                     <VBox.margin>
                         <Insets top="5.0" />
                     </VBox.margin>
@@ -143,7 +143,8 @@
                         </FontAwesomeIcon>
                     </children>
                 </HBox>
-                <StackPane GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS" />
+                <StackPane GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS"
+                           fx:id="contenedor"/>
             </children>
         </GridPane>
     </children>
