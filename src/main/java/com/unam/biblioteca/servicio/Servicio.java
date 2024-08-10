@@ -129,6 +129,8 @@ public class Servicio {
         return this.repositorio.buscarCopiasPorLibro(unLibro);
     }
 
+
+
     //Modificar un libro
 
 
@@ -137,8 +139,18 @@ public class Servicio {
 
 
 
+    //AUTORES
 
-
+    public List<Autor> listarAutores() {
+        var autores = this.repositorio.buscarTodos(Autor.class);
+        var listado = new ArrayList<Autor>();
+        for (var autor : autores) {
+            if (autor.getActivo()) {
+                listado.add(autor);
+            }
+        }
+        return listado;
+    }
 
 
 
