@@ -52,9 +52,9 @@ public class loginController {
                 if (miembro.getClave().equals(txtPassword.getText())) {
                     UsrLogueado.getInstancia().setVariableGlobal(miembro);
                     if (miembro.getUnRol().getNombre().equalsIgnoreCase("bibliotecario")) {
-                        App.setRoot("principalBibliotecario");
+                        App.setRoot("navBibliotecario");
                     } else if (miembro.getUnRol().getNombre().equalsIgnoreCase("usuario")) {
-                        App.setRoot("principalUsuario");
+                        App.setRoot("navUsuario");
                     } else {
                         Alerta.mostrarAlerta(Alert.AlertType.ERROR, "Error", "Rol no válido", "El rol del usuario no es válido");
                     }
