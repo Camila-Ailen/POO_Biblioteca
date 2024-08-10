@@ -55,6 +55,46 @@ public class NavegacionController {
             lblNombreUsuario.setText("Bienvenido " + miembro.getNombre());
         }
 
+        //Agregar manejadores de eventos a los botones
+        if (miembro.getUnRol().getNombre().equals("BIBLIOTECARIO")){
+            seleccionarBotonNav(btnNavCopias);
+            seleccionarBotonNav(btnNavPrestamos);
+            seleccionarBotonNav(btnNavRegistro);
+            seleccionarBotonNav(btnNavDevolucion);
+            seleccionarBotonNav(btnNavParametros);
+            seleccionarBotonNav(btnNavAutor);
+            seleccionarBotonNav(btnNavTematica);
+            seleccionarBotonNav(btnNavEditorial);
+            seleccionarBotonNav(btnNavRack);
+        }
+        seleccionarBotonNav(btnNavLibros);
+        seleccionarBotonNav(btnNavUsuario);
+
+    }
+
+    private void seleccionarBotonNav(Button button) {
+        button.setOnAction(event -> {
+            resetearEstilos();
+
+            button.setStyle("-fx-background-color: #4682b4; -fx-font-weight: bold; fx-border-color: WHITE;");
+        });
+    }
+
+    private void resetearEstilos() {
+        Miembro miembro = (Miembro) UsrLogueado.getInstancia().getVariableGlobal();
+        if (miembro.getUnRol().getNombre().equals("BIBLIOTECARIO")){
+            btnNavCopias.setStyle("-fx-background-color: #e5e8e8; -fx-font-weight: normal; fx-border-color: WHITE; -fx-border-radius: 5px; -fx-background-radius: 5px;");
+            btnNavPrestamos.setStyle("-fx-background-color: #e5e8e8; -fx-font-weight: normal; fx-border-color: WHITE; -fx-border-radius: 5px; -fx-background-radius: 5px;");
+            btnNavRegistro.setStyle("-fx-background-color: #e5e8e8; -fx-font-weight: normal; fx-border-color: WHITE; -fx-border-radius: 5px; -fx-background-radius: 5px;");
+            btnNavDevolucion.setStyle("-fx-background-color: #e5e8e8; -fx-font-weight: normal; fx-border-color: WHITE; -fx-border-radius: 5px; -fx-background-radius: 5px;");
+            btnNavParametros.setStyle("-fx-background-color: #e5e8e8; -fx-font-weight: normal; fx-border-color: WHITE; -fx-border-radius: 5px; -fx-background-radius: 5px;");
+            btnNavAutor.setStyle("-fx-background-color: #e5e8e8; -fx-font-weight: normal; fx-border-color: WHITE; -fx-border-radius: 5px; -fx-background-radius: 5px;");
+            btnNavTematica.setStyle("-fx-background-color: #e5e8e8; -fx-font-weight: normal; fx-border-color: WHITE; -fx-border-radius: 5px; -fx-background-radius: 5px;");
+            btnNavEditorial.setStyle("-fx-background-color: #e5e8e8; -fx-font-weight: normal; fx-border-color: WHITE; -fx-border-radius: 5px; -fx-background-radius: 5px;");
+            btnNavRack.setStyle("-fx-background-color: #e5e8e8; -fx-font-weight: normal; fx-border-color: WHITE; -fx-border-radius: 5px; -fx-background-radius: 5px;");
+        }
+        btnNavLibros.setStyle("-fx-background-color: #e5e8e8; -fx-font-weight: normal; fx-border-color: WHITE; -fx-border-radius: 5px; -fx-background-radius: 5px;");
+        btnNavUsuario.setStyle("-fx-background-color: #e5e8e8; -fx-font-weight: normal; fx-border-color: WHITE; -fx-border-radius: 5px; -fx-background-radius: 5px;");
     }
 
     //Acciones de navegacion
