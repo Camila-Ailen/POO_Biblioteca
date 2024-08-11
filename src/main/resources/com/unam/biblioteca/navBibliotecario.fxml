@@ -75,7 +75,7 @@
                     </VBox.margin>
                 </Button>
                 <Button mnemonicParsing="false" prefHeight="26.0" prefWidth="112.0" style="-fx-background-color: #e5e8e8; -fx-border-color: WHITE; -fx-border-radius: 5px; -fx-background-radius: 5px;"
-                        text="Autor" fx:id="btnNavAutor" onAction="#navegar">
+                        text="Autor" fx:id="btnNavAutor" onAction="#navegarAutor">
                     <VBox.margin>
                         <Insets top="5.0" />
                     </VBox.margin>

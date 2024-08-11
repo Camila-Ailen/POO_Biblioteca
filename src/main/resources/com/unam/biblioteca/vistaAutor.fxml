@@ -43,7 +43,7 @@
             <VBox prefHeight="200.0" prefWidth="100.0">
                <children>
                   <Button mnemonicParsing="false" prefHeight="35.0" prefWidth="112.0" style="-fx-background-color: #2ecc71; -fx-border-color: white; -fx-border-radius: 5px; -fx-background-radius: 5px;"
-                          text="Crear" textFill="WHITE" fx:id="btnCrear">
+                          text="Crear" textFill="WHITE" fx:id="btnCrear" onAction="#crearAutor">
                      <font>
                         <Font name="System Bold" size="12.0" />
                      </font>

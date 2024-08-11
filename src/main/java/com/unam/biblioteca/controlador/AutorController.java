@@ -3,9 +3,12 @@ package com.unam.biblioteca.controlador;
 import com.unam.biblioteca.App;
 import com.unam.biblioteca.modelo.Autor;
 import com.unam.biblioteca.servicio.Servicio;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+
+import java.io.IOException;
 
 public class AutorController {
 
@@ -16,21 +19,6 @@ public class AutorController {
     private Button btnModificar;
     @FXML
     private Button btnEliminar;
-
-    @FXML
-    private Button btnGuardar;
-    @FXML
-    private Button btnCancelar;
-
-    //Campos de texto
-    @FXML
-    private TextField txtNombre;
-
-    //Etiquetas
-    @FXML
-    private Label lblTitulo;
-    @FXML
-    private Label lblId;
 
     //Tabla
     @FXML
@@ -48,8 +36,12 @@ public class AutorController {
         servicio = App.getServicio();
 
         //Inicializar tabla
-        colId.setCellValueFactory(new PropertyValueFactory<>("id"));
-        colNombre.setCellValueFactory(new PropertyValueFactory<>("nombre"));
+        try {
+            colId.setCellValueFactory(new PropertyValueFactory<>("id"));
+            colNombre.setCellValueFactory(new PropertyValueFactory<>("nombre"));
+        } catch (Exception e) {
+            System.out.println("Error al inicializar la tabla 1, entrando al crud");
+        }
 
         //tblVista.getSelectionModel().selectedItemProperty().addListener(e -> cargarDatos());
 
@@ -61,7 +53,12 @@ public class AutorController {
     }
 
 
-
+    @FXML
+    private void crearAutor (ActionEvent event) throws IOException {
+        System.out.println("Intentando entrar al crear");
+        App.setRoot("amAutor");
+        System.out.println("Crear, pantalla de autor");
+    }
 
 
 

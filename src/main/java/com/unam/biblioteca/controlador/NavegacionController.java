@@ -55,7 +55,7 @@ public class NavegacionController {
 
     //Contenedor stackpane
     @FXML
-    private StackPane contenedor;
+    private static StackPane contenedor;
 
     //Pantallas a conectar
     private GridPane rootAutor;
@@ -65,59 +65,24 @@ public class NavegacionController {
 
 
     @FXML
-    private void initialize() {
+    private void initialize() throws IOException {
         servicio = App.getServicio();
         Miembro miembro = (Miembro) UsrLogueado.getInstancia().getVariableGlobal();
         if (miembro != null) {
             lblNombreUsuario.setText("Bienvenido " + miembro.getNombre());
         }
 
+        inicializarContenedor();
+
         //Agregar manejadores de eventos a los botones
 
-        if (miembro != null && miembro.getUnRol().getNombre().equals("BIBLIOTECARIO")){
-            /*seleccionarBotonNav(btnNavCopias);
-            seleccionarBotonNav(btnNavPrestamos);
-            seleccionarBotonNav(btnNavRegistro);
-            seleccionarBotonNav(btnNavDevolucion);
-            seleccionarBotonNav(btnNavParametros);
-            seleccionarBotonNav(btnNavAutor);
-            seleccionarBotonNav(btnNavTematica);
-            seleccionarBotonNav(btnNavEditorial);
-            seleccionarBotonNav(btnNavRack);*/
 
-            btnNavAutor.setOnAction(event -> cambiarVista("vistaAutor.fxml"));
-            btnNavTematica.setOnAction(event -> cambiarVista("vistaTematica.fxml"));
-            btnNavEditorial.setOnAction(event -> {
-                cambiarVista("com/unam/biblioteca/vistaEditorial.fxml");
-            });
-            btnNavRack.setOnAction(event -> {
-                cambiarVista("com/unam/biblioteca/vistaRack.fxml");
-            });
-        }
-        /*
-        seleccionarBotonNav(btnNavLibros);
-        seleccionarBotonNav(btnNavUsuario);*/
-        btnNavLibros.setOnAction(event -> {
-            cambiarVista("com/unam/biblioteca/vistaLibro.fxml");
-        });
-        btnNavUsuario.setOnAction(event -> {
-            cambiarVista("com/unam/biblioteca/vistaUsuario.fxml");
-        });
 
-        //Cargar las pantallas
-        /*
-        try {
-            Node rootAutor = cargarVistas("com/unam/biblioteca/vistaAutor.fxml");
-            Node rootTematica = cargarVistas("com/unam/biblioteca/vistaTematica.fxml");
-            if (rootAutor != null && rootTematica != null) {
-                contenedor.getChildren().addAll(rootAutor, rootTematica);
-                rootAutor.setVisible(true);
-                rootTematica.setVisible(false);
-            }
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }*/
+    }
 
+    @FXML
+    private void navegarAutor(ActionEvent event) throws IOException {
+        App.setRoot("vistaAutor");
     }
 
     private void seleccionarBotonNav(Button button) {
@@ -166,27 +131,27 @@ public class NavegacionController {
     }
 
 
-
-
-    private Node cargarVista (String url) throws IOException {
-        return FXMLLoader.load(getClass().getResource("/com/unam/biblioteca/" + url));
+    private static Node cargarVista (String url) throws IOException {
+        System.out.println("Cargando vista: " + url);
+        return FXMLLoader.load(NavegacionController.class.getResource("/com/unam/biblioteca/" + url + ".fxml"));
     }
 
-    private void cambiarVista (String url) {
+    public static void cambiarVista (String url) {
+        System.out.println("Estamos en cambiaVista");
         try {
-            if (url.startsWith("vista")) {
-                Node vista = cargarVista(url);
-                if (vista != null) {
-                    contenedor.getChildren().clear();
-                    contenedor.getChildren().add(vista);
-                    ajustarTamanio(vista);
-                }
-            } else if (url.startsWith("am")) {
-                abrirNuevaVentana(url);
-            } else {
-                App.setRoot(url);
+            Node vista = cargarVista(url);
+            System.out.println("Vista cargada");
+            if (vista != null) {
+                System.out.println("la vista no es nula");
+                contenedor.getChildren().clear();
+                System.out.println("pasamos la primera parte de contenedor");
+                contenedor.getChildren().add(vista);
+                System.out.println("pasamos la segunda parte de contenedor");
+                ajustarTamanio(vista);
             }
+            //App.setRoot(url);
         } catch (IOException e) {
+            System.out.println("No se pudo en cambiar la vista");
             throw new RuntimeException(e);
         }
     }
@@ -200,13 +165,19 @@ public class NavegacionController {
         stage.showAndWait();
     }
 
-    private void ajustarTamanio(Node vista) {
+    private static void ajustarTamanio(Node vista) {
         if (vista instanceof Region){
             Region region = (Region) vista;
             region.setPrefWidth(contenedor.getWidth());
             region.setPrefHeight(contenedor.getHeight());
         } else {
             throw new IllegalArgumentException("La vista no es una region");
+        }
+    }
+
+    private static void inicializarContenedor(){
+        if (contenedor == null){
+            contenedor = new StackPane();
         }
     }
 
