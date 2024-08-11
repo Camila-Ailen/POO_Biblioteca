@@ -107,13 +107,6 @@ public class AutorController {
         tblVista.getItems().addAll(servicio.listarAutores());
     }
 
-
-
-
-
-
-
-
 }
 
 

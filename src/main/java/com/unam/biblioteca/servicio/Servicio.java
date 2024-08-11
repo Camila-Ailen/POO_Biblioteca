@@ -138,6 +138,9 @@ public class Servicio {
 
 
 
+    //------------------------------------------------------------------------------------------------------------------
+    //PARAMETROS
+    //------------------------------------------------------------------------------------------------------------------
 
     //AUTORES
     //guardar
@@ -171,6 +174,7 @@ public class Servicio {
         }
     }
 
+    //borrado logico
     public void borrarAutor (int idAutor) {
         try {
             this.repositorio.iniciarTransaccion();
@@ -235,6 +239,7 @@ public class Servicio {
         }
     }
 
+    //borrado logico
     public void borrarTematica (int idTematica) {
         try {
             this.repositorio.iniciarTransaccion();
@@ -260,6 +265,71 @@ public class Servicio {
         for (var tematica : tematicas) {
             if (tematica.getActivo()) {
                 listado.add(tematica);
+            }
+        }
+        return listado;
+    }
+
+
+
+    //EDITORIAL
+    //guardar
+    public void guardarEditorial(String nombre) {
+        try {
+            this.repositorio.iniciarTransaccion();
+            var editorial = new Editorial(nombre);
+            this.repositorio.insertar(editorial);
+            this.repositorio.confirmarTransaccion();
+        } catch (Exception e) {
+            this.repositorio.descartarTransaccion();
+            throw e;
+        }
+    }
+
+    //modificar
+    public void modificarEditorial(int idEditorial, String nombre) {
+        try {
+            this.repositorio.iniciarTransaccion();
+            var editorial = this.repositorio.buscar(Editorial.class, idEditorial);
+            if (editorial != null) {
+                editorial.setNombre(nombre);
+                this.repositorio.modificar(editorial);
+                this.repositorio.confirmarTransaccion();
+            } else {
+                this.repositorio.descartarTransaccion();
+            }
+        } catch (Exception e) {
+            this.repositorio.descartarTransaccion();
+            throw e;
+        }
+    }
+
+    //borrado logico
+    public void borrarEditorial(int idEditorial) {
+        try {
+            this.repositorio.iniciarTransaccion();
+            var editorial = this.repositorio.buscar(Editorial.class, idEditorial);
+            // se controla que exista el producto y que no se encuentre de baja
+            if (editorial != null && editorial.getActivo()) {
+                editorial.setActivo(false);
+                this.repositorio.modificar(editorial);
+                this.repositorio.confirmarTransaccion();
+            } else {
+                this.repositorio.descartarTransaccion();
+            }
+        } catch (Exception e) {
+            this.repositorio.descartarTransaccion();
+            throw e;
+        }
+    }
+
+    //Listar
+    public List<Editorial> listarEditoriales () {
+        var editoriales = this.repositorio.buscarTodos(Editorial.class);
+        var listado = new ArrayList<Editorial>();
+        for (var editorial : editoriales) {
+            if (editorial.getActivo()) {
+                listado.add(editorial);
             }
         }
         return listado;
