@@ -46,7 +46,7 @@ public class AutorController {
         //tblVista.getSelectionModel().selectedItemProperty().addListener(e -> cargarDatos());
 
         try {
-            tblVista.getItems().addAll(servicio.listarAutores());
+            actualizarTabla();
         } catch (Exception e) {
             Alerta.mostrarAlerta(Alert.AlertType.ERROR, "Error al cargar los datos", "Ocurrió un error al cargar los datos de los autores.", e.getMessage());
         }
@@ -56,6 +56,12 @@ public class AutorController {
     @FXML
     private void crearAutor (ActionEvent event) throws IOException {
         App.setRoot("crudAutor");
+        actualizarTabla();
+    }
+
+    private void actualizarTabla() {
+        tblVista.getItems().clear();
+        tblVista.getItems().addAll(servicio.listarAutores());
     }
 
 

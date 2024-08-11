@@ -140,7 +140,19 @@ public class Servicio {
 
 
     //AUTORES
+    //guardar
+    public void guardarAutor(Autor autor) {
+        try {
+            repositorio.iniciarTransaccion();
+            repositorio.insertar(autor);
+            repositorio.confirmarTransaccion();
+        } catch (Exception e) {
+            repositorio.descartarTransaccion();
+            throw new RuntimeException(e);
+        }
+    }
 
+    //listar
     public List<Autor> listarAutores() {
         var autores = this.repositorio.buscarTodos(Autor.class);
         var listado = new ArrayList<Autor>();

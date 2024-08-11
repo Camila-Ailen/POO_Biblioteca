@@ -54,7 +54,7 @@
       <HBox alignment="TOP_CENTER" prefHeight="100.0" prefWidth="200.0">
          <children>
             <Button mnemonicParsing="false" prefHeight="26.0" prefWidth="112.0" style="-fx-background-color: #2ecc71; -fx-border-color: white; -fx-border-radius: 5px; -fx-background-radius: 5px;"
-                    text="Guardar" textFill="WHITE" fx:id="btnGuardar">
+                    text="Guardar" textFill="WHITE" fx:id="btnGuardar" onAction="#click">
                <font>
                   <Font name="System Bold" size="12.0" />
                </font>
@@ -63,7 +63,7 @@
                </HBox.margin>
             </Button>
             <Button mnemonicParsing="false" prefHeight="26.0" prefWidth="112.0" style="-fx-background-color: #e74c3c; -fx-border-color: white; -fx-border-radius: 5px; -fx-background-radius: 5px;"
-                    text="Cancelar" textFill="WHITE" fx:id="btnCancelar">
+                    text="Cancelar" textFill="WHITE" fx:id="btnCancelar" onAction="#click">
                <font>
                   <Font name="System Bold" size="12.0" />
                </font>
