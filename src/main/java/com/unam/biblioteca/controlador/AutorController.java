@@ -89,7 +89,19 @@ public class AutorController {
 
     @FXML
     private void eliminar (ActionEvent event) {
-
+        Autor autorSeleccionado = tblVista.getSelectionModel().getSelectedItem();
+        if (autorSeleccionado != null) {
+            Alert respuesta = new Alert(Alert.AlertType.CONFIRMATION);
+            respuesta.setTitle("Eliminar autor");
+            respuesta.setHeaderText("¿Está seguro que desea eliminar el autor?");
+            respuesta.setContentText("Esta acción no se puede deshacer.");
+            if (respuesta.showAndWait().get() == ButtonType.OK) {
+                servicio.borrarAutor(autorSeleccionado.getId());
+                actualizarTabla();
+            }
+        } else {
+            Alerta.mostrarAlerta(Alert.AlertType.ERROR, "Error al eliminar", "Ocurrió un error al eliminar el autor.", "Por favor, seleccione un autor de la tabla.");
+        }
     }
 
     private void actualizarTabla() {

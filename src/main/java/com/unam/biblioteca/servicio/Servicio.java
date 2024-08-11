@@ -171,6 +171,24 @@ public class Servicio {
         }
     }
 
+    public void borrarAutor (int idAutor) {
+        try {
+            this.repositorio.iniciarTransaccion();
+            var autor = this.repositorio.buscar(Autor.class, idAutor);
+            // se controla que exista el producto y que no se encuentre de baja
+            if (autor != null && autor.getActivo()) {
+                autor.setActivo(false);
+                this.repositorio.modificar(autor);
+                this.repositorio.confirmarTransaccion();
+            } else {
+                this.repositorio.descartarTransaccion();
+            }
+        } catch (Exception e) {
+            this.repositorio.descartarTransaccion();
+            throw e;
+        }
+    }
+
     //listar
     public List<Autor> listarAutores() {
         var autores = this.repositorio.buscarTodos(Autor.class);

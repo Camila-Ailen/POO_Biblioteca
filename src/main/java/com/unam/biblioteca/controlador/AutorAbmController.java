@@ -49,7 +49,7 @@ public class AutorAbmController {
         if (boton.equals(btnGuardar)) {
             String nombre = txtNombre.getText();
 
-            if (lblId.getText().isEmpty()){
+            if (lblId.getText().equals("Generado automagicamente")){
                 servicio.guardarAutor(nombre);
             } else {
                 int id = Integer.parseInt(lblId.getText());

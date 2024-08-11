@@ -30,7 +30,7 @@
                   <Insets top="20.0" />
                </HBox.margin>
             </Label>
-            <Label text="" fx:id="lblId">
+            <Label text="Generado automagicamente" fx:id="lblId">
                <HBox.margin>
                   <Insets left="8.0" top="20.0" />
                </HBox.margin>
