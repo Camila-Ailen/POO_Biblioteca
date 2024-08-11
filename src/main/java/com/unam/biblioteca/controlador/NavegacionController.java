@@ -7,18 +7,11 @@ import com.unam.biblioteca.servicio.Servicio;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
-import javafx.scene.layout.VBox;
-import javafx.stage.Modality;
-import javafx.stage.Stage;
 
 import java.io.IOException;
 
@@ -61,8 +54,6 @@ public class NavegacionController {
     //Pantallas a conectar
     private GridPane rootAutor;
     private GridPane rootTematica;
-    private VBox rootAutor2;
-    private VBox rootTematica2;
 
     private Servicio servicio;
 
@@ -88,29 +79,19 @@ public class NavegacionController {
 
     @FXML
     private void initialize() {
-        System.out.println("Inicializando NavegacionController");
         servicio = App.getServicio();
-        System.out.println("Servicio: " + servicio);
         Miembro miembro = (Miembro) UsrLogueado.getInstancia().getVariableGlobal();
         if (miembro != null) {
             lblNombreUsuario.setText("Bienvenido " + miembro.getNombre());
         }
 
-        System.out.println("ahora intentaremos la magia");
         try {
-            System.out.println("Entrando 1");
             rootAutor = loadForm("/com/unam/biblioteca/vistaAutor.fxml");
-            System.out.println("Entrando 2");
             rootTematica = loadForm("/com/unam/biblioteca/vistaTematica.fxml");
-            System.out.println("Entrando 3");
             contenedor.getChildren().addAll(rootAutor, rootTematica);
-            System.out.println("Entrando 4");
             rootAutor.setVisible(true);
-            System.out.println("Entrando 5");
             rootTematica.setVisible(false);
-            System.out.println("Entrando 6");
         } catch (IOException e) {
-            System.out.println("Hasta aca llegamos");
             throw new RuntimeException(e);
         }
     }

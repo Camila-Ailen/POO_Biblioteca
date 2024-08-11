@@ -10,7 +10,7 @@
 
 <VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="300.0" prefWidth="400.0"
       xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.unam.biblioteca.controlador.AutorAbmController"
-      fx:id="rootAutor2">
+      fx:id="rootAutor">
    <children>
       <Label text="Crear Autor" fx:id="lblTitulo">
          <font>

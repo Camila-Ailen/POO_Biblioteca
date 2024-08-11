@@ -55,9 +55,7 @@ public class AutorController {
 
     @FXML
     private void crearAutor (ActionEvent event) throws IOException {
-        System.out.println("Intentando entrar al crear");
-        App.setRoot("amAutor");
-        System.out.println("Crear, pantalla de autor");
+        App.setRoot("crudAutor");
     }
 
 

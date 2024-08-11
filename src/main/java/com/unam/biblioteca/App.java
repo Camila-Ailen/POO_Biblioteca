@@ -25,18 +25,12 @@ public class App extends Application {
         var emf = Persistence.createEntityManagerFactory("bibliotecaPU");
         servicio = new Servicio(new Repositorio(emf));
 
-        // Cargar la escena principal
-        System.out.println("Cargando la escena principal");
-        FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("navBibliotecario.fxml"));
-        System.out.println("Cargando la escena principal 2");
+        // Cargar la escena inicial
+        FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("login.fxml"));
         scene = new Scene(fxmlLoader.load());
-        System.out.println("Cargando la escena principal 3");
         stage.setTitle("BLUE LIBRARY");
-        System.out.println("Cargando la escena principal 4");
         stage.setScene(scene);
-        System.out.println("Cargando la escena principal 5");
         stage.show();
-        System.out.println("Cargando la escena principal 6");
     }
 
     public static Servicio getServicio() {
@@ -45,51 +39,29 @@ public class App extends Application {
 
 
     public static void setRoot(String fxml) throws IOException {
-        System.out.println("Por alguna razon entramos aca con: " + fxml);
-        FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource(fxml + ".fxml"));
-        //scene.setRoot(fxmlLoader.load());
-        Parent root = fxmlLoader.load();
-        scene.setRoot(root);
-
-        Stage stage = (Stage) scene.getWindow();
-        stage.setWidth(root.prefWidth(-1));
-        stage.setHeight(root.prefHeight(-1));
-        stage.centerOnScreen();
-    }
-
-    /*
-    public static FXMLLoader setRoot(String fxml) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource(fxml + ".fxml"));
         Parent root = fxmlLoader.load();
 
-        if (fxml.equals("login")) {
-            //inicia la pantalla del login
-            scene.getWindow().setWidth(700);
-            scene.getWindow().setHeight(500);
-
-            scene.setRoot(root);
-        } else if (fxml.startsWith("crud")) {
-            //incia cualquier pantalla de crud
+        if (fxml.startsWith("crud")){
+            //inicia cualquier pantalla de crud
             Stage newStage = new Stage();
             newStage.initModality(Modality.APPLICATION_MODAL);
-            newStage.setTitle("CRUD");
+            newStage.setTitle("Operaciones de CRUD");
+            newStage.setScene(new Scene(root));
 
-            newStage.setWidth(800);
-            newStage.setHeight(600);
-
-            Scene newScene = new Scene(root);
-            newStage.setScene(newScene);
             newStage.showAndWait();
         } else {
-            //inicia cualquier otra pantalla
-            scene.getWindow().setWidth(1200);
-            scene.getWindow().setHeight(800);
 
             scene.setRoot(root);
-        }
 
-        return fxmlLoader;
-    }*/
+            Stage stage = (Stage) scene.getWindow();
+
+            stage.setWidth(root.prefWidth(-1));
+            stage.setHeight(root.prefHeight(-1));
+            stage.centerOnScreen();
+        }
+    }
+
 
         public static void main(String[] args) {
         // Lanzar la aplicación JavaFX
