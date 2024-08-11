@@ -16,6 +16,7 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
@@ -55,30 +56,70 @@ public class NavegacionController {
 
     //Contenedor stackpane
     @FXML
-    private static StackPane contenedor;
+    private StackPane contenedor;
 
     //Pantallas a conectar
     private GridPane rootAutor;
     private GridPane rootTematica;
+    private VBox rootAutor2;
+    private VBox rootTematica2;
 
     private Servicio servicio;
 
+    @FXML
+    private void cerrarSesion(ActionEvent event) throws IOException {
+        App.setRoot("login");
+    }
 
     @FXML
-    private void initialize() throws IOException {
+    public void navegar(ActionEvent e) throws IOException {
+        Object evt = e.getSource();
+
+        if (evt.equals(btnNavAutor)) {
+            rootAutor.setVisible(true);
+            rootTematica.setVisible(false);
+        } else if (evt.equals(btnNavTematica)) {
+            rootAutor.setVisible(false);
+            rootTematica.setVisible(true);
+        }
+
+    }
+
+
+    @FXML
+    private void initialize() {
+        System.out.println("Inicializando NavegacionController");
         servicio = App.getServicio();
+        System.out.println("Servicio: " + servicio);
         Miembro miembro = (Miembro) UsrLogueado.getInstancia().getVariableGlobal();
         if (miembro != null) {
             lblNombreUsuario.setText("Bienvenido " + miembro.getNombre());
         }
 
-        inicializarContenedor();
-
-        //Agregar manejadores de eventos a los botones
-
-
-
+        System.out.println("ahora intentaremos la magia");
+        try {
+            System.out.println("Entrando 1");
+            rootAutor = loadForm("/com/unam/biblioteca/vistaAutor.fxml");
+            System.out.println("Entrando 2");
+            rootTematica = loadForm("/com/unam/biblioteca/vistaTematica.fxml");
+            System.out.println("Entrando 3");
+            contenedor.getChildren().addAll(rootAutor, rootTematica);
+            System.out.println("Entrando 4");
+            rootAutor.setVisible(true);
+            System.out.println("Entrando 5");
+            rootTematica.setVisible(false);
+            System.out.println("Entrando 6");
+        } catch (IOException e) {
+            System.out.println("Hasta aca llegamos");
+            throw new RuntimeException(e);
+        }
     }
+
+
+    private GridPane loadForm (String url) throws IOException {
+        return (GridPane) FXMLLoader.load(getClass().getResource(url));
+    }
+
 
     @FXML
     private void navegarAutor(ActionEvent event) throws IOException {
@@ -111,74 +152,8 @@ public class NavegacionController {
     }
 
     //Acciones de navegacion
-    @FXML
-    private void cerrarSesion(ActionEvent event) throws IOException {
-        App.setRoot("login");
-    }
-
-    @FXML
-    public void navegar(ActionEvent e) throws IOException {
-        Object evt = e.getSource();
-
-        if (evt.equals(btnNavAutor)) {
-            rootAutor.setVisible(true);
-            rootTematica.setVisible(false);
-        } else if (evt.equals(btnNavTematica)) {
-            rootAutor.setVisible(false);
-            rootTematica.setVisible(true);
-        }
-
-    }
 
 
-    private static Node cargarVista (String url) throws IOException {
-        System.out.println("Cargando vista: " + url);
-        return FXMLLoader.load(NavegacionController.class.getResource("/com/unam/biblioteca/" + url + ".fxml"));
-    }
 
-    public static void cambiarVista (String url) {
-        System.out.println("Estamos en cambiaVista");
-        try {
-            Node vista = cargarVista(url);
-            System.out.println("Vista cargada");
-            if (vista != null) {
-                System.out.println("la vista no es nula");
-                contenedor.getChildren().clear();
-                System.out.println("pasamos la primera parte de contenedor");
-                contenedor.getChildren().add(vista);
-                System.out.println("pasamos la segunda parte de contenedor");
-                ajustarTamanio(vista);
-            }
-            //App.setRoot(url);
-        } catch (IOException e) {
-            System.out.println("No se pudo en cambiar la vista");
-            throw new RuntimeException(e);
-        }
-    }
-
-    private void abrirNuevaVentana(String url) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("/com/unam/biblioteca/" + url));
-        Parent root = fxmlLoader.load();
-        Stage stage = new Stage();
-        stage.initModality(Modality.APPLICATION_MODAL);
-        stage.setScene(new Scene(root));
-        stage.showAndWait();
-    }
-
-    private static void ajustarTamanio(Node vista) {
-        if (vista instanceof Region){
-            Region region = (Region) vista;
-            region.setPrefWidth(contenedor.getWidth());
-            region.setPrefHeight(contenedor.getHeight());
-        } else {
-            throw new IllegalArgumentException("La vista no es una region");
-        }
-    }
-
-    private static void inicializarContenedor(){
-        if (contenedor == null){
-            contenedor = new StackPane();
-        }
-    }
 
 }

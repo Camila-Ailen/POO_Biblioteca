@@ -26,11 +26,17 @@ public class App extends Application {
         servicio = new Servicio(new Repositorio(emf));
 
         // Cargar la escena principal
-        FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("login.fxml"));
+        System.out.println("Cargando la escena principal");
+        FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("navBibliotecario.fxml"));
+        System.out.println("Cargando la escena principal 2");
         scene = new Scene(fxmlLoader.load());
+        System.out.println("Cargando la escena principal 3");
         stage.setTitle("BLUE LIBRARY");
+        System.out.println("Cargando la escena principal 4");
         stage.setScene(scene);
+        System.out.println("Cargando la escena principal 5");
         stage.show();
+        System.out.println("Cargando la escena principal 6");
     }
 
     public static Servicio getServicio() {
@@ -39,6 +45,7 @@ public class App extends Application {
 
 
     public static void setRoot(String fxml) throws IOException {
+        System.out.println("Por alguna razon entramos aca con: " + fxml);
         FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource(fxml + ".fxml"));
         //scene.setRoot(fxmlLoader.load());
         Parent root = fxmlLoader.load();

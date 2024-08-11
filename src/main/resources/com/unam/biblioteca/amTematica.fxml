@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="com.unam.biblioteca.controlador.TematicaAbmController"
+            prefHeight="400.0" prefWidth="600.0"
+            fx:id="rootTematica2">
+
+        <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" spacing="10.0">
+            <children>
+                <Label text="Tematica" />
+                <TextField fx:id="txtTematica" promptText="Nombre de la tematica" />
+                <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="10.0">
+                    <children>
+                        <Button fx:id="btnGuardar" mnemonicParsing="false"  prefWidth="100.0" text="Guardar" />
+                        <Button fx:id="btnEliminar" mnemonicParsing="false"  prefWidth="100.0" text="Eliminar" />
+                        <Button fx:id="btnVolver" mnemonicParsing="false"  prefWidth="100.0" text="Volver" />
+                    </children>
+                </HBox>
+            </children>
+        </VBox>
+
+
+</VBox>
