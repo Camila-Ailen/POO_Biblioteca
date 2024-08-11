@@ -2,16 +2,16 @@ package com.unam.biblioteca.controlador;
 
 import com.unam.biblioteca.App;
 import com.unam.biblioteca.modelo.Autor;
+import com.unam.biblioteca.modelo.Tematica;
 import com.unam.biblioteca.servicio.Servicio;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.*;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 
-import java.io.IOException;
-
-public class AutorController {
-
+public class TematicaController {
     //Botones
     @FXML
     private Button btnCrear;
@@ -22,11 +22,11 @@ public class AutorController {
 
     //Tabla
     @FXML
-    private TableView<Autor> tblVista;
+    private TableView<Tematica> tblVista;
     @FXML
-    private TableColumn<Autor, String> colId;
+    private TableColumn<Tematica, String> colId;
     @FXML
-    private TableColumn<Autor, String> colNombre;
+    private TableColumn<Tematica, String> colNombre;
 
 
     private Servicio servicio;
@@ -46,36 +46,9 @@ public class AutorController {
         //tblVista.getSelectionModel().selectedItemProperty().addListener(e -> cargarDatos());
 
         try {
-            tblVista.getItems().addAll(servicio.listarAutores());
+            tblVista.getItems().addAll(servicio.listarTematica());
         } catch (Exception e) {
-            Alerta.mostrarAlerta(Alert.AlertType.ERROR, "Error al cargar los datos", "Ocurrió un error al cargar los datos de los autores.", e.getMessage());
+            Alerta.mostrarAlerta(Alert.AlertType.ERROR, "Error al cargar los datos", "Ocurrió un error al cargar los datos de las tematicas.", e.getMessage());
         }
     }
-
-
-    @FXML
-    private void crearAutor (ActionEvent event) throws IOException {
-        App.setRoot("crudAutor");
-    }
-
-
-
-
-
-
-
-
 }
-
-
-
-
-
-
-
-
-
-
-
-
-

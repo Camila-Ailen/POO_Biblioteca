@@ -10,6 +10,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
 
@@ -54,6 +55,10 @@ public class NavegacionController {
     //Pantallas a conectar
     private GridPane rootAutor;
     private GridPane rootTematica;
+    private GridPane rootLibros;
+    private GridPane rootEditorial;
+    private GridPane rootRack;
+    private GridPane rootIdioma;
 
     private Servicio servicio;
 
@@ -63,17 +68,61 @@ public class NavegacionController {
     }
 
     @FXML
+    private void mostrarPanel (Button boton, GridPane ... paneles) {
+        //deja todos en falso (no visibles)
+        for (GridPane panel : paneles) {
+            panel.setVisible(false);
+        }
+
+        String seleccionado = boton.getId();
+        System.out.println("Mi variables seleccionado: " + seleccionado);
+
+        //deja visible el panel seleccionado
+        switch (seleccionado) {
+            case "btnNavLibros":
+                rootLibros.setVisible(true);
+                break;
+            /*case "btnNavCopias":
+                rootCopias.setVisible(true);
+                break;
+            case "btnNavPrestamos":
+                rootPrestamos.setVisible(true);
+                break;
+            case "btnNavRegistro":
+                rootRegistro.setVisible(true);
+                break;
+            case "btnNavDevolucion":
+                rootDevolucion.setVisible(true);
+                break;
+            case "btnNavUsuario":
+                rootUsuario.setVisible(true);
+                break;
+            case "btnNavParametros":
+                rootParametros.setVisible(true);
+                break;*/
+            case "btnNavAutor":
+                rootAutor.setVisible(true);
+                break;
+            case "btnNavTematica":
+                rootTematica.setVisible(true);
+                break;
+            case "btnNavEditorial":
+                rootEditorial.setVisible(true);
+                break;
+            case "btnNavRack":
+                rootRack.setVisible(true);
+                break;
+            case "btnNavIdioma":
+                rootIdioma.setVisible(true);
+                break;
+        }
+    }
+
+    @FXML
     public void navegar(ActionEvent e) throws IOException {
         Object evt = e.getSource();
 
-        if (evt.equals(btnNavAutor)) {
-            rootAutor.setVisible(true);
-            rootTematica.setVisible(false);
-        } else if (evt.equals(btnNavTematica)) {
-            rootAutor.setVisible(false);
-            rootTematica.setVisible(true);
-        }
-
+        mostrarPanel((Button) evt, rootLibros, rootAutor, rootTematica, rootEditorial, rootRack, rootIdioma);
     }
 
 
@@ -86,11 +135,22 @@ public class NavegacionController {
         }
 
         try {
+
             rootAutor = loadForm("/com/unam/biblioteca/vistaAutor.fxml");
             rootTematica = loadForm("/com/unam/biblioteca/vistaTematica.fxml");
-            contenedor.getChildren().addAll(rootAutor, rootTematica);
-            rootAutor.setVisible(true);
-            rootTematica.setVisible(false);
+            rootLibros = loadForm("/com/unam/biblioteca/vistaLibros.fxml");
+            rootEditorial = loadForm("/com/unam/biblioteca/vistaEditorial.fxml");
+            rootRack = loadForm("/com/unam/biblioteca/vistaRack.fxml");
+            rootIdioma = loadForm("/com/unam/biblioteca/vistaIdioma.fxml");
+
+            contenedor.getChildren().addAll(rootAutor, rootTematica, rootLibros, rootEditorial, rootRack, rootIdioma);
+
+            //asegura ingresar con un panel a la vista
+            for (GridPane panel : new GridPane[]{rootAutor, rootTematica, rootLibros, rootEditorial, rootRack, rootIdioma}) {
+                panel.setVisible(false);
+            }
+            rootLibros.setVisible(true);
+
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -99,12 +159,6 @@ public class NavegacionController {
 
     private GridPane loadForm (String url) throws IOException {
         return (GridPane) FXMLLoader.load(getClass().getResource(url));
-    }
-
-
-    @FXML
-    private void navegarAutor(ActionEvent event) throws IOException {
-        App.setRoot("vistaAutor");
     }
 
     private void seleccionarBotonNav(Button button) {

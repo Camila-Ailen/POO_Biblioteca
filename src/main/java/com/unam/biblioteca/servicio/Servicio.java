@@ -154,5 +154,19 @@ public class Servicio {
 
 
 
+    //TEMATICA
+    //Listar
+    public List<Tematica> listarTematica() {
+        var tematicas = this.repositorio.buscarTodos(Tematica.class);
+        var listado = new ArrayList<Tematica>();
+        for (var tematica : tematicas) {
+            if (tematica.getActivo()) {
+                listado.add(tematica);
+            }
+        }
+        return listado;
+    }
+
+
 
 }

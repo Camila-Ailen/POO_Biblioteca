@@ -89,7 +89,8 @@
                         </FontAwesomeIcon>
                     </children>
                 </HBox>
-                <StackPane GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS" />
+                <StackPane GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS"
+                            fx:id="contenedor"/>
             </children>
         </GridPane>
     </children>
