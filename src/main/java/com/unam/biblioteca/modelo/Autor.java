@@ -50,6 +50,13 @@ public class Autor implements Serializable {
     }
 
     public void setNombre(String nombre) {
+        nombre = nombre.trim().toUpperCase();
+        if (nombre.isEmpty()) {
+            throw new IllegalArgumentException("El nombre no puede estar vacío");
+        }
+        if (nombre.length() > 100) {
+            throw new IllegalArgumentException("El nombre no puede tener más de 100 caracteres");
+        }
         this.nombre = nombre;
     }
 

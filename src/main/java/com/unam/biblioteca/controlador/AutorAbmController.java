@@ -5,6 +5,7 @@ import com.unam.biblioteca.modelo.Autor;
 import com.unam.biblioteca.servicio.Servicio;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -47,17 +48,22 @@ public class AutorAbmController {
         Stage stage = (Stage) boton.getScene().getWindow();
 
         if (boton.equals(btnGuardar)) {
-            String nombre = txtNombre.getText();
+            if (!txtNombre.getText().isEmpty()) {
+                String nombre = txtNombre.getText();
 
-            if (lblId.getText().equals("Generado automagicamente")){
-                servicio.guardarAutor(nombre);
+                if (lblId.getText().equals("Generado automagicamente")) {
+                    servicio.guardarAutor(nombre);
+                } else {
+                    int id = Integer.parseInt(lblId.getText());
+                    servicio.modificarAutor(id, nombre);
+                }
+                stage.close();
             } else {
-                int id = Integer.parseInt(lblId.getText());
-                servicio.modificarAutor(id, nombre);
+                Alerta.mostrarAlerta(Alert.AlertType.WARNING, "Datos incompletos", "Por favor, complete los campos requeridos.", "El campo nombre no puede estar vacío.");
             }
-
+        } else {
+            stage.close();
         }
-        stage.close();
     }
 
 
