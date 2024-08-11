@@ -1,6 +1,5 @@
 package com.unam.biblioteca;
 
-import com.unam.biblioteca.controlador.NavegacionController;
 import com.unam.biblioteca.repositorio.Repositorio;
 import com.unam.biblioteca.servicio.Servicio;
 import javafx.application.Application;
@@ -19,7 +18,6 @@ public class App extends Application {
     private static Servicio servicio;
 
     private static EntityManagerFactory emf;
-
 
     @Override
     public void start(Stage stage) throws IOException {
@@ -41,44 +39,16 @@ public class App extends Application {
 
 
     public static void setRoot(String fxml) throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource(fxml + ".fxml"));
+        //scene.setRoot(fxmlLoader.load());
+        Parent root = fxmlLoader.load();
+        scene.setRoot(root);
 
-        System.out.println("Iniciando setRoot: " + fxml);
-        if (fxml.startsWith("vista")) {
-            //inicia las que listan los datos
-            System.out.println("Iniciando Navegacion a las tablas");
-            NavegacionController.cambiarVista(fxml);
-        } else {
-            FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource(fxml + ".fxml"));
-            Parent root = fxmlLoader.load();
-        if (fxml.equals("login")) {
-            //inicia la pantalla del login
-            System.out.println("Iniciando Login");
-            scene.setRoot(root);
-        } else if (fxml.startsWith("am")) {
-            //incia cualquier pantalla de crud
-            System.out.println("Iniciando CRUD");
-            Stage newStage = new Stage();
-            newStage.initModality(Modality.APPLICATION_MODAL);
-            newStage.setTitle("CRUD");
-
-            newStage.setScene(new Scene(root));
-            newStage.showAndWait();
-        } else {
-            //inicia cualquier otra pantalla
-            System.out.println("Iniciando otra pantalla");
-            scene.setRoot(root);
-        }
-        System.out.println("ajustando tamaño");
         Stage stage = (Stage) scene.getWindow();
-        System.out.println("ajustando tamaño2");
         stage.setWidth(root.prefWidth(-1));
-        System.out.println("ajustando tamaño3");
         stage.setHeight(root.prefHeight(-1));
-        System.out.println("ajustando tamaño4");
         stage.centerOnScreen();
-        System.out.println("ajustando tamaño5");
     }
-}
 
     /*
     public static FXMLLoader setRoot(String fxml) throws IOException {
