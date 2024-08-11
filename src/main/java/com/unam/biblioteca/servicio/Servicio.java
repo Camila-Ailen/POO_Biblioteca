@@ -204,8 +204,57 @@ public class Servicio {
 
 
     //TEMATICA
+    //guardar
+    public void guardarTematica(String nombre) {
+        try {
+            this.repositorio.iniciarTransaccion();
+            var tematica = new Tematica(nombre);
+            this.repositorio.insertar(tematica);
+            this.repositorio.confirmarTransaccion();
+        } catch (Exception e) {
+            this.repositorio.descartarTransaccion();
+            throw e;
+        }
+    }
+
+    //modificar
+    public void modificarTematica(int idTematica, String nombre) {
+        try {
+            this.repositorio.iniciarTransaccion();
+            var tematica = this.repositorio.buscar(Tematica.class, idTematica);
+            if (tematica != null) {
+                tematica.setNombre(nombre);
+                this.repositorio.modificar(tematica);
+                this.repositorio.confirmarTransaccion();
+            } else {
+                this.repositorio.descartarTransaccion();
+            }
+        } catch (Exception e) {
+            this.repositorio.descartarTransaccion();
+            throw e;
+        }
+    }
+
+    public void borrarTematica (int idTematica) {
+        try {
+            this.repositorio.iniciarTransaccion();
+            var tematica = this.repositorio.buscar(Tematica.class, idTematica);
+            // se controla que exista el producto y que no se encuentre de baja
+            if (tematica != null && tematica.getActivo()) {
+                tematica.setActivo(false);
+                this.repositorio.modificar(tematica);
+                this.repositorio.confirmarTransaccion();
+            } else {
+                this.repositorio.descartarTransaccion();
+            }
+        } catch (Exception e) {
+            this.repositorio.descartarTransaccion();
+            throw e;
+        }
+    }
+
     //Listar
-    public List<Tematica> listarTematica() {
+    public List<Tematica> listarTematicas() {
         var tematicas = this.repositorio.buscarTodos(Tematica.class);
         var listado = new ArrayList<Tematica>();
         for (var tematica : tematicas) {

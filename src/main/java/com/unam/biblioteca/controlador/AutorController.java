@@ -41,14 +41,13 @@ public class AutorController {
         servicio = App.getServicio();
 
         //Inicializar tabla
+
         try {
             colId.setCellValueFactory(new PropertyValueFactory<>("id"));
             colNombre.setCellValueFactory(new PropertyValueFactory<>("nombre"));
         } catch (Exception e) {
-            System.out.println("Error al inicializar la tabla 1, entrando al crud");
+            throw new RuntimeException(e);
         }
-
-        //tblVista.getSelectionModel().selectedItemProperty().addListener(e -> cargarDatos());
 
         try {
             actualizarTabla();
@@ -62,7 +61,6 @@ public class AutorController {
     private void crear (ActionEvent event) throws IOException {
         App.setRoot("crudAutor");
         actualizarTabla();
-        System.out.println("Intente actualizar!!");
     }
 
     @FXML
