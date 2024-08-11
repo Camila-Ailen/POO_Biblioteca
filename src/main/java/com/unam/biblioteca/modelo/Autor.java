@@ -25,11 +25,16 @@ public class Autor implements Serializable {
     public Autor() {
     }
 
-    public Autor(int id, String nombre, boolean activo, ArrayList<Libro> listaLibros) {
-        this.id = id;
+    public Autor(String nombre) {
+        // validaciones
+        nombre = nombre.trim().toUpperCase();
+        if (nombre.isEmpty()) {
+            throw new IllegalArgumentException("El nombre no puede estar vacío");
+        }
+        if (nombre.length() > 100) {
+            throw new IllegalArgumentException("El nombre no puede tener más de 100 caracteres");
+        }
         this.nombre = nombre;
-        this.activo = activo;
-        this.listaLibros = listaLibros;
     }
 
     public int getId() {

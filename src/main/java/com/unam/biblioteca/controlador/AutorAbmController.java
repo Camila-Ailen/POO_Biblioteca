@@ -27,11 +27,18 @@ public class AutorAbmController {
     private Label lblId;
 
     private Servicio servicio;
+    private Autor autor;
 
 
     @FXML
     private void initialize() {
         servicio = App.getServicio();
+    }
+
+    public void setDatosAutor(Autor autor) {
+        this.autor = autor;
+        lblId.setText(String.valueOf(autor.getId()));
+        txtNombre.setText(autor.getNombre());
     }
 
     @FXML
@@ -41,17 +48,17 @@ public class AutorAbmController {
 
         if (boton.equals(btnGuardar)) {
             String nombre = txtNombre.getText();
-            Autor autor = new Autor();
-            autor.setNombre(nombre);
-            autor.setActivo(true);
-            servicio.guardarAutor(autor);
-            actualizarTabla();
+
+            if (lblId.getText().isEmpty()){
+                servicio.guardarAutor(nombre);
+            } else {
+                int id = Integer.parseInt(lblId.getText());
+                servicio.modificarAutor(id, nombre);
+            }
+
         }
         stage.close();
     }
 
-    private void actualizarTabla() {
-
-    }
 
 }

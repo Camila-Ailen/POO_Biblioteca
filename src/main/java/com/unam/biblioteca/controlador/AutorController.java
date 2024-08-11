@@ -5,8 +5,13 @@ import com.unam.biblioteca.modelo.Autor;
 import com.unam.biblioteca.servicio.Servicio;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 
 import java.io.IOException;
 
@@ -54,9 +59,37 @@ public class AutorController {
 
 
     @FXML
-    private void crearAutor (ActionEvent event) throws IOException {
+    private void crear (ActionEvent event) throws IOException {
         App.setRoot("crudAutor");
         actualizarTabla();
+        System.out.println("Intente actualizar!!");
+    }
+
+    @FXML
+    private void modificar (ActionEvent event) throws IOException {
+        Autor autorSeleccionado = tblVista.getSelectionModel().getSelectedItem();
+        if (autorSeleccionado != null) {
+            FXMLLoader loader = new FXMLLoader(App.class.getResource("crudAutor.fxml"));
+            Parent root = loader.load();
+
+            AutorAbmController controlador = loader.getController();
+            controlador.setDatosAutor(autorSeleccionado);
+
+            Stage stage = new Stage();
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.setTitle("Modificar autor");
+            stage.setScene(new Scene(root));
+            stage.showAndWait();
+
+            actualizarTabla();
+        } else {
+            Alerta.mostrarAlerta(Alert.AlertType.ERROR, "Error al modificar", "No se ha seleccionado un autor", "Por favor, seleccione un autor de la tabla.");
+        }
+    }
+
+    @FXML
+    private void eliminar (ActionEvent event) {
+
     }
 
     private void actualizarTabla() {

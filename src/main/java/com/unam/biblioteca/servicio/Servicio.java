@@ -141,14 +141,33 @@ public class Servicio {
 
     //AUTORES
     //guardar
-    public void guardarAutor(Autor autor) {
+    public void guardarAutor(String nombre) {
         try {
-            repositorio.iniciarTransaccion();
-            repositorio.insertar(autor);
-            repositorio.confirmarTransaccion();
+            this.repositorio.iniciarTransaccion();
+            var autor = new Autor(nombre);
+            this.repositorio.insertar(autor);
+            this.repositorio.confirmarTransaccion();
         } catch (Exception e) {
-            repositorio.descartarTransaccion();
-            throw new RuntimeException(e);
+            this.repositorio.descartarTransaccion();
+            throw e;
+        }
+    }
+
+    //modificar
+    public void modificarAutor(int idAutor, String nombre) {
+        try {
+            this.repositorio.iniciarTransaccion();
+            var autor = this.repositorio.buscar(Autor.class, idAutor);
+            if (autor != null) {
+                autor.setNombre(nombre);
+                this.repositorio.modificar(autor);
+                this.repositorio.confirmarTransaccion();
+            } else {
+                this.repositorio.descartarTransaccion();
+            }
+        } catch (Exception e) {
+            this.repositorio.descartarTransaccion();
+            throw e;
         }
     }
 
