@@ -126,5 +126,14 @@ public class Miembro implements Serializable {
     }
 
 
+    //metodos adicionales
+    public String getRolNombre() {
+        return unRol != null ? unRol.getNombre() : "Sin rol";
+    }
+
+    public String getEstado() {
+        return activo ? "Activo" : "Inactivo";
+    }
+
 
 }

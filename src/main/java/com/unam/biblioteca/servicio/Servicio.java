@@ -55,7 +55,7 @@ public class Servicio {
     }
 
     //Modificar un miembro
-    public void modificarMiembro(int id, String clave, String apellido, String nombre, String telefono, String email, Boolean activo, ArrayList<Prestamo> listaPrestamos, Rol unRol) {
+    public void modificarMiembro(int id, String clave, String apellido, String nombre, String telefono, String email, Boolean activo, Rol unRol) {
         try {
             this.repositorio.iniciarTransaccion();
             var miembro = this.repositorio.buscar(Miembro.class, id);
@@ -66,7 +66,6 @@ public class Servicio {
                 miembro.setTelefono(telefono);
                 miembro.setEmail(email);
                 miembro.setActivo(activo);
-                miembro.setListaPrestamos(listaPrestamos);
                 miembro.setUnRol(unRol);
                 this.repositorio.modificar(miembro);
                 this.repositorio.confirmarTransaccion();
@@ -460,6 +459,16 @@ public class Servicio {
             }
         }
         return listado;
+    }
+
+
+    //ROL
+    public List<Rol> listarRoles(){
+        return this.repositorio.buscarTodos(Rol.class);
+    }
+
+    public Rol buscarRolPorNombre(String nombre) {
+        return this.repositorio.buscarRolPorNombre(nombre);
     }
 
 

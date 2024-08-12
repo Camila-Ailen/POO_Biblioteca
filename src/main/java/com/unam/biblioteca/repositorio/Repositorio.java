@@ -2,8 +2,10 @@ package com.unam.biblioteca.repositorio;
 
 import com.unam.biblioteca.modelo.Copia;
 import com.unam.biblioteca.modelo.Libro;
+import com.unam.biblioteca.modelo.Rol;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
+import jakarta.persistence.TypedQuery;
 import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;
 import jakarta.persistence.criteria.Root;
@@ -95,5 +97,11 @@ public class Repositorio {
         Root<Copia> origen = consulta.from(Copia.class);
         consulta.select(origen).where(cb.equal(origen.get("unLibro"), unLibro));
         return em.createQuery(consulta).getResultList();
+    }
+
+    public Rol buscarRolPorNombre (String nombre) {
+        TypedQuery<Rol> consulta = em.createQuery("SELECT r FROM Rol r WHERE r.nombre = :nombre", Rol.class);
+        consulta.setParameter("nombre", nombre);
+        return consulta.getSingleResult();
     }
 }

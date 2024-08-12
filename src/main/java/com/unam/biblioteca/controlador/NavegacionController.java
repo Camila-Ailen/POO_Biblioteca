@@ -31,8 +31,6 @@ public class NavegacionController {
     @FXML
     private Button btnNavUsuario;
     @FXML
-    private Button btnNavParametros;
-    @FXML
     private Button btnNavAutor;
     @FXML
     private Button btnNavTematica;
@@ -60,6 +58,7 @@ public class NavegacionController {
     private GridPane rootEditorial;
     private GridPane rootRack;
     private GridPane rootIdioma;
+    private GridPane rootUsuario;
 
     private Servicio servicio;
 
@@ -94,13 +93,10 @@ public class NavegacionController {
                 break;
             case "btnNavDevolucion":
                 rootDevolucion.setVisible(true);
-                break;
+                break;*/
             case "btnNavUsuario":
                 rootUsuario.setVisible(true);
                 break;
-            case "btnNavParametros":
-                rootParametros.setVisible(true);
-                break;*/
             case "btnNavAutor":
                 rootAutor.setVisible(true);
                 break;
@@ -123,7 +119,7 @@ public class NavegacionController {
     public void navegar(ActionEvent e) throws IOException {
         Object evt = e.getSource();
 
-        mostrarPanel((Button) evt, rootLibros, rootAutor, rootTematica, rootEditorial, rootRack, rootIdioma);
+        mostrarPanel((Button) evt, rootLibros, rootAutor, rootTematica, rootEditorial, rootRack, rootIdioma, rootUsuario);
     }
 
 
@@ -143,11 +139,12 @@ public class NavegacionController {
             rootEditorial = loadForm("/com/unam/biblioteca/vistaEditorial.fxml");
             rootRack = loadForm("/com/unam/biblioteca/vistaRack.fxml");
             rootIdioma = loadForm("/com/unam/biblioteca/vistaIdioma.fxml");
+            rootUsuario = loadForm("/com/unam/biblioteca/vistaMiembro.fxml");
 
-            contenedor.getChildren().addAll(rootAutor, rootTematica, rootLibros, rootEditorial, rootRack, rootIdioma);
+            contenedor.getChildren().addAll(rootAutor, rootTematica, rootLibros, rootEditorial, rootRack, rootIdioma, rootUsuario);
 
             //asegura ingresar con un panel a la vista
-            for (GridPane panel : new GridPane[]{rootAutor, rootTematica, rootLibros, rootEditorial, rootRack, rootIdioma}) {
+            for (GridPane panel : new GridPane[]{rootAutor, rootTematica, rootLibros, rootEditorial, rootRack, rootIdioma, rootUsuario}) {
                 panel.setVisible(false);
             }
             rootLibros.setVisible(true);
