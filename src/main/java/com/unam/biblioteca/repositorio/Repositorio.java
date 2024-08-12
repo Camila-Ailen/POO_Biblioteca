@@ -104,4 +104,12 @@ public class Repositorio {
         consulta.setParameter("nombre", nombre);
         return consulta.getSingleResult();
     }
+
+    public <T> T buscarPorNombre(Class<T> clase, String nombre) {
+        String queryString = "SELECT t FROM " + clase.getSimpleName() + " t WHERE t.nombre = :nombre";
+        TypedQuery<T> consulta = em.createQuery(queryString, clase);
+        consulta.setParameter("nombre", nombre);
+        return consulta.getSingleResult();
+    }
+
 }

@@ -86,7 +86,6 @@ public class Servicio {
             // se controla que exista el miembro y que no se encuentre de baja
             if (miembro != null && miembro.getActivo() == true) {
                 miembro.setActivo(false);
-                // Pregunta: no deben cancelarse los pedidos abiertos de dicho proveedor
                 this.repositorio.modificar(miembro);
                 this.repositorio.confirmarTransaccion();
             } else {
@@ -111,10 +110,10 @@ public class Servicio {
     }
 
     //Insertar un libro
-    public void insertarLibro(String titulo, String isbn, double precio, boolean activo, Tematica unTematica, Autor unAutor, Idioma unIdioma, Editorial unEditorial, ArrayList<Copia> listaCopias) {
+    public void insertarLibro(String titulo, String isbn, double precio, Tematica unTematica, Autor unAutor, Idioma unIdioma, Editorial unEditorial) {
         try {
             this.repositorio.iniciarTransaccion();
-            var libro = new Libro(titulo, isbn, precio, activo, unTematica, unAutor, unIdioma, unEditorial, listaCopias);
+            var libro = new Libro(titulo, isbn, precio, true, unTematica, unAutor, unIdioma, unEditorial, null);
             this.repositorio.insertar(libro);
             this.repositorio.confirmarTransaccion();
         } catch (Exception e) {
@@ -131,9 +130,48 @@ public class Servicio {
 
 
     //Modificar un libro
+    public void modificarLibro(int id, String titulo, String isbn, double precio, Tematica unTematica, Autor unAutor, Idioma unIdioma, Editorial unEditorial) {
+        try {
+            this.repositorio.iniciarTransaccion();
+            var libro = this.repositorio.buscar(Libro.class, id);
+            if (libro != null) {
+                libro.setTitulo(titulo);
+                libro.setIsbn(isbn);
+                libro.setPrecio(precio);
+                libro.setUnTematica(unTematica);
+                libro.setUnAutor(unAutor);
+                libro.setUnIdioma(unIdioma);
+                libro.setUnEditorial(unEditorial);
 
+                this.repositorio.modificar(libro);
+                this.repositorio.confirmarTransaccion();
+            } else {
+                this.repositorio.descartarTransaccion();
+            }
+        } catch (Exception e) {
+            this.repositorio.descartarTransaccion();
+            throw e;
+        }
+    }
 
     //Eliminar un libro (dar de baja)
+    public void borrarLibro (int id){
+        try {
+            this.repositorio.iniciarTransaccion();
+            var libro = this.repositorio.buscar(Libro.class, id);
+            // se controla que exista el Libro y que no se encuentre de baja
+            if (libro != null && libro.isActivo() == true) {
+                libro.setActivo(false);
+                this.repositorio.modificar(libro);
+                this.repositorio.confirmarTransaccion();
+            } else {
+                this.repositorio.descartarTransaccion();
+            }
+        } catch (Exception e) {
+            this.repositorio.descartarTransaccion();
+            throw e;
+        }
+    }
 
 
     //RACKS
@@ -204,6 +242,11 @@ public class Servicio {
     //------------------------------------------------------------------------------------------------------------------
 
     //AUTORES
+    //buscar por nombre
+    public Autor buscarAutorPorNombre(String nombre) {
+        return this.repositorio.buscarPorNombre(Autor.class, nombre);
+    }
+
     //guardar
     public void guardarAutor(String nombre) {
         try {
@@ -269,6 +312,11 @@ public class Servicio {
 
 
     //TEMATICA
+    //buscar por nombre
+    public Tematica buscarTematicaPorNombre(String nombre) {
+        return this.repositorio.buscarPorNombre(Tematica.class, nombre);
+    }
+
     //guardar
     public void guardarTematica(String nombre) {
         try {
@@ -334,6 +382,11 @@ public class Servicio {
 
 
     //EDITORIAL
+    //buscar por nombre
+    public Editorial buscarEditorialPorNombre(String nombre) {
+        return this.repositorio.buscarPorNombre(Editorial.class, nombre);
+    }
+
     //guardar
     public void guardarEditorial(String nombre) {
         try {
@@ -399,6 +452,11 @@ public class Servicio {
 
 
     //IDIOMA
+    //buscar por nombre
+    public Idioma buscarIdiomaPorNombre(String nombre) {
+        return this.repositorio.buscarPorNombre(Idioma.class, nombre);
+    }
+
     //guardar
     public void guardarIdioma(String nombre) {
         try {
@@ -468,7 +526,7 @@ public class Servicio {
     }
 
     public Rol buscarRolPorNombre(String nombre) {
-        return this.repositorio.buscarRolPorNombre(nombre);
+        return this.repositorio.buscarPorNombre(Rol.class, nombre);
     }
 
 

@@ -38,6 +38,38 @@ public class Miembro implements Serializable {
     }
 
     public Miembro(String clave, String apellido, String nombre, String telefono, String email, boolean activo, Rol unRol) {
+        if (clave.isEmpty()) {
+            throw new IllegalArgumentException("La clave no puede estar vacía");
+        }
+
+        nombre = nombre.trim().toUpperCase();
+        if (nombre.isEmpty()) {
+            throw new IllegalArgumentException("El nombre no puede estar vacío");
+        }
+        if (nombre.length() > 100) {
+            throw new IllegalArgumentException("El nombre no puede tener más de 100 caracteres");
+        }
+
+        apellido = apellido.trim().toUpperCase();
+        if (apellido.isEmpty()) {
+            throw new IllegalArgumentException("El apellido no puede estar vacío");
+        }
+        if (apellido.length() > 100) {
+            throw new IllegalArgumentException("El apellido no puede tener más de 100 caracteres");
+        }
+
+        if (telefono.length() > 15) {
+            throw new IllegalArgumentException("El telefono no puede tener más de 15 caracteres");
+        }
+
+        email = email.trim().toUpperCase();
+        if (email.isEmpty()) {
+            throw new IllegalArgumentException("El email no puede estar vacío");
+        }
+        if (email.length() > 100) {
+            throw new IllegalArgumentException("El email no puede tener más de 100 caracteres");
+        }
+
         this.clave = clave;
         this.apellido = apellido;
         this.nombre = nombre;
