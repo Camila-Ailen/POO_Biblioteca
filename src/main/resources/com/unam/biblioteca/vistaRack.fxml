@@ -11,8 +11,7 @@
 <?import javafx.scene.text.Font?>
 
 <GridPane alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0"
-          xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.unam.biblioteca.controlador.RackController"
-          fx:id="rootRack">
+          xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.unam.biblioteca.controlador.RackController" fx:id="rootRack">
 
     <children>
         <Label alignment="CENTER" text="Vista Rack">
@@ -43,7 +42,7 @@
                 <VBox prefHeight="200.0" prefWidth="100.0">
                     <children>
                         <Button mnemonicParsing="false" prefHeight="35.0" prefWidth="112.0" style="-fx-background-color: #2ecc71; -fx-border-color: white; -fx-border-radius: 5px; -fx-background-radius: 5px;"
-                                text="Crear" textFill="WHITE" fx:id="btnCrear">
+                                text="Crear" textFill="WHITE" fx:id="btnCrear" onAction="#crear">
                             <font>
                                 <Font name="System Bold" size="12.0" />
                             </font>
@@ -52,7 +51,7 @@
                             </VBox.margin>
                         </Button>
                         <Button mnemonicParsing="false" prefHeight="35.0" prefWidth="112.0" style="-fx-background-color: #3498db; -fx-border-color: white; -fx-border-radius: 5px; -fx-background-radius: 5px;"
-                                text="Modificar" textFill="WHITE" fx:id="btnModificar">
+                                text="Modificar" textFill="WHITE" fx:id="btnModificar" onAction="#modificar">
                             <font>
                                 <Font name="System Bold" size="12.0" />
                             </font>
@@ -61,7 +60,7 @@
                             </VBox.margin>
                         </Button>
                         <Button mnemonicParsing="false" prefHeight="35.0" prefWidth="112.0" style="-fx-background-color: #e74c3c; -fx-border-color: white; -fx-border-radius: 5px; -fx-background-radius: 5px;"
-                                text="Eliminar" textFill="WHITE" fx:id="btnEliminar">
+                                text="Eliminar" textFill="WHITE" fx:id="btnEliminar" onAction="#eliminar">
                             <font>
                                 <Font name="System Bold" size="12.0" />
                             </font>

@@ -137,6 +137,68 @@ public class Servicio {
     //Eliminar un libro (dar de baja)
 
 
+    //RACKS
+    //guardar
+    public void guardarRack(String nombre) {
+        try {
+            this.repositorio.iniciarTransaccion();
+            var rack = new Rack(nombre);
+            this.repositorio.insertar(rack);
+            this.repositorio.confirmarTransaccion();
+        } catch (Exception e) {
+            this.repositorio.descartarTransaccion();
+            throw e;
+        }
+    }
+
+    //modificar
+    public void modificarRack(int idRack, String nombre) {
+        try {
+            this.repositorio.iniciarTransaccion();
+            var rack = this.repositorio.buscar(Rack.class, idRack);
+            if (rack != null) {
+                rack.setDescripcion(nombre);
+                this.repositorio.modificar(rack);
+                this.repositorio.confirmarTransaccion();
+            } else {
+                this.repositorio.descartarTransaccion();
+            }
+        } catch (Exception e) {
+            this.repositorio.descartarTransaccion();
+            throw e;
+        }
+    }
+
+    //borrado logico
+    public void borrarRack (int idRack) {
+        try {
+            this.repositorio.iniciarTransaccion();
+            var rack = this.repositorio.buscar(Rack.class, idRack);
+            // se controla que exista el producto y que no se encuentre de baja
+            if (rack != null && rack.getActivo()) {
+                rack.setActivo(false);
+                this.repositorio.modificar(rack);
+                this.repositorio.confirmarTransaccion();
+            } else {
+                this.repositorio.descartarTransaccion();
+            }
+        } catch (Exception e) {
+            this.repositorio.descartarTransaccion();
+            throw e;
+        }
+    }
+
+    //listar
+    public List<Rack> listarRacks() {
+        var racks = this.repositorio.buscarTodos(Rack.class);
+        var listado = new ArrayList<Rack>();
+        for (var rack : racks) {
+            if (rack.getActivo()) {
+                listado.add(rack);
+            }
+        }
+        return listado;
+    }
 
     //------------------------------------------------------------------------------------------------------------------
     //PARAMETROS

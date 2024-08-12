@@ -11,7 +11,7 @@ public class Rack implements Serializable {
     @Id
     @GeneratedValue(strategy=GenerationType.SEQUENCE)
     private int id;
-    @Column(nullable = false, length = 200)
+    @Column(nullable = false, length = 100)
     private String descripcion;
     @Column(nullable = false)
     private boolean activo = true;
@@ -25,11 +25,16 @@ public class Rack implements Serializable {
     public Rack() {
     }
 
-    public Rack(int id, String descripcion, boolean activo, ArrayList<Copia> listaCopias) {
-        this.id = id;
+    public Rack(String descripcion) {
+        // validaciones
+        descripcion = descripcion.trim().toUpperCase();
+        if (descripcion.isEmpty()) {
+            throw new IllegalArgumentException("La descripcion no puede estar vacío");
+        }
+        if (descripcion.length() > 100) {
+            throw new IllegalArgumentException("La descripcion no puede tener más de 100 caracteres");
+        }
         this.descripcion = descripcion;
-        this.activo = activo;
-        this.listaCopias = listaCopias;
     }
 
     public int getId() {
@@ -45,6 +50,13 @@ public class Rack implements Serializable {
     }
 
     public void setDescripcion(String descripcion) {
+        descripcion = descripcion.trim().toUpperCase();
+        if (descripcion.isEmpty()) {
+            throw new IllegalArgumentException("La descripcion no puede estar vacío");
+        }
+        if (descripcion.length() > 100) {
+            throw new IllegalArgumentException("La descripcion no puede tener más de 100 caracteres");
+        }
         this.descripcion = descripcion;
     }
 
