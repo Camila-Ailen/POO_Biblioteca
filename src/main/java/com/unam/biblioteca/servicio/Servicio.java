@@ -337,4 +337,69 @@ public class Servicio {
 
 
 
+    //IDIOMA
+    //guardar
+    public void guardarIdioma(String nombre) {
+        try {
+            this.repositorio.iniciarTransaccion();
+            var idioma = new Idioma(nombre);
+            this.repositorio.insertar(idioma);
+            this.repositorio.confirmarTransaccion();
+        } catch (Exception e) {
+            this.repositorio.descartarTransaccion();
+            throw e;
+        }
+    }
+
+    //modificar
+    public void modificarIdioma(int idIdioma, String nombre) {
+        try {
+            this.repositorio.iniciarTransaccion();
+            var idioma = this.repositorio.buscar(Idioma.class, idIdioma);
+            if (idioma != null) {
+                idioma.setNombre(nombre);
+                this.repositorio.modificar(idioma);
+                this.repositorio.confirmarTransaccion();
+            } else {
+                this.repositorio.descartarTransaccion();
+            }
+        } catch (Exception e) {
+            this.repositorio.descartarTransaccion();
+            throw e;
+        }
+    }
+
+    //borrado logico
+    public void borrarIdioma (int idIdioma) {
+        try {
+            this.repositorio.iniciarTransaccion();
+            var idioma = this.repositorio.buscar(Idioma.class, idIdioma);
+            // se controla que exista el producto y que no se encuentre de baja
+            if (idioma != null && idioma.getActivo()) {
+                idioma.setActivo(false);
+                this.repositorio.modificar(idioma);
+                this.repositorio.confirmarTransaccion();
+            } else {
+                this.repositorio.descartarTransaccion();
+            }
+        } catch (Exception e) {
+            this.repositorio.descartarTransaccion();
+            throw e;
+        }
+    }
+
+    //listar
+    public List<Idioma> listarIdiomas() {
+        var idiomas = this.repositorio.buscarTodos(Idioma.class);
+        var listado = new ArrayList<Idioma>();
+        for (var idioma : idiomas) {
+            if (idioma.getActivo()) {
+                listado.add(idioma);
+            }
+        }
+        return listado;
+    }
+
+
+
 }

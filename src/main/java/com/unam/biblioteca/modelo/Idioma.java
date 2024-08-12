@@ -25,11 +25,15 @@ public class Idioma implements Serializable {
     public Idioma() {
     }
 
-    public Idioma(int id, String nombre, boolean activo, ArrayList<Libro> listaLibros) {
-        this.id = id;
+    public Idioma(String nombre) {
+        nombre = nombre.trim().toUpperCase();
+        if (nombre.isEmpty()) {
+            throw new IllegalArgumentException("El nombre no puede estar vacío");
+        }
+        if (nombre.length() > 100) {
+            throw new IllegalArgumentException("El nombre no puede tener más de 100 caracteres");
+        }
         this.nombre = nombre;
-        this.activo = activo;
-        this.listaLibros = listaLibros;
     }
 
     public int getId() {
@@ -45,6 +49,13 @@ public class Idioma implements Serializable {
     }
 
     public void setNombre(String nombre) {
+        nombre = nombre.trim().toUpperCase();
+        if (nombre.isEmpty()) {
+            throw new IllegalArgumentException("El nombre no puede estar vacío");
+        }
+        if (nombre.length() > 100) {
+            throw new IllegalArgumentException("El nombre no puede tener más de 100 caracteres");
+        }
         this.nombre = nombre;
     }
 
