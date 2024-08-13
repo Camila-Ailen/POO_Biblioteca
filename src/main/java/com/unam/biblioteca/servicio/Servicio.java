@@ -5,6 +5,7 @@ import com.unam.biblioteca.modelo.*;
 import com.unam.biblioteca.repositorio.Repositorio;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class Servicio {
@@ -20,8 +21,6 @@ public class Servicio {
     public Miembro buscarMiembro(int id) {
         return this.repositorio.buscar(Miembro.class, id);
     }
-
-    //LISTADOS
 
     //Listado de miembros activos unicamente
     public List<Miembro> listarMiembros() {
@@ -104,6 +103,11 @@ public class Servicio {
         return this.repositorio.buscar(Libro.class, id);
     }
 
+    //buscar libro por isbn
+    public Libro buscarLibroPorIsbn(String isbn) {
+        return repositorio.buscarLibroPorIsbn(isbn);
+    }
+
     //Listado de todos los libros
     public List<Libro> listarTodosLosLibros() {
         return this.repositorio.buscarTodos(Libro.class);
@@ -122,12 +126,6 @@ public class Servicio {
             throw e;
         }
     }
-
-    public List<Copia> listarCopiasPorLibro(Libro unLibro) {
-        return this.repositorio.buscarCopiasPorLibro(unLibro);
-    }
-
-
 
     //Modificar un libro
     public void modificarLibro(int id, String titulo, String isbn, double precio, Tematica unTematica, Autor unAutor, Idioma unIdioma, Editorial unEditorial) {
@@ -172,6 +170,108 @@ public class Servicio {
             throw e;
         }
     }
+
+
+    //COPIAS
+    //listar copias segun un libro
+    public List<Copia> listarCopiasPorLibro(Libro unLibro) {
+        return this.repositorio.buscarCopiasPorLibro(unLibro);
+    }
+
+    //borrado logico copia
+    public void borrarCopia (int id){
+        try {
+            this.repositorio.iniciarTransaccion();
+            var copia = this.repositorio.buscar(Copia.class, id);
+            if (copia != null && !copia.getEstado().equals(CopiaEstado.PERDIDA)) {
+                copia.setEstado(CopiaEstado.PERDIDA);
+                this.repositorio.modificar(copia);
+                this.repositorio.confirmarTransaccion();
+            } else {
+                this.repositorio.descartarTransaccion();
+            }
+        } catch (Exception e) {
+            this.repositorio.descartarTransaccion();
+            throw e;
+        }
+    }
+
+    //Listado de todas las copias
+    public List<Copia> listarTodasLasCopias() {
+        return this.repositorio.buscarTodos(Copia.class);
+    }
+
+    //Insertar una copia
+    public void insertarCopia(Libro libro, int cantidad, CopiaTipo tipo, Rack rack, boolean referencia, CopiaEstado estado) {
+        try {
+            for (int i = 0; i < cantidad; i++) {
+                this.repositorio.iniciarTransaccion();
+                var copia = new Copia(referencia, tipo, estado, rack, libro);
+                this.repositorio.insertar(copia);
+                this.repositorio.confirmarTransaccion();
+                if (i == 0 && referencia == true) {
+                    referencia = false;
+                }
+            }
+        } catch (Exception e) {
+            this.repositorio.descartarTransaccion();
+            // lanzo nuevamente la excepción para que sea manejada en la capa superior
+            throw e;
+        }
+    }
+
+    //Modificar una copia
+    public void modificarCopia(int id, CopiaTipo tipo, Rack rack, boolean referencia, CopiaEstado estado) {
+        try {
+            this.repositorio.iniciarTransaccion();
+            var copia = this.repositorio.buscar(Copia.class, id);
+            if (copia != null) {
+                copia.setReferencia(referencia);
+                copia.setTipo(tipo);
+                copia.setUnRack(rack);
+                copia.setEstado(estado);
+                this.repositorio.modificar(copia);
+                this.repositorio.confirmarTransaccion();
+            } else {
+                this.repositorio.descartarTransaccion();
+            }
+        } catch (Exception e) {
+            this.repositorio.descartarTransaccion();
+            throw e;
+        }
+    }
+
+
+    //listar tipos
+    public List<CopiaTipo> listarTipos() {
+        return Arrays.asList(CopiaTipo.values());
+    }
+
+    //buscar tipo por nombre
+    public CopiaTipo buscarTipoPorNombre(String nombre) {
+        try {
+            return CopiaTipo.valueOf(nombre);
+        } catch (IllegalArgumentException e) {
+            return null;
+        }
+    }
+
+    //listar estados
+    public List<CopiaEstado> listarEstados() {
+        return Arrays.asList(CopiaEstado.values());
+    }
+
+    //buscar tipo por nombre
+    public CopiaEstado buscarEstadoPorNombre(String nombre) {
+        try {
+            return CopiaEstado.valueOf(nombre);
+        } catch (IllegalArgumentException e) {
+            return null;
+        }
+    }
+
+
+
 
 
     //RACKS
@@ -235,6 +335,11 @@ public class Servicio {
             }
         }
         return listado;
+    }
+
+    //buscar rack por descripcion
+    public Rack buscarRackPorDescripcion(String descripcion) {
+        return repositorio.buscarPorDescripcion(descripcion);
     }
 
     //------------------------------------------------------------------------------------------------------------------

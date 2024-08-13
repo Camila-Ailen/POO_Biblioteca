@@ -17,8 +17,6 @@ public class Copia implements Serializable {
     private int id;
     @Column(nullable = false)
     private boolean referencia = false;
-    @Column(nullable = false)
-    private boolean activo = true;
 
     //enums
     @Enumerated(EnumType.STRING)
@@ -45,15 +43,12 @@ public class Copia implements Serializable {
     public Copia() {
     }
 
-    public Copia(int id, boolean referencia, boolean activo, CopiaTipo tipo, CopiaEstado estado, Rack unRack, Libro unLibro, ArrayList<Prestamo> listaPrestamos) {
-        this.id = id;
+    public Copia(boolean referencia, CopiaTipo tipo, CopiaEstado estado, Rack unRack, Libro unLibro) {
         this.referencia = referencia;
-        this.activo = activo;
         this.tipo = tipo;
         this.estado = estado;
         this.unRack = unRack;
         this.unLibro = unLibro;
-        this.listaPrestamos = listaPrestamos;
     }
 
     public int getId() {
@@ -70,14 +65,6 @@ public class Copia implements Serializable {
 
     public void setReferencia(boolean referencia) {
         this.referencia = referencia;
-    }
-
-    public boolean isActivo() {
-        return activo;
-    }
-
-    public void setActivo(boolean activo) {
-        this.activo = activo;
     }
 
     public CopiaTipo getTipo() {
@@ -131,6 +118,26 @@ public class Copia implements Serializable {
             }
         }
         return conteo;
+    }
+
+    public String getNombreRack() {
+        return unRack != null ? unRack.getDescripcion() : "";
+    }
+
+    public String getIsbn() {
+        return unLibro != null ? unLibro.getIsbn() : "";
+    }
+
+    public String getTitulo() {
+        return unLibro != null ? unLibro.getTitulo() : "";
+    }
+
+    public String getNombreAutor() {
+        return unLibro != null ? unLibro.getUnAutor().getNombre() : "";
+    }
+
+    public String getReferencia() {
+        return referencia ? "Sí" : "No";
     }
 
 

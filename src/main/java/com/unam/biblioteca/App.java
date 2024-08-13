@@ -26,7 +26,7 @@ public class App extends Application {
         servicio = new Servicio(new Repositorio(emf));
 
         // Cargar la escena inicial
-        FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("navUsuario.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("login.fxml"));
         scene = new Scene(fxmlLoader.load());
         stage.setTitle("BLUE LIBRARY");
         stage.setScene(scene);

@@ -12,8 +12,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-
-<GridPane xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.unam.biblioteca.controlador.CopiaController">
+<GridPane fx:id="rootCopia" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.unam.biblioteca.controlador.CopiaController">
    <columnConstraints>
       <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
    </columnConstraints>
@@ -33,15 +32,15 @@
               </Label>
               <VBox prefHeight="606.0" prefWidth="780.0">
                   <children>
-                      <TableView fx:id="tblLibro" prefHeight="226.0" prefWidth="760.0">
+                      <TableView fx:id="tblVista" prefHeight="405.0" prefWidth="760.0">
                           <columns>
-                        <TableColumn prefWidth="75.0" text="ID" />
+                              <TableColumn fx:id="colId" prefWidth="75.0" text="ID" />
                               <TableColumn fx:id="colIsbn" prefWidth="75.0" text="ISBN" />
                               <TableColumn fx:id="colTitulo" prefWidth="75.0" text="Título" />
                               <TableColumn fx:id="colAutor" prefWidth="75.0" text="Autor" />
-                              <TableColumn fx:id="colPrecio" prefWidth="75.0" text="Rack" />
-                              <TableColumn fx:id="colTematica" prefWidth="75.0" text="Tipo" />
-                              <TableColumn fx:id="colIdioma" prefWidth="75.0" text="Referencia" />
+                              <TableColumn fx:id="colRack" prefWidth="75.0" text="Rack" />
+                              <TableColumn fx:id="colTipo" prefWidth="75.0" text="Tipo" />
+                              <TableColumn fx:id="colReferencia" prefWidth="75.0" text="Referencia" />
                           </columns>
                           <columnResizePolicy>
                               <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />

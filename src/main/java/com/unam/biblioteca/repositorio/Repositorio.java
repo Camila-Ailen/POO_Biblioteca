@@ -2,6 +2,7 @@ package com.unam.biblioteca.repositorio;
 
 import com.unam.biblioteca.modelo.Copia;
 import com.unam.biblioteca.modelo.Libro;
+import com.unam.biblioteca.modelo.Rack;
 import com.unam.biblioteca.modelo.Rol;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
@@ -109,6 +110,19 @@ public class Repositorio {
         String queryString = "SELECT t FROM " + clase.getSimpleName() + " t WHERE t.nombre = :nombre";
         TypedQuery<T> consulta = em.createQuery(queryString, clase);
         consulta.setParameter("nombre", nombre);
+        return consulta.getSingleResult();
+    }
+
+    public Rack buscarPorDescripcion(String descripcion) {
+        TypedQuery<Rack> consulta = em.createQuery("SELECT r FROM Rack r WHERE r.descripcion = :descripcion", Rack.class);
+        consulta.setParameter("descripcion", descripcion);
+        return consulta.getSingleResult();
+    }
+
+    public Libro buscarLibroPorIsbn(String isbn) {
+        TypedQuery<Libro> consulta = em.createQuery("SELECT l FROM Libro l WHERE l.isbn = :isbn", Libro.class);
+        consulta.setParameter("isbn", isbn);
+        System.out.println("encontramos con isbn desde el repositorio");
         return consulta.getSingleResult();
     }
 

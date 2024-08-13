@@ -14,7 +14,7 @@ import javafx.scene.input.KeyEvent;
 import java.io.IOException;
 
 
-public class loginController {
+public class LoginController {
 
     @FXML
     private TextField txtUsuario;

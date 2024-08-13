@@ -141,7 +141,7 @@ public class NavegacionController {
             rootRack = loadForm("/com/unam/biblioteca/vistaRack.fxml");
             rootIdioma = loadForm("/com/unam/biblioteca/vistaIdioma.fxml");
             rootUsuario = loadForm("/com/unam/biblioteca/vistaMiembro.fxml");
-            rootCopia = loadForm("/com/unam/biblioteca/crudCopia.fxml");
+            rootCopia = loadForm("/com/unam/biblioteca/vistaCopia.fxml");
 
             contenedor.getChildren().addAll(rootAutor, rootTematica, rootLibros, rootEditorial, rootRack, rootIdioma, rootUsuario, rootCopia);
 
