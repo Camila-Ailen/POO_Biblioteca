@@ -37,6 +37,21 @@ public class Servicio {
         }
     }
 
+    //listar prestamos
+    public List<Prestamo> listarPrestamos() {
+        return repositorio.buscarTodos(Prestamo.class);
+    }
+
+    //contar cuantos dias de prestamo tiene un prestamo
+    public int contarDiasDePrestamo (Prestamo prestamo){
+        return repositorio.contarDiasDePrestamo(prestamo);
+    }
+
+    //registrar devolucion
+    public void registrarDevolucion (int idPrestamo){
+        repositorio.registrarDevolucion(idPrestamo);
+    }
+
 
     //MIEMBRO
 

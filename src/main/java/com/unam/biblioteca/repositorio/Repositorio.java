@@ -9,10 +9,10 @@ import jakarta.persistence.criteria.CriteriaQuery;
 import jakarta.persistence.criteria.Root;
 import jakarta.persistence.metamodel.SingularAttribute;
 
-import java.time.LocalDate;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 public class Repositorio {
 
@@ -152,6 +152,17 @@ public class Repositorio {
         return !consulta.getResultList().isEmpty();
     }
 
+    public int contarDiasDePrestamo(Prestamo prestamo) {
+        Date fechaRetiro = prestamo.getFechaRetiro();
+        Date fechaActual = new Date();
+
+        long diferencia = Math.abs(fechaActual.getTime() - fechaRetiro.getTime());
+        long diff = TimeUnit.DAYS.convert(diferencia, TimeUnit.MILLISECONDS);
+
+        return (int) diff;
+
+    }
+
     public void insertarPrestamo (Prestamo prestamo) {
         em.getTransaction().begin();
         em.persist(prestamo);
@@ -163,6 +174,16 @@ public class Repositorio {
         em.merge(prestamo);
         em.getTransaction().commit();
     }
+
+    public void registrarDevolucion (int idPrestamo){
+        Prestamo prestamo = em.find(Prestamo.class, idPrestamo);
+        if (prestamo != null && prestamo.getFechaDevolucion() == null) {
+            prestamo.setFechaDevolucion(new Date());
+            prestamo.setActivo(false);
+            em.merge(prestamo);
+        }
+    }
+
 
 }
 
