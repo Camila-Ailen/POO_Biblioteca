@@ -4,18 +4,53 @@ package com.unam.biblioteca.servicio;
 import com.unam.biblioteca.modelo.*;
 import com.unam.biblioteca.repositorio.Repositorio;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 
 public class Servicio {
-    private Repositorio repositorio;
+    private final Repositorio repositorio;
 
     public Servicio(Repositorio p) {
         this.repositorio = p;
     }
 
+    //PRESTAMOS
+    //registrar prestamo
+    public void registrarPrestamo(int idMiembro, int idCopia) {
+        if (!puedeSacarPrestamo(idMiembro)) {
+            throw new RuntimeException("El miembro no puede sacar prestamos");
+        }
+        Prestamo prestamo = new Prestamo(new Date(), repositorio.buscar(Miembro.class, idMiembro), repositorio.buscar(Copia.class, idCopia));
+        repositorio.insertarPrestamo(prestamo);
+    }
+
+    //devolver prestamo
+    public void devolverPrestamo (int idPrestamo) {
+        Prestamo prestamo = repositorio.buscar(Prestamo.class, idPrestamo);
+        if (prestamo != null){
+            prestamo.setFechaDevolucion(new Date());
+            prestamo.calcularMulta();
+            repositorio.actualizarPrestamo(prestamo);
+        }
+    }
+
+
     //MIEMBRO
+
+    //Contar copias por miembro
+    public int contarCopiasPorMiembro(Miembro miembro) {
+        return repositorio.contarCopiasPorMiembro(miembro.getId());
+    }
+
+    //puede sacar prestamos?
+    public boolean puedeSacarPrestamo(int idMiembro) {
+        long prestamosActivos = repositorio.contarPrestamosActivosPorMiembro(idMiembro);
+        boolean tieneVencidos = repositorio.tienePrestamosVencidos(idMiembro);
+        return prestamosActivos < 6 && !tieneVencidos;
+    }
 
     //Busca un miembro segun su id y devuelve el objeto
     public Miembro buscarMiembro(int id) {

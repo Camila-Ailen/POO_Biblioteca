@@ -1,6 +1,5 @@
 package com.unam.biblioteca.modelo;
 
-
 import java.io.Serializable;
 import java.util.Date;
 
@@ -12,14 +11,18 @@ public class Prestamo implements Serializable {
     @Id
     @GeneratedValue(strategy=GenerationType.SEQUENCE)
     private int id;
+
     @Column(nullable = false)
-    @Temporal(TemporalType.TIMESTAMP)
+    @Temporal(TemporalType.DATE)
     private Date fechaRetiro;
+
     @Column(nullable = true)
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date fechaDevuelto;
+    @Temporal(TemporalType.DATE)
+    private Date fechaDevolucion;
+
     @Column(nullable = true)
     private double multa;
+
     @Column(nullable = false)
     private boolean activo = true;
 
@@ -37,12 +40,8 @@ public class Prestamo implements Serializable {
     public Prestamo() {
     }
 
-    public Prestamo(int id, Date fechaRetiro, Date fechaDevuelto, double multa, boolean activo, Miembro unMiembro, Copia unCopia) {
-        this.id = id;
+    public Prestamo(Date fechaRetiro, Miembro unMiembro, Copia unCopia) {
         this.fechaRetiro = fechaRetiro;
-        this.fechaDevuelto = fechaDevuelto;
-        this.multa = multa;
-        this.activo = activo;
         this.unMiembro = unMiembro;
         this.unCopia = unCopia;
     }
@@ -63,12 +62,12 @@ public class Prestamo implements Serializable {
         this.fechaRetiro = fechaRetiro;
     }
 
-    public Date getFechaDevuelto() {
-        return fechaDevuelto;
+    public Date getFechaDevolucion() {
+        return fechaDevolucion;
     }
 
-    public void setFechaDevuelto(Date fechaDevuelto) {
-        this.fechaDevuelto = fechaDevuelto;
+    public void setFechaDevolucion(Date fechaDevolucion) {
+        this.fechaDevolucion = fechaDevolucion;
     }
 
     public double getMulta() {
@@ -103,5 +102,15 @@ public class Prestamo implements Serializable {
         this.unCopia = unCopia;
     }
 
+    public void calcularMulta(){
+        if (fechaDevolucion != null && fechaRetiro != null){
+            long diasRetraso = (fechaDevolucion.getTime() - fechaRetiro.getTime()) / (1000 * 60 * 60 * 24) - 10;
+            if (diasRetraso > 0){
+                this.multa = diasRetraso * unCopia.getUnLibro().getPrecio();
+            } else {
+                this.multa = 0;
+            }
+        }
+    }
 
 }

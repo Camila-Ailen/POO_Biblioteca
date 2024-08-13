@@ -14,7 +14,8 @@
 <?import javafx.scene.text.Font?>
 
 
-<GridPane alignment="CENTER" prefHeight="720.0" prefWidth="1020.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1">
+<GridPane alignment="CENTER" prefHeight="720.0" prefWidth="1020.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.unam.biblioteca.controlador.RegistrarPrestamoController" fx:id="rootRegistro">
    <columnConstraints>
       <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
    </columnConstraints>
@@ -69,7 +70,8 @@
                         </HBox>
                         <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="490.0">
                            <children>
-                              <Button fx:id="btnAgregarUsuario" alignment="CENTER" mnemonicParsing="false" prefHeight="26.0" prefWidth="145.0" style="-fx-background-color: #3498db; -fx-border-color: white; -fx-border-radius: 5px; -fx-background-radius: 5px;" text="Agregar Usuario" textFill="WHITE">
+                              <Button fx:id="btnAgregarUsuario" alignment="CENTER" mnemonicParsing="false" prefHeight="26.0" prefWidth="145.0" style="-fx-background-color: #3498db; -fx-border-color: white; -fx-border-radius: 5px; -fx-background-radius: 5px;"
+                                      text="Agregar Usuario" textFill="WHITE" onAction="#agregarUsuario" >
                                  <font>
                                     <Font name="System Bold" size="12.0" />
                                  </font>
@@ -92,7 +94,7 @@
                         <TableColumn fx:id="colTelefono" prefWidth="75.0" text="Teléfono" />
                         <TableColumn fx:id="colEmail" prefWidth="75.0" text="Email" />
                         <TableColumn fx:id="colLibro" prefWidth="75.0" text="Libros" />
-                        <TableColumn fx:id="colRol" prefWidth="75.0" text="Rol" />
+                       <TableColumn fx:id="colRol" prefWidth="75.0" text="Rol"/>
                     </columns>
                      <VBox.margin>
                         <Insets top="10.0" />
@@ -165,7 +167,8 @@
                   </TableView>
                   <HBox alignment="CENTER_RIGHT" prefHeight="50.0" prefWidth="200.0">
                      <children>
-                        <Button fx:id="btnConfirmar" mnemonicParsing="false" prefHeight="26.0" prefWidth="112.0" style="-fx-background-color: #2ecc71; -fx-border-color: white; -fx-border-radius: 5px; -fx-background-radius: 5px;" text="Confirmar" textFill="WHITE">
+                        <Button fx:id="btnConfirmar" mnemonicParsing="false" prefHeight="26.0" prefWidth="112.0" style="-fx-background-color: #2ecc71; -fx-border-color: white; -fx-border-radius: 5px; -fx-background-radius: 5px;"
+                                text="Confirmar" textFill="WHITE" onAction="#click">
                            <font>
                               <Font name="System Bold" size="12.0" />
                            </font>
@@ -173,7 +176,8 @@
                               <Insets left="450.0" />
                            </HBox.margin>
                         </Button>
-                        <Button fx:id="btnCancelar" mnemonicParsing="false" prefHeight="26.0" prefWidth="112.0" style="-fx-background-color: #e74c3c; -fx-border-color: white; -fx-border-radius: 5px; -fx-background-radius: 5px;" text="Cancelar" textFill="WHITE">
+                        <Button fx:id="btnCancelar" mnemonicParsing="false" prefHeight="26.0" prefWidth="112.0" style="-fx-background-color: #e74c3c; -fx-border-color: white; -fx-border-radius: 5px; -fx-background-radius: 5px;"
+                                text="Cancelar" textFill="WHITE" onAction="#click">
                            <font>
                               <Font name="System Bold" size="12.0" />
                            </font>

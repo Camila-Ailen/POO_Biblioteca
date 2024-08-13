@@ -140,6 +140,14 @@ public class Copia implements Serializable {
         return referencia ? "Sí" : "No";
     }
 
+    public String getNombreIdioma() {
+        return unLibro != null ? unLibro.getUnIdioma().getNombre() : "";
+    }
+
+    public String getNombreEditorial() {
+        return unLibro != null ? unLibro.getUnEditorial().getNombre() : "";
+    }
+
 
 
 }

@@ -1,9 +1,6 @@
 package com.unam.biblioteca.repositorio;
 
-import com.unam.biblioteca.modelo.Copia;
-import com.unam.biblioteca.modelo.Libro;
-import com.unam.biblioteca.modelo.Rack;
-import com.unam.biblioteca.modelo.Rol;
+import com.unam.biblioteca.modelo.*;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.TypedQuery;
@@ -12,6 +9,7 @@ import jakarta.persistence.criteria.CriteriaQuery;
 import jakarta.persistence.criteria.Root;
 import jakarta.persistence.metamodel.SingularAttribute;
 
+import java.time.LocalDate;
 import java.util.List;
 
 public class Repositorio {
@@ -126,4 +124,52 @@ public class Repositorio {
         return consulta.getSingleResult();
     }
 
+    public int contarCopiasPorMiembro(int idMiembro) {
+        TypedQuery<Long> consulta = em.createQuery("SELECT COUNT(c) FROM Copia c WHERE c.unPrestamo.unMiembro.id = :idMiembro", Long.class);
+        consulta.setParameter("idMiembro", idMiembro);
+        return consulta.getSingleResult().intValue();
+    }
+
+    public long contarPrestamosActivosPorMiembro (int idMiembro) {
+        TypedQuery<Long> consulta = em.createQuery("SELECT COUNT(p) FROM Prestamo p WHERE p.unMiembro.id = :idMiembro AND p.fechaDevolucion IS NULL", Long.class);
+        consulta.setParameter("idMiembro", idMiembro);
+        return consulta.getSingleResult();
+    }
+
+    public boolean tienePrestamosVencidos (int idMiembro) {
+        TypedQuery<Prestamo> consulta = em.createQuery("SELECT p FROM Prestamo p WHERE p.unMiembro.id = :idMiembro AND p.fechaDevolucion IS NULL AND p.fechaRetiro < :fechaLimite", Prestamo.class);
+        consulta.setParameter("idMiembro", idMiembro);
+        consulta.setParameter("fechaLimite", LocalDate.now().minusDays(10));
+        return !consulta.getResultList().isEmpty();
+    }
+
+    public void insertarPrestamo (Prestamo prestamo) {
+        em.getTransaction().begin();
+        em.persist(prestamo);
+        em.getTransaction().commit();
+    }
+
+    public void actualizarPrestamo (Prestamo prestamo) {
+        em.getTransaction().begin();
+        em.merge(prestamo);
+        em.getTransaction().commit();
+    }
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
