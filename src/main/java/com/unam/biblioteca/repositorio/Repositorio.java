@@ -10,6 +10,8 @@ import jakarta.persistence.criteria.Root;
 import jakarta.persistence.metamodel.SingularAttribute;
 
 import java.time.LocalDate;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 public class Repositorio {
@@ -125,7 +127,8 @@ public class Repositorio {
     }
 
     public int contarCopiasPorMiembro(int idMiembro) {
-        TypedQuery<Long> consulta = em.createQuery("SELECT COUNT(c) FROM Copia c WHERE c.unPrestamo.unMiembro.id = :idMiembro", Long.class);
+        TypedQuery<Long> consulta = em.createQuery(
+                "SELECT COUNT(c) FROM Copia c JOIN c.listaPrestamos p where p.unMiembro.id = :idMiembro", Long.class);
         consulta.setParameter("idMiembro", idMiembro);
         return consulta.getSingleResult().intValue();
     }
@@ -137,9 +140,15 @@ public class Repositorio {
     }
 
     public boolean tienePrestamosVencidos (int idMiembro) {
-        TypedQuery<Prestamo> consulta = em.createQuery("SELECT p FROM Prestamo p WHERE p.unMiembro.id = :idMiembro AND p.fechaDevolucion IS NULL AND p.fechaRetiro < :fechaLimite", Prestamo.class);
+        Calendar calendar = Calendar.getInstance();
+        calendar.add(Calendar.DAY_OF_YEAR, -10);
+        Date fechaLimite = calendar.getTime();
+
+        TypedQuery<Prestamo> consulta = em.createQuery(
+                "SELECT p FROM Prestamo p WHERE p.unMiembro.id = :idMiembro AND p.fechaDevolucion IS NULL AND p.fechaRetiro < :fechaLimite",
+                Prestamo.class);
         consulta.setParameter("idMiembro", idMiembro);
-        consulta.setParameter("fechaLimite", LocalDate.now().minusDays(10));
+        consulta.setParameter("fechaLimite", fechaLimite);
         return !consulta.getResultList().isEmpty();
     }
 
