@@ -153,5 +153,9 @@ public class Libro implements Serializable {
         return unIdioma != null ? unIdioma.getNombre() : "";
     }
 
+    public String getPrecioLibro(){
+        return String.valueOf(precio);
+    }
+
 
 }

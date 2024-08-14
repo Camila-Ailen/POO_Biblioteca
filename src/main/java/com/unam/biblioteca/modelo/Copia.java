@@ -112,7 +112,7 @@ public class Copia implements Serializable {
     public static Map<CopiaTipo, Integer> contarCopiasPorTipo(List<Copia> copias) {
         Map<CopiaTipo, Integer> conteo = new EnumMap<>(CopiaTipo.class);
         for (Copia copia : copias) {
-            if (copia.getEstado().equals(CopiaEstado.DISPONIBLE)) {
+            if (copia.getEstado().equals(CopiaEstado.DISPONIBLE) && !copia.isReferencia()) {
                 CopiaTipo tipo = copia.getTipo();
                 conteo.put(tipo, conteo.getOrDefault(tipo, 0) + 1);
             }

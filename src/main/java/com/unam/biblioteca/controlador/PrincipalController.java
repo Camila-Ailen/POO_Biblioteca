@@ -1,9 +1,7 @@
 package com.unam.biblioteca.controlador;
 
 import com.unam.biblioteca.App;
-import com.unam.biblioteca.modelo.Autor;
-import com.unam.biblioteca.modelo.Libro;
-import com.unam.biblioteca.modelo.Tematica;
+import com.unam.biblioteca.modelo.*;
 import com.unam.biblioteca.servicio.Servicio;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -11,6 +9,7 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 
 import java.util.List;
+import java.util.Map;
 
 
 public class PrincipalController {
@@ -70,6 +69,8 @@ public class PrincipalController {
             colTematica.setCellValueFactory(new PropertyValueFactory<>("nombreTematica"));
             colIdioma.setCellValueFactory(new PropertyValueFactory<>("nombreIdioma"));
             colEditorial.setCellValueFactory(new PropertyValueFactory<>("nombreEditorial"));
+
+            tblLibros.getSelectionModel().selectedItemProperty().addListener(e -> cargarDatos());
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
@@ -123,5 +124,33 @@ public class PrincipalController {
         tblLibros.getItems().clear();
         tblLibros.getItems().addAll(servicio.listarTodosLosLibros());
         cargarCombos();
+    }
+
+
+    private void cargarDatos() {
+        var unLibro = tblLibros.getSelectionModel().getSelectedItem();
+
+        if (unLibro != null) {
+            List<Copia> copias = servicio.listarCopiasPorLibro(unLibro);
+            Map<CopiaTipo, Integer> conteo = Copia.contarCopiasPorTipo(copias);
+
+            lblTitulo.setText(unLibro.getTitulo());
+            lblAutor.setText(unLibro.getNombreAutor());
+            lblPrecio.setText(unLibro.getPrecioLibro());
+            lblTapaDura.setText(String.valueOf(conteo.getOrDefault(CopiaTipo.TAPA_DURA, 0)));
+            lblRustica.setText(String.valueOf(conteo.getOrDefault(CopiaTipo.LIBRO_EN_RUSTICA, 0)));
+            lblAudiolibro.setText(String.valueOf(conteo.getOrDefault(CopiaTipo.AUDIOLIBRO, 0)));
+            lblElectronico.setText(String.valueOf(conteo.getOrDefault(CopiaTipo.LIBRO_ELECTRONICO, 0)));
+        } else {
+            lblTitulo.setText("");
+            lblAutor.setText("");
+            lblPrecio.setText("");
+            lblTapaDura.setText("CANTIDAD DISPONIBLE");
+            lblRustica.setText("CANTIDAD DISPONIBLE");
+            lblAudiolibro.setText("CANTIDAD DISPONIBLE");
+            lblElectronico.setText("CANTIDAD DISPONIBLE");
+        }
+
+
     }
 }
