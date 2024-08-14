@@ -30,7 +30,7 @@ public class Servicio {
     public void devolverPrestamo (int idPrestamo) {
         Prestamo prestamo = repositorio.buscar(Prestamo.class, idPrestamo);
         if (prestamo != null){
-            prestamo.setFechaDevolucion(new Date());
+            //prestamo.setFechaDevolucion(new Date());
             prestamo.calcularMulta();
             repositorio.actualizarPrestamo(prestamo);
         }

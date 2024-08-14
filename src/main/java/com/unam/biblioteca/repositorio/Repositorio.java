@@ -235,6 +235,7 @@ public class Repositorio {
             Prestamo prestamo = em.find(Prestamo.class, idPrestamo);
             if (prestamo != null && prestamo.getFechaDevolucion() == null) {
                 prestamo.setFechaDevolucion(new Date());
+                //prestamo.calcularMulta();
                 prestamo.setActivo(false);
                 em.merge(prestamo);
 

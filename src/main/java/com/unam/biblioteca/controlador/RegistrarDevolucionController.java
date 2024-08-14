@@ -112,6 +112,7 @@ public class RegistrarDevolucionController {
         if (prestamoSeleccionado != null) {
             try {
                 servicio.registrarDevolucion(prestamoSeleccionado.getId());
+                servicio.devolverPrestamo(prestamoSeleccionado.getId());
                 actualizarTabla();
                 Alerta.mostrarAlerta(Alert.AlertType.INFORMATION, "Devolución registrada", "La devolución se ha registrado correctamente", "La devolución se ha registrado correctamente");
             } catch (Exception e) {
