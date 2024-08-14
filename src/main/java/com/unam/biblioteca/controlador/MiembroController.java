@@ -25,6 +25,8 @@ public class MiembroController {
     private Button btnEliminar;
     @FXML
     private Button btnVerHistorial;
+    @FXML
+    private Button btnRecargar;
 
     //Tabla
     @FXML
@@ -134,5 +136,10 @@ public class MiembroController {
     private void actualizarTabla() {
         tblVista.getItems().clear();
         tblVista.getItems().addAll(servicio.listarTodosLosMiembros());
+    }
+
+    @FXML
+    private void recargar(ActionEvent event) {
+        actualizarTabla();
     }
 }

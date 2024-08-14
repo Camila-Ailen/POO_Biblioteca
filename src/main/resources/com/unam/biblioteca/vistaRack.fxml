@@ -5,13 +5,14 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<GridPane alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0"
-          xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.unam.biblioteca.controlador.RackController" fx:id="rootRack">
+<GridPane fx:id="rootRack" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1020.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.unam.biblioteca.controlador.RackController">
 
     <children>
         <Label alignment="CENTER" text="Vista Rack">
@@ -19,61 +20,81 @@
                 <Font name="System Bold Italic" size="18.0" />
             </font>
             <GridPane.margin>
-                <Insets left="250.0" />
+                <Insets />
             </GridPane.margin>
         </Label>
-        <HBox GridPane.rowIndex="1">
+        <HBox prefHeight="680.0" prefWidth="1020.0" GridPane.rowIndex="1">
             <children>
-                <TableView prefHeight="340.0" prefWidth="475.0" style="-fx-border-color: black;" fx:id="tblVista">
-                    <columns>
-                        <TableColumn prefWidth="103.20001065731049" text="ID" fx:id="colId"/>
-                        <TableColumn prefWidth="112.80005645751953" text="Descripcion" fx:id="colDescripcion"/>
-                    </columns>
-                    <columnResizePolicy>
-                        <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
-                    </columnResizePolicy>
-                    <opaqueInsets>
-                        <Insets />
-                    </opaqueInsets>
-                    <HBox.margin>
-                        <Insets bottom="5.0" />
-                    </HBox.margin>
-                </TableView>
-                <VBox prefHeight="200.0" prefWidth="100.0">
-                    <children>
-                        <Button mnemonicParsing="false" prefHeight="35.0" prefWidth="112.0" style="-fx-background-color: #2ecc71; -fx-border-color: white; -fx-border-radius: 5px; -fx-background-radius: 5px;"
-                                text="Crear" textFill="WHITE" fx:id="btnCrear" onAction="#crear">
-                            <font>
-                                <Font name="System Bold" size="12.0" />
-                            </font>
-                            <VBox.margin>
-                                <Insets left="15.0" top="25.0" />
-                            </VBox.margin>
+            <VBox alignment="CENTER" prefHeight="636.0" prefWidth="1010.0">
+               <children>
+                  <HBox alignment="CENTER_RIGHT">
+                     <children>
+                        <Button fx:id="btnRecargar" mnemonicParsing="false" onAction="#recargar" prefHeight="26.0" prefWidth="150.0" style="-fx-background-color: #3498db; -fx-border-color: white; -fx-border-radius: 5px; -fx-background-radius: 5px;" text="Recargar Tabla" textFill="WHITE">
+                           <font>
+                              <Font name="System Bold" size="12.0" />
+                           </font>
                         </Button>
-                        <Button mnemonicParsing="false" prefHeight="35.0" prefWidth="112.0" style="-fx-background-color: #3498db; -fx-border-color: white; -fx-border-radius: 5px; -fx-background-radius: 5px;"
-                                text="Modificar" textFill="WHITE" fx:id="btnModificar" onAction="#modificar">
-                            <font>
-                                <Font name="System Bold" size="12.0" />
-                            </font>
-                            <VBox.margin>
-                                <Insets left="15.0" top="5.0" />
-                            </VBox.margin>
+                     </children>
+                     <VBox.margin>
+                        <Insets bottom="10.0" right="10.0" />
+                     </VBox.margin>
+                  </HBox>
+                      <TableView fx:id="tblVista" prefHeight="430.0" prefWidth="980.0" style="-fx-border-color: black;">
+                          <columns>
+                              <TableColumn fx:id="colId" prefWidth="103.20001065731049" text="ID" />
+                              <TableColumn fx:id="colDescripcion" prefWidth="112.80005645751953" text="Descripcion" />
+                          </columns>
+                          <columnResizePolicy>
+                              <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                          </columnResizePolicy>
+                          <opaqueInsets>
+                              <Insets />
+                          </opaqueInsets>
+                      </TableView>
+                  <HBox alignment="CENTER">
+                     <children>
+                        <Button fx:id="btnCrear1" mnemonicParsing="false" onAction="#crear" prefHeight="26.0" prefWidth="112.0" style="-fx-background-color: #2ecc71; -fx-border-color: white; -fx-border-radius: 5px; -fx-background-radius: 5px;" text="Crear" textFill="WHITE">
+                           <font>
+                              <Font name="System Bold" size="12.0" />
+                           </font>
+                           <HBox.margin>
+                              <Insets left="10.0" />
+                           </HBox.margin>
                         </Button>
-                        <Button mnemonicParsing="false" prefHeight="35.0" prefWidth="112.0" style="-fx-background-color: #e74c3c; -fx-border-color: white; -fx-border-radius: 5px; -fx-background-radius: 5px;"
-                                text="Eliminar" textFill="WHITE" fx:id="btnEliminar" onAction="#eliminar">
-                            <font>
-                                <Font name="System Bold" size="12.0" />
-                            </font>
-                            <VBox.margin>
-                                <Insets left="15.0" top="5.0" />
-                            </VBox.margin>
+                        <Button fx:id="btnModificar1" mnemonicParsing="false" onAction="#modificar" prefHeight="26.0" prefWidth="112.0" style="-fx-background-color: #3498db; -fx-border-color: white; -fx-border-radius: 5px; -fx-background-radius: 5px;" text="Modificar" textFill="WHITE">
+                           <font>
+                              <Font name="System Bold" size="12.0" />
+                           </font>
+                           <HBox.margin>
+                              <Insets left="10.0" />
+                           </HBox.margin>
                         </Button>
-                    </children>
-                </VBox>
+                        <Button fx:id="btnEliminar1" mnemonicParsing="false" onAction="#eliminar" prefHeight="26.0" prefWidth="112.0" style="-fx-background-color: #e74c3c; -fx-border-color: white; -fx-border-radius: 5px; -fx-background-radius: 5px;" text="Eliminar" textFill="WHITE">
+                           <font>
+                              <Font name="System Bold" size="12.0" />
+                           </font>
+                           <HBox.margin>
+                              <Insets left="10.0" />
+                           </HBox.margin>
+                        </Button>
+                     </children>
+                     <padding>
+                        <Insets bottom="20.0" top="10.0" />
+                     </padding>
+                  </HBox>
+               </children>
+            </VBox>
             </children>
             <GridPane.margin>
                 <Insets left="5.0" right="5.0" top="10.0" />
             </GridPane.margin>
         </HBox>
     </children>
+   <columnConstraints>
+      <ColumnConstraints halignment="CENTER" />
+   </columnConstraints>
+   <rowConstraints>
+      <RowConstraints maxHeight="96.0" minHeight="27.0" prefHeight="96.0" valignment="CENTER" />
+      <RowConstraints maxHeight="684.0" minHeight="615.0" prefHeight="615.0" />
+   </rowConstraints>
 </GridPane>

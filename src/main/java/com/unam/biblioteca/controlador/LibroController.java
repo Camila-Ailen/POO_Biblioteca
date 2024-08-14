@@ -22,6 +22,8 @@ public class LibroController {
     private Button btnModificar;
     @FXML
     private Button btnEliminar;
+    @FXML
+    private Button btnRecargar;
 
     //Tabla
     @FXML
@@ -123,6 +125,9 @@ public class LibroController {
         tblVista.getItems().addAll(servicio.listarTodosLosLibros());
     }
 
-
+    @FXML
+    private void recargar(ActionEvent event) {
+        actualizarTabla();
+    }
 
 }

@@ -13,6 +13,8 @@ public class RegistrarDevolucionController {
     //botones
     @FXML
     private Button btnRegistrar;
+    @FXML
+    private Button btnRecargar;
 
     //Tabla de prestamos
     @FXML
@@ -123,17 +125,9 @@ public class RegistrarDevolucionController {
         }
     }
 
-
-
-
-
-
-
-
-
-
-
-
-
+    @FXML
+    private void recargar(ActionEvent event) {
+        actualizarTabla();
+    }
 
 }

@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<GridPane fx:id="rootLibros" alignment="CENTER" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.unam.biblioteca.controlador.LibroController">
+<GridPane fx:id="rootLibros" alignment="CENTER" prefHeight="720.0" prefWidth="1020.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.unam.biblioteca.controlador.LibroController">
     <columnConstraints>
         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
     </columnConstraints>
@@ -20,21 +20,36 @@
         <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
     </rowConstraints>
     <children>
-        <VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="800.0">
+        <VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1020.0">
             <children>
                 <Label text="Libros Registrados">
                     <font>
                         <Font name="System Bold Italic" size="18.0" />
                     </font>
+               <VBox.margin>
+                  <Insets bottom="10.0" />
+               </VBox.margin>
                 </Label>
                 <VBox>
                     <children>
+                  <HBox alignment="CENTER_RIGHT">
+                     <children>
+                        <Button fx:id="btnRecargar" mnemonicParsing="false" onAction="#recargar" prefHeight="26.0" prefWidth="150.0" style="-fx-background-color: #3498db; -fx-border-color: white; -fx-border-radius: 5px; -fx-background-radius: 5px;" text="Recargar Tabla" textFill="WHITE">
+                           <font>
+                              <Font name="System Bold" size="12.0" />
+                           </font>
+                        </Button>
+                     </children>
+                     <VBox.margin>
+                        <Insets bottom="10.0" right="20.0" />
+                     </VBox.margin>
+                  </HBox>
                         <HBox alignment="CENTER" nodeOrientation="LEFT_TO_RIGHT">
                             <VBox.margin>
                                 <Insets />
                             </VBox.margin>
                             <children>
-                                <TableView fx:id="tblVista" prefWidth="700.0">
+                                <TableView fx:id="tblVista" prefHeight="430.0" prefWidth="980.0">
                                     <columns>
                                         <TableColumn fx:id="colId" prefWidth="75.0" text="ID" />
                                         <TableColumn fx:id="colIsbn" prefWidth="75.0" text="ISBN" />

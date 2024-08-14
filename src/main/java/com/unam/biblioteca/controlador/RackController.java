@@ -23,6 +23,8 @@ public class RackController {
     private Button btnModificar;
     @FXML
     private Button btnEliminar;
+    @FXML
+    private Button btnRecargar;
 
     //Tabla
     @FXML
@@ -104,5 +106,10 @@ public class RackController {
     private void actualizarTabla() {
         tblVista.getItems().clear();
         tblVista.getItems().addAll(servicio.listarRacks());
+    }
+
+    @FXML
+    private void recargar(ActionEvent event) {
+        actualizarTabla();
     }
 }

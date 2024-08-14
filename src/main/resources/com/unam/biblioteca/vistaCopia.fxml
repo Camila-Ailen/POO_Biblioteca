@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<GridPane fx:id="rootCopia" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.unam.biblioteca.controlador.CopiaController">
+<GridPane fx:id="rootCopia" prefHeight="720.0" prefWidth="1020.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.unam.biblioteca.controlador.CopiaController">
    <columnConstraints>
       <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
    </columnConstraints>
@@ -20,7 +20,7 @@
       <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
    </rowConstraints>
    <children>
-      <VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="800.0">
+      <VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1020.0">
           <children>
               <Label text="Copias ">
                   <font>
@@ -32,6 +32,18 @@
               </Label>
               <VBox prefHeight="606.0" prefWidth="780.0">
                   <children>
+                  <HBox alignment="CENTER_RIGHT">
+                     <children>
+                        <Button fx:id="btnRecargar" mnemonicParsing="false" onAction="#recargar" prefHeight="26.0" prefWidth="150.0" style="-fx-background-color: #3498db; -fx-border-color: white; -fx-border-radius: 5px; -fx-background-radius: 5px;" text="Recargar Tabla" textFill="WHITE">
+                           <font>
+                              <Font name="System Bold" size="12.0" />
+                           </font>
+                        </Button>
+                     </children>
+                     <VBox.margin>
+                        <Insets right="20.0" />
+                     </VBox.margin>
+                  </HBox>
                       <TableView fx:id="tblVista" prefHeight="405.0" prefWidth="760.0">
                           <columns>
                               <TableColumn fx:id="colId" prefWidth="75.0" text="ID" />

@@ -21,6 +21,8 @@ public class RegistrarPrestamoController {
     private Button btnConfirmar;
     @FXML
     private Button btnCancelar;
+    @FXML
+    private Button btnRecargar;
 
     //tabla de usuarios
     @FXML
@@ -144,6 +146,10 @@ public class RegistrarPrestamoController {
             }
     }
 
+    @FXML
+    private void recargar(ActionEvent event) {
+        actualizarTablas();
+    }
 
 
 }

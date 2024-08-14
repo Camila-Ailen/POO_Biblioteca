@@ -12,8 +12,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<GridPane prefHeight="720.0" prefWidth="1020.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1"
-fx:controller="com.unam.biblioteca.controlador.RegistrarDevolucionController" fx:id="rootDevolucion">
+<GridPane fx:id="rootDevolucion" prefHeight="720.0" prefWidth="1020.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.unam.biblioteca.controlador.RegistrarDevolucionController">
    <columnConstraints>
       <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
    </columnConstraints>
@@ -254,8 +253,15 @@ fx:controller="com.unam.biblioteca.controlador.RegistrarDevolucionController" fx
                   </GridPane>
                   <HBox alignment="CENTER_RIGHT" prefHeight="80.0" prefWidth="100.0">
                      <children>
-                        <Button fx:id="btnRegistrar" mnemonicParsing="false" prefHeight="80.0" prefWidth="150.0" style="-fx-background-color: #2ecc71; -fx-border-color: white; -fx-border-radius: 5px; -fx-background-radius: 5px;"
-                                text="Registrar " textFill="WHITE" onAction="#registrar">
+                        <Button fx:id="btnRecargar" mnemonicParsing="false" onAction="#recargar" prefHeight="80.0" prefWidth="150.0" style="-fx-background-color: #3498db; -fx-border-color: white; -fx-border-radius: 5px; -fx-background-radius: 5px;" text="Recargar Tabla" textFill="WHITE">
+                           <font>
+                              <Font name="System Bold" size="12.0" />
+                           </font>
+                           <HBox.margin>
+                              <Insets right="30.0" />
+                           </HBox.margin>
+                        </Button>
+                        <Button fx:id="btnRegistrar" mnemonicParsing="false" onAction="#registrar" prefHeight="80.0" prefWidth="150.0" style="-fx-background-color: #2ecc71; -fx-border-color: white; -fx-border-radius: 5px; -fx-background-radius: 5px;" text="Registrar " textFill="WHITE">
                            <font>
                               <Font name="System Bold" size="12.0" />
                            </font>

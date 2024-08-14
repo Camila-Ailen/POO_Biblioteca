@@ -15,8 +15,6 @@ import java.util.stream.Collectors;
 public class PrincipalController {
     @FXML
     private Button btnRecargar;
-    @FXML
-    private Button btnBuscar;
 
     @FXML
     private ComboBox<String> cmbTitulo;
@@ -24,14 +22,6 @@ public class PrincipalController {
     private ComboBox<String> cmbAutor;
     @FXML
     private ComboBox<String> cmbTematica;
-
-    //campos de texto
-    @FXML
-    private TextField txtTitulo;
-    @FXML
-    private TextField txtAutor;
-    @FXML
-    private TextField txtTematica;
 
     //Tabla
     @FXML
