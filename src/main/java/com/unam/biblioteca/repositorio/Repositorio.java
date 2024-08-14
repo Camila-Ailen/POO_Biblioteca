@@ -132,9 +132,15 @@ public class Repositorio {
     }
 
     public List<Copia> listarCopiasDisponibles() {
-        TypedQuery<Copia> consulta = em.createQuery("SELECT c FROM Copia c WHERE c.estado = 'DISPONIBLE' AND c.referencia = false", Copia.class);
-        System.out.println("desde el repositorio, esto tiene la consulta: " + consulta.getResultList());
-        return consulta.getResultList();
+        System.out.println("Entramos a listar las copias disponibles del repo");
+        TypedQuery<Copia> consulta = em.createQuery(
+                "SELECT c FROM Copia c WHERE c.estado = :estado AND c.referencia = false", Copia.class
+        );
+        consulta.setParameter("estado", CopiaEstado.DISPONIBLE);
+        System.out.println("Parámetro estado establecido: " + consulta.getParameterValue("estado"));
+        List<Copia> resultado = consulta.getResultList();
+        System.out.println("Resultado de la consulta: " + resultado);
+        return resultado;
     }
 
     public int contarCopiasPorMiembro(int idMiembro) {
