@@ -172,7 +172,8 @@
                   <Insets left="20.0" right="20.0" />
                </VBox.margin>
             </GridPane>
-            <Button fx:id="btnRecargar" mnemonicParsing="false" prefHeight="35.0" prefWidth="150.0" style="-fx-background-color: #3498db; -fx-border-color: white; -fx-border-radius: 5px; -fx-background-radius: 5px;" text="Recargar Tabla" textFill="WHITE">
+            <Button fx:id="btnRecargar" mnemonicParsing="false" prefHeight="35.0" prefWidth="150.0" style="-fx-background-color: #3498db; -fx-border-color: white; -fx-border-radius: 5px; -fx-background-radius: 5px;"
+                    text="Recargar Tabla" textFill="WHITE" onAction="#recargar">
                <font>
                   <Font name="System Bold" size="12.0" />
                </font>
