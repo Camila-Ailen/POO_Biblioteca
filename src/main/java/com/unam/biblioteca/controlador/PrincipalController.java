@@ -10,18 +10,28 @@ import javafx.scene.control.cell.PropertyValueFactory;
 
 import java.util.List;
 import java.util.Map;
-
+import java.util.stream.Collectors;
 
 public class PrincipalController {
     @FXML
     private Button btnRecargar;
+    @FXML
+    private Button btnBuscar;
 
     @FXML
-    private ComboBox cmbTitulo;
+    private ComboBox<String> cmbTitulo;
     @FXML
-    private ComboBox cmbAutor;
+    private ComboBox<String> cmbAutor;
     @FXML
-    private ComboBox cmbTematica;
+    private ComboBox<String> cmbTematica;
+
+    //campos de texto
+    @FXML
+    private TextField txtTitulo;
+    @FXML
+    private TextField txtAutor;
+    @FXML
+    private TextField txtTematica;
 
     //Tabla
     @FXML
@@ -61,7 +71,7 @@ public class PrincipalController {
     private void initialize() {
         servicio = App.getServicio();
 
-        //Inicializar tabla
+        // Inicializar tabla
         try {
             colIsbn.setCellValueFactory(new PropertyValueFactory<>("isbn"));
             colTitulo.setCellValueFactory(new PropertyValueFactory<>("titulo"));
@@ -77,11 +87,22 @@ public class PrincipalController {
 
         try {
             actualizarTabla();
+            cargarCombos();
         } catch (Exception e) {
             System.out.println("No se pudo actualizar la tabla");
             Alerta.mostrarAlerta(Alert.AlertType.ERROR, "Error al cargar los datos", "Ocurrió un error al cargar los datos de los Libros en la pantalla principal.", e.getMessage());
         }
-        cargarCombos();
+
+
+        // Set ComboBoxes to be non-editable
+        cmbTitulo.setEditable(false);
+        cmbAutor.setEditable(false);
+        cmbTematica.setEditable(false);
+
+        // Add listeners to ComboBoxes for selection
+        cmbTitulo.setOnAction(e -> filtrarTabla());
+        cmbAutor.setOnAction(e -> filtrarTabla());
+        cmbTematica.setOnAction(e -> filtrarTabla());
     }
 
     private void cargarCombos() {
@@ -94,29 +115,31 @@ public class PrincipalController {
         cmbTitulo.getItems().clear();
         List<Libro> libros = servicio.listarTodosLosLibros();
         for (Libro libro : libros) {
-            cmbTitulo.getItems().add(libro.getTitulo());
+            cmbTitulo.getItems().add(libro.getTitulo().toUpperCase());
         }
+        cmbTitulo.setPromptText("Titulo");
     }
 
     private void cargarAutor() {
         cmbAutor.getItems().clear();
         List<Autor> autores = servicio.listarAutores();
         for (Autor autor : autores) {
-            cmbAutor.getItems().add(autor.getNombre());
+            cmbAutor.getItems().add(autor.getNombre().toUpperCase());
         }
+        cmbAutor.setPromptText("Autor");
     }
 
     private void cargarTematica() {
         cmbTematica.getItems().clear();
         List<Tematica> tematicas = servicio.listarTematicas();
         for (Tematica tematica : tematicas) {
-            cmbTematica.getItems().add(tematica.getNombre());
+            cmbTematica.getItems().add(tematica.getNombre().toUpperCase());
         }
+        cmbTematica.setPromptText("Tematica");
     }
 
-
     @FXML
-    private void recargar (ActionEvent event) {
+    private void recargar(ActionEvent event) {
         actualizarTabla();
     }
 
@@ -125,7 +148,6 @@ public class PrincipalController {
         tblLibros.getItems().addAll(servicio.listarTodosLosLibros());
         cargarCombos();
     }
-
 
     private void cargarDatos() {
         var unLibro = tblLibros.getSelectionModel().getSelectedItem();
@@ -150,7 +172,20 @@ public class PrincipalController {
             lblAudiolibro.setText("CANTIDAD DISPONIBLE");
             lblElectronico.setText("CANTIDAD DISPONIBLE");
         }
+    }
 
+    private void filtrarTabla() {
+        String titulo = cmbTitulo.getValue() != null ? cmbTitulo.getValue() : "";
+        String autor = cmbAutor.getValue() != null ? cmbAutor.getValue() : "";
+        String tematica = cmbTematica.getValue() != null ? cmbTematica.getValue() : "";
 
+        List<Libro> librosFiltrados = servicio.listarTodosLosLibros().stream()
+                .filter(libro -> (titulo.isEmpty() || libro.getTitulo().equalsIgnoreCase(titulo)) &&
+                        (autor.isEmpty() || libro.getNombreAutor().equalsIgnoreCase(autor)) &&
+                        (tematica.isEmpty() || libro.getNombreTematica().equalsIgnoreCase(tematica)))
+                .collect(Collectors.toList());
+
+        tblLibros.getItems().clear();
+        tblLibros.getItems().addAll(librosFiltrados);
     }
 }

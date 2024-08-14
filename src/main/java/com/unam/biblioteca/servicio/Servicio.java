@@ -157,6 +157,21 @@ public class Servicio {
         return repositorio.buscarLibroPorIsbn(isbn);
     }
 
+    //buscar libro por titulo
+    public List<Libro> buscarLibroPorTitulo(String titulo) {
+        return repositorio.buscarLibroPorTitulo(titulo);
+    }
+
+    //buscar libro por autor
+    public List<Libro> buscarLibroPorAutor(String autor) {
+        return repositorio.buscarLibroPorAutor(autor);
+    }
+
+    //buscar libro por tematica
+    public List<Libro> buscarLibroPorTematica(String tematica) {
+        return repositorio.buscarLibroPorTematica(tematica);
+    }
+
     //Listado de todos los libros
     public List<Libro> listarTodosLosLibros() {
         return this.repositorio.buscarTodos(Libro.class);

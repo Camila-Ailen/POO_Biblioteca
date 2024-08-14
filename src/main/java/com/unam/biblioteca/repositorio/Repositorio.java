@@ -122,8 +122,25 @@ public class Repositorio {
     public Libro buscarLibroPorIsbn(String isbn) {
         TypedQuery<Libro> consulta = em.createQuery("SELECT l FROM Libro l WHERE l.isbn = :isbn", Libro.class);
         consulta.setParameter("isbn", isbn);
-        System.out.println("encontramos con isbn desde el repositorio");
         return consulta.getSingleResult();
+    }
+
+    public List<Libro> buscarLibroPorTitulo(String titulo) {
+        TypedQuery<Libro> consulta = em.createQuery("FROM Libro l WHERE l.titulo LIKE :titulo", Libro.class);
+        consulta.setParameter("titulo", titulo);
+        return consulta.getResultList();
+    }
+
+    public List<Libro> buscarLibroPorAutor(String autor) {
+        TypedQuery<Libro> consulta = em.createQuery("FROM Libro l WHERE l.autor = :autor", Libro.class);
+        consulta.setParameter("autor", autor);
+        return consulta.getResultList();
+    }
+
+    public List<Libro> buscarLibroPorTematica(String tematica) {
+        TypedQuery<Libro> consulta = em.createQuery("FROM Libro l WHERE l.tematica = :tematica", Libro.class);
+        consulta.setParameter("tematica", tematica);
+        return consulta.getResultList();
     }
 
     public List<Copia> listarTodasLasCopias() {

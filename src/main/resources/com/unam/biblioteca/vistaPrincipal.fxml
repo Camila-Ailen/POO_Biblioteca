@@ -13,7 +13,6 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-
 <GridPane prefHeight="720.0" prefWidth="1020.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.unam.biblioteca.controlador.PrincipalController">
    <columnConstraints>
       <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
@@ -172,8 +171,7 @@
                   <Insets left="20.0" right="20.0" />
                </VBox.margin>
             </GridPane>
-            <Button fx:id="btnRecargar" mnemonicParsing="false" prefHeight="35.0" prefWidth="150.0" style="-fx-background-color: #3498db; -fx-border-color: white; -fx-border-radius: 5px; -fx-background-radius: 5px;"
-                    text="Recargar Tabla" textFill="WHITE" onAction="#recargar">
+            <Button fx:id="btnRecargar" mnemonicParsing="false" onAction="#recargar" prefHeight="35.0" prefWidth="150.0" style="-fx-background-color: #3498db; -fx-border-color: white; -fx-border-radius: 5px; -fx-background-radius: 5px;" text="Recargar Tabla" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="12.0" />
                </font>
