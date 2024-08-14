@@ -2,6 +2,7 @@ package com.unam.biblioteca.controlador;
 
 import com.unam.biblioteca.App;
 import com.unam.biblioteca.modelo.Copia;
+import com.unam.biblioteca.modelo.CopiaEstado;
 import com.unam.biblioteca.servicio.Servicio;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -40,6 +41,8 @@ public class CopiaController {
     private TableColumn<Copia, String> colTipo;
     @FXML
     private TableColumn<Copia, String> colReferencia;
+    @FXML
+    private TableColumn<Copia, CopiaEstado> colEstado;
 
     private Servicio servicio;
 
@@ -56,18 +59,41 @@ public class CopiaController {
             colRack.setCellValueFactory(new PropertyValueFactory<>("nombreRack"));
             colTipo.setCellValueFactory(new PropertyValueFactory<>("tipo"));
             colReferencia.setCellValueFactory(new PropertyValueFactory<>("referencia"));
+            colEstado.setCellValueFactory(new PropertyValueFactory<>("estado"));
+
+            colEstado.setCellFactory(column -> new TableCell<Copia, CopiaEstado>(){
+                @Override
+                protected void updateItem(CopiaEstado item, boolean empty) {
+                    super.updateItem(item, empty);
+                    if (item == null || empty) {
+                        setText(null);
+                        setStyle("");
+                    } else {
+                        setText(item.name());
+                        TableRow<Copia> currentRow = getTableRow();
+                        switch (item) {
+                            case PRESTADA:
+                                currentRow.setStyle("-fx-background-color: lightblue");
+                                break;
+                            case DISPONIBLE:
+                                currentRow.setStyle("-fx-background-color: lightgreen");
+                                break;
+                            case PERDIDA:
+                                currentRow.setStyle("-fx-background-color: lightcoral");
+                                break;
+                            default:
+                                setStyle("");
+                                break;
+                        }
+                    }
+                }
+            });
+            actualizarTabla();
         } catch (Exception e) {
             System.out.println("No se pudieron inicializar las columnas");
             throw new RuntimeException(e);
         }
 
-
-        try {
-            actualizarTabla();
-        } catch (Exception e) {
-            System.out.println("No se pudo actualizar la tabla");
-            Alerta.mostrarAlerta(Alert.AlertType.ERROR, "Error al cargar los datos", "Ocurrió un error al cargar los datos de las Copias.", e.getMessage());
-        }
     }
 
 

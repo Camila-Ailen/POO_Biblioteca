@@ -126,6 +126,17 @@ public class Repositorio {
         return consulta.getSingleResult();
     }
 
+    public List<Copia> listarTodasLasCopias() {
+        TypedQuery<Copia> consulta = em.createQuery("SELECT c FROM Copia c", Copia.class);
+        return consulta.getResultList();
+    }
+
+    public List<Copia> listarCopiasDisponibles() {
+        TypedQuery<Copia> consulta = em.createQuery("SELECT c FROM Copia c WHERE c.estado = 'DISPONIBLE' AND c.referencia = false", Copia.class);
+        System.out.println("desde el repositorio, esto tiene la consulta: " + consulta.getResultList());
+        return consulta.getResultList();
+    }
+
     public int contarCopiasPorMiembro(int idMiembro) {
         TypedQuery<Long> consulta = em.createQuery(
                 "SELECT COUNT(c) FROM Copia c JOIN c.listaPrestamos p where p.unMiembro.id = :idMiembro", Long.class);
@@ -163,10 +174,30 @@ public class Repositorio {
 
     }
 
-    public void insertarPrestamo (Prestamo prestamo) {
+    public void registrarPrestamo(int idMiembro, int idCopia) {
         em.getTransaction().begin();
-        em.persist(prestamo);
-        em.getTransaction().commit();
+        try {
+            Copia copia = em.find(Copia.class, idCopia);
+            if (copia != null && CopiaEstado.DISPONIBLE.equals(copia.getEstado())) {
+                copia.setEstado(CopiaEstado.PRESTADA);
+                em.merge(copia);
+
+                Prestamo prestamo = new Prestamo();
+                prestamo.setUnCopia(copia);
+                prestamo.setUnMiembro(em.find(Miembro.class, idMiembro));
+                prestamo.setFechaRetiro(new Date());
+                prestamo.setActivo(true);
+                em.persist(prestamo);
+
+                em.getTransaction().commit();
+            } else {
+                em.getTransaction().rollback();
+                throw new RuntimeException("No se pudo registrar el prestamo");
+            }
+        } catch (RuntimeException e) {
+            em.getTransaction().rollback();
+            throw e;
+        }
     }
 
     public void actualizarPrestamo (Prestamo prestamo) {
@@ -176,12 +207,33 @@ public class Repositorio {
     }
 
     public void registrarDevolucion (int idPrestamo){
-        Prestamo prestamo = em.find(Prestamo.class, idPrestamo);
-        if (prestamo != null && prestamo.getFechaDevolucion() == null) {
-            prestamo.setFechaDevolucion(new Date());
-            prestamo.setActivo(false);
-            em.merge(prestamo);
+        em.getTransaction().begin();
+        try {
+            Prestamo prestamo = em.find(Prestamo.class, idPrestamo);
+            if (prestamo != null && prestamo.getFechaDevolucion() == null) {
+                prestamo.setFechaDevolucion(new Date());
+                prestamo.setActivo(false);
+                em.merge(prestamo);
+
+                //cambiar el estado de la copia
+                Copia copia = prestamo.getUnCopia();
+                copia.setEstado(CopiaEstado.DISPONIBLE);
+                em.merge(copia);
+
+                em.getTransaction().commit();
+            } else {
+                em.getTransaction().rollback();
+                throw new RuntimeException("No se pudo registrar la devolución ya que se encuentra realizada");
+            }
+        } catch (RuntimeException e) {
+            em.getTransaction().rollback();
+            throw e;
         }
+    }
+
+    public List<Prestamo> listarPrestamosActivos() {
+        TypedQuery<Prestamo> consulta = em.createQuery("SELECT p FROM Prestamo p WHERE p.activo = true", Prestamo.class);
+        return consulta.getResultList();
     }
 
 

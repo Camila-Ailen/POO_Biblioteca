@@ -1,6 +1,7 @@
 package com.unam.biblioteca.modelo;
 
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import jakarta.persistence.*;
@@ -102,6 +103,27 @@ public class Prestamo implements Serializable {
         this.unCopia = unCopia;
     }
 
+    //metodos extras
+    public String getNombre(){
+        return unMiembro.getNombre();
+    }
+
+    public String getApellido(){
+        return unMiembro.getApellido();
+    }
+
+    public String getTitulo() {
+        return unCopia != null ? unCopia.getUnLibro().getTitulo() : "";
+    }
+
+    public String getIsbn() {
+        return unCopia != null ? unCopia.getUnLibro().getIsbn() : "";
+    }
+
+    public int getIdCopia(){
+        return unCopia.getId();
+    }
+
     public void calcularMulta(){
         if (fechaDevolucion != null && fechaRetiro != null){
             long diasRetraso = (fechaDevolucion.getTime() - fechaRetiro.getTime()) / (1000 * 60 * 60 * 24) - 10;
@@ -111,6 +133,11 @@ public class Prestamo implements Serializable {
                 this.multa = 0;
             }
         }
+    }
+
+    public String getFormatoFecha (Date date) {
+        SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
+        return date != null ? formato.format(date) : "";
     }
 
 }

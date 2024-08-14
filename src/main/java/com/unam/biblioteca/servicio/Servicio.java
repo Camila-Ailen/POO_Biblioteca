@@ -4,7 +4,6 @@ package com.unam.biblioteca.servicio;
 import com.unam.biblioteca.modelo.*;
 import com.unam.biblioteca.repositorio.Repositorio;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
@@ -23,8 +22,8 @@ public class Servicio {
         if (!puedeSacarPrestamo(idMiembro)) {
             throw new RuntimeException("El miembro no puede sacar prestamos");
         }
-        Prestamo prestamo = new Prestamo(new Date(), repositorio.buscar(Miembro.class, idMiembro), repositorio.buscar(Copia.class, idCopia));
-        repositorio.insertarPrestamo(prestamo);
+        //Prestamo prestamo = new Prestamo(new Date(), repositorio.buscar(Miembro.class, idMiembro), repositorio.buscar(Copia.class, idCopia));
+        repositorio.registrarPrestamo(idMiembro, idCopia);
     }
 
     //devolver prestamo
@@ -38,8 +37,8 @@ public class Servicio {
     }
 
     //listar prestamos
-    public List<Prestamo> listarPrestamos() {
-        return repositorio.buscarTodos(Prestamo.class);
+    public List<Prestamo> listarPrestamosActivos() {
+        return repositorio.listarPrestamosActivos();
     }
 
     //contar cuantos dias de prestamo tiene un prestamo
@@ -248,7 +247,12 @@ public class Servicio {
 
     //Listado de todas las copias
     public List<Copia> listarTodasLasCopias() {
-        return this.repositorio.buscarTodos(Copia.class);
+        return repositorio.listarTodasLasCopias();
+    }
+
+    //listado de las copias disponibles
+    public List<Copia> listarCopiasDisponibles() {
+        return repositorio.listarCopiasDisponibles();
     }
 
     //Insertar una copia

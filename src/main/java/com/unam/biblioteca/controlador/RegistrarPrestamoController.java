@@ -116,7 +116,7 @@ public class RegistrarPrestamoController {
 
     private void actualizarTablaCopias(){
         tblCopia.getItems().clear();
-        tblCopia.getItems().addAll(servicio.listarTodasLasCopias());
+        tblCopia.getItems().addAll(servicio.listarCopiasDisponibles());
     }
 
     @FXML

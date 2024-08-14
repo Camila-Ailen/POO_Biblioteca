@@ -74,8 +74,11 @@ public class RegistrarDevolucionController {
 
         //Inicializar tabla de usuarios
         try {
-            colId.setCellValueFactory(new PropertyValueFactory<>("id"));
-            colFechaRetiro.setCellValueFactory(new PropertyValueFactory<>("fechaRetiro"));
+            colId.setCellValueFactory(new PropertyValueFactory<>("idCopia"));
+            colFechaRetiro.setCellValueFactory(cellData -> {
+                Prestamo prestamo = cellData.getValue();
+                return new ReadOnlyObjectWrapper<>(prestamo.getFormatoFecha(prestamo.getFechaRetiro()));
+            });
             colIsbn.setCellValueFactory(new PropertyValueFactory<>("isbn"));
             colTitulo.setCellValueFactory(new PropertyValueFactory<>("titulo"));
             colNombre.setCellValueFactory(new PropertyValueFactory<>("nombre"));
@@ -100,13 +103,13 @@ public class RegistrarDevolucionController {
 
     private void actualizarTabla(){
         tblVista.getItems().clear();
-        tblVista.getItems().addAll(servicio.listarPrestamos());
+        tblVista.getItems().addAll(servicio.listarPrestamosActivos());
     }
 
     @FXML
     private void registrar (ActionEvent event) {
         Prestamo prestamoSeleccionado = tblVista.getSelectionModel().getSelectedItem();
-        if (prestamoSeleccionado == null) {
+        if (prestamoSeleccionado != null) {
             try {
                 servicio.registrarDevolucion(prestamoSeleccionado.getId());
                 actualizarTabla();
