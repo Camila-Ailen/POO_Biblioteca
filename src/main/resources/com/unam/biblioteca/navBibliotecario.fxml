@@ -25,6 +25,11 @@
     <children>
         <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" style="-fx-background-color: #4682b4;">
             <children>
+                <Button fx:id="btnNavPrincipal" mnemonicParsing="false" onAction="#navegar" prefHeight="40.0" prefWidth="120.0" style="-fx-background-color: #e5e8e8; -fx-border-color: WHITE; -fx-border-radius: 5px; -fx-background-radius: 5px;" text="Principal">
+                <VBox.margin>
+                    <Insets top="5.0" />
+                </VBox.margin>
+                </Button>
                 <Button fx:id="btnNavLibros" mnemonicParsing="false" onAction="#navegar" prefHeight="40.0" prefWidth="120.0" style="-fx-background-color: #e5e8e8; -fx-border-color: WHITE; -fx-border-radius: 5px; -fx-background-radius: 5px;" text="Libros">
                <VBox.margin>
                   <Insets top="5.0" />

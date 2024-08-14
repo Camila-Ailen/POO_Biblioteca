@@ -19,6 +19,8 @@ public class NavegacionController {
 
     //Botones de navegacion
     @FXML
+    private Button btnNavPrincipal;
+    @FXML
     private Button btnNavLibros;
     @FXML
     private Button btnNavCopias;
@@ -52,6 +54,7 @@ public class NavegacionController {
     private StackPane contenedor;
 
     //Pantallas a conectar
+    private GridPane rootPrincipal;
     private GridPane rootAutor;
     private GridPane rootTematica;
     private GridPane rootLibros;
@@ -78,10 +81,12 @@ public class NavegacionController {
         }
 
         String seleccionado = boton.getId();
-        System.out.println("Mi variables seleccionado: " + seleccionado);
 
         //deja visible el panel seleccionado
         switch (seleccionado) {
+            case "btnNavPrincipal":
+                rootPrincipal.setVisible(true);
+                break;
             case "btnNavLibros":
                 rootLibros.setVisible(true);
                 break;
@@ -119,7 +124,7 @@ public class NavegacionController {
     public void navegar(ActionEvent e) throws IOException {
         Object evt = e.getSource();
 
-        mostrarPanel((Button) evt, rootLibros, rootAutor, rootTematica, rootEditorial, rootRack, rootIdioma, rootUsuario, rootCopia, rootRegistro, rootDevolucion);
+        mostrarPanel((Button) evt, rootPrincipal, rootLibros, rootAutor, rootTematica, rootEditorial, rootRack, rootIdioma, rootUsuario, rootCopia, rootRegistro, rootDevolucion);
     }
 
 
@@ -132,7 +137,7 @@ public class NavegacionController {
         }
 
         try {
-
+            rootPrincipal = loadForm("/com/unam/biblioteca/vistaPrincipal.fxml");
             rootAutor = loadForm("/com/unam/biblioteca/vistaAutor.fxml");
             rootTematica = loadForm("/com/unam/biblioteca/vistaTematica.fxml");
             rootLibros = loadForm("/com/unam/biblioteca/vistaLibros.fxml");
@@ -144,13 +149,13 @@ public class NavegacionController {
             rootRegistro = loadForm("/com/unam/biblioteca/vistaRegistrarPrestamo.fxml");
             rootDevolucion = loadForm("/com/unam/biblioteca/vistaRegistrarDevolucion.fxml");
 
-            contenedor.getChildren().addAll(rootAutor, rootTematica, rootLibros, rootEditorial, rootRack, rootIdioma, rootUsuario, rootCopia, rootRegistro, rootDevolucion);
+            contenedor.getChildren().addAll(rootAutor, rootTematica, rootLibros, rootEditorial, rootRack, rootIdioma, rootUsuario, rootCopia, rootRegistro, rootDevolucion, rootPrincipal);
 
             //asegura ingresar con un panel a la vista
-            for (GridPane panel : new GridPane[]{rootAutor, rootTematica, rootLibros, rootEditorial, rootRack, rootIdioma, rootUsuario, rootCopia, rootRegistro, rootDevolucion}) {
+            for (GridPane panel : new GridPane[]{rootAutor, rootTematica, rootLibros, rootEditorial, rootRack, rootIdioma, rootUsuario, rootCopia, rootRegistro, rootDevolucion, rootLibros}) {
                 panel.setVisible(false);
             }
-            rootLibros.setVisible(true);
+            rootPrincipal.setVisible(true);
 
         } catch (IOException e) {
             throw new RuntimeException(e);
@@ -173,6 +178,7 @@ public class NavegacionController {
     private void resetearEstilos() {
         Miembro miembro = (Miembro) UsrLogueado.getInstancia().getVariableGlobal();
         if (miembro.getUnRol().getNombre().equals("BIBLIOTECARIO")){
+            btnNavLibros.setStyle("-fx-background-color: #e5e8e8; -fx-font-weight: normal; fx-border-color: WHITE; -fx-border-radius: 5px; -fx-background-radius: 5px;");
             btnNavCopias.setStyle("-fx-background-color: #e5e8e8; -fx-font-weight: normal; fx-border-color: WHITE; -fx-border-radius: 5px; -fx-background-radius: 5px;");
             //btnNavPrestamos.setStyle("-fx-background-color: #e5e8e8; -fx-font-weight: normal; fx-border-color: WHITE; -fx-border-radius: 5px; -fx-background-radius: 5px;");
             btnNavRegistro.setStyle("-fx-background-color: #e5e8e8; -fx-font-weight: normal; fx-border-color: WHITE; -fx-border-radius: 5px; -fx-background-radius: 5px;");
@@ -184,7 +190,7 @@ public class NavegacionController {
             btnNavIdioma.setStyle("-fx-background-color: #e5e8e8; -fx-font-weight: normal; fx-border-color: WHITE; -fx-border-radius: 5px; -fx-background-radius: 5px;");
             btnNavRack.setStyle("-fx-background-color: #e5e8e8; -fx-font-weight: normal; fx-border-color: WHITE; -fx-border-radius: 5px; -fx-background-radius: 5px;");
         }
-        btnNavLibros.setStyle("-fx-background-color: #e5e8e8; -fx-font-weight: normal; fx-border-color: WHITE; -fx-border-radius: 5px; -fx-background-radius: 5px;");
+        btnNavPrincipal.setStyle("-fx-background-color: #e5e8e8; -fx-font-weight: normal; fx-border-color: WHITE; -fx-border-radius: 5px; -fx-background-radius: 5px;");
         btnNavUsuario.setStyle("-fx-background-color: #e5e8e8; -fx-font-weight: normal; fx-border-color: WHITE; -fx-border-radius: 5px; -fx-background-radius: 5px;");
     }
 
