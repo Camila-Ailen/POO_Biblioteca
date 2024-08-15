@@ -1,6 +1,7 @@
 package com.unam.biblioteca.controlador;
 
 import com.unam.biblioteca.App;
+import com.unam.biblioteca.modelo.Copia;
 import com.unam.biblioteca.modelo.Prestamo;
 import com.unam.biblioteca.servicio.Servicio;
 import javafx.beans.property.ReadOnlyObjectWrapper;
@@ -90,6 +91,8 @@ public class RegistrarDevolucionController {
                 int numDias = servicio.contarDiasDePrestamo(prestamo);
                 return new ReadOnlyObjectWrapper<>(numDias);
             });
+
+            tblVista.getSelectionModel().selectedItemProperty().addListener(e -> cargarDatos());
         } catch (Exception e) {
             System.out.println("No se pudieron inicializar las columnas de usuario");
             throw new RuntimeException(e);
@@ -128,6 +131,28 @@ public class RegistrarDevolucionController {
     @FXML
     private void recargar(ActionEvent event) {
         actualizarTabla();
+    }
+
+    private void cargarDatos() {
+        if (tblVista.getSelectionModel().getSelectedItem() != null) {
+            Prestamo prestamo = tblVista.getSelectionModel().getSelectedItem();
+            lblIdLibro.setText(String.valueOf(prestamo.getUnCopia().getId()));
+            lblTitulo.setText(prestamo.getUnCopia().getUnLibro().getTitulo());
+            lblAutor.setText(prestamo.getUnCopia().getUnLibro().getUnAutor().getNombre());
+            lblTematica.setText(prestamo.getUnCopia().getUnLibro().getUnTematica().getNombre());
+            lblEditorial.setText(prestamo.getUnCopia().getUnLibro().getUnEditorial().getNombre());
+            lblIdioma.setText(prestamo.getUnCopia().getUnLibro().getUnIdioma().getNombre());
+            lblTipo.setText(prestamo.getUnCopia().getTipo().name());
+            lblPrecio.setText(String.valueOf(prestamo.getUnCopia().getUnLibro().getPrecio()));
+            lblIsbn.setText(prestamo.getUnCopia().getUnLibro().getIsbn());
+
+            lblIdMiembro.setText(String.valueOf(prestamo.getUnMiembro().getId()));
+            lblNombre.setText(prestamo.getUnMiembro().getNombre());
+            lblApellido.setText(prestamo.getUnMiembro().getApellido());
+            lblEmail.setText(prestamo.getUnMiembro().getEmail());
+            lblTelefono.setText(prestamo.getUnMiembro().getTelefono());
+            lblRol.setText(prestamo.getUnMiembro().getUnRol().getNombre());
+        }
     }
 
 }
