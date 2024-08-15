@@ -139,10 +139,10 @@ public class CopiaController {
     private void modificar (ActionEvent event) throws IOException {
         Copia copiaSeleccionado = tblVista.getSelectionModel().getSelectedItem();
         if (copiaSeleccionado != null) {
-            FXMLLoader loader = new FXMLLoader(App.class.getResource("crudCopia.fxml"));
+            FXMLLoader loader = new FXMLLoader(App.class.getResource("crudModificarCopia.fxml"));
             Parent root = loader.load();
 
-            CopiaAbmController controlador = loader.getController();
+            CopiaModificarController controlador = loader.getController();
             controlador.setDatosCopia(copiaSeleccionado);
 
             Stage stage = new Stage();

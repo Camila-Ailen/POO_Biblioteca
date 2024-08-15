@@ -126,7 +126,9 @@ public class Prestamo implements Serializable {
 
     public void calcularMulta(){
         if (fechaDevolucion != null && fechaRetiro != null){
+
             long diasRetraso = (fechaDevolucion.getTime() - fechaRetiro.getTime()) / (1000 * 60 * 60 * 24) - 10;
+            System.out.println("dias de retraso: " + diasRetraso);
             if (diasRetraso > 0){
                 this.multa = diasRetraso * unCopia.getUnLibro().getPrecio();
             } else {

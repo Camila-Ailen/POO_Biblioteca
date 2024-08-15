@@ -12,23 +12,16 @@ import javafx.stage.Stage;
 
 import java.util.List;
 
-public class CopiaAbmController {
+public class CopiaModificarController {
     //botones
     @FXML
     private Button btnGuardar;
     @FXML
     private Button btnCancelar;
     @FXML
-    private Button btnAgregarLibro;
-    @FXML
     private Button btnAgregarRack;
 
-    //Campos de texto
-    @FXML
-    private TextField txtCantidad;
 
-    @FXML
-    private ComboBox<String> cmbTipo;
     @FXML
     private ComboBox<String> cmbRack;
     @FXML
@@ -56,23 +49,6 @@ public class CopiaAbmController {
     @FXML
     private Label lblEditorial;
 
-    //Tabla
-    @FXML
-    private TableColumn<Libro, String> colIsbn;
-    @FXML
-    private TableColumn<Libro, String> colTitulo;
-    @FXML
-    private TableColumn<Libro, String> colAutor;
-    @FXML
-    private TableColumn<Libro, String> colEditorial;
-    @FXML
-    private TableColumn<Libro, String> colPrecio;
-    @FXML
-    private TableColumn<Libro, String> colTematica;
-    @FXML
-    private TableColumn<Libro, String> colIdioma;
-    @FXML
-    private TableView<Libro> tblLibro;
 
 
 
@@ -84,48 +60,13 @@ public class CopiaAbmController {
     private void initialize() {
         servicio = App.getServicio();
 
-        txtCantidad.addEventFilter(KeyEvent.KEY_TYPED, keyEvent -> {
-            if (!keyEvent.getCharacter().matches("\\d")) {
-                keyEvent.consume();}
-        });
-
-        //inicializar tabla
-        try {
-            colIsbn.setCellValueFactory(new PropertyValueFactory<>("isbn"));
-            colTitulo.setCellValueFactory(new PropertyValueFactory<>("titulo"));
-            colAutor.setCellValueFactory(new PropertyValueFactory<>("nombreAutor"));
-            colEditorial.setCellValueFactory(new PropertyValueFactory<>("nombreEditorial"));
-            colPrecio.setCellValueFactory(new PropertyValueFactory<>("precio"));
-            colTematica.setCellValueFactory(new PropertyValueFactory<>("nombreTematica"));
-            colIdioma.setCellValueFactory(new PropertyValueFactory<>("nombreIdioma"));
-
-            tblLibro.getSelectionModel().selectedItemProperty().addListener(e -> cargarDatos());
-
-            try {
-                tblLibro.getItems().addAll(servicio.listarTodosLosLibros());
-            } catch (Exception e) {
-                Alerta.mostrarAlerta(Alert.AlertType.ERROR, "Error", "Error al iniciar tabla de Libros", e.getMessage());
-            }
-
-        } catch (Exception e) {
-            System.out.println("No se pudieron inicializar las columnas");
-            throw new RuntimeException(e);
-        }
 
         cargarCombos();
     }
 
     private void cargarCombos() {
-        cargarTipos();
         cargarRacks();
         cargarEstado();
-    }
-
-    private void cargarTipos() {
-        cmbTipo.getItems().clear();
-        for (CopiaTipo tipo : CopiaTipo.values()) {
-            cmbTipo.getItems().add(tipo.name());
-        }
     }
 
     private void cargarRacks() {
@@ -145,18 +86,7 @@ public class CopiaAbmController {
     }
 
 
-    private void cargarDatos() {
-        if (tblLibro.getSelectionModel().getSelectedItem() != null) {
-            Libro libro = tblLibro.getSelectionModel().getSelectedItem();
-            lblIsbn.setText(libro.getIsbn());
-            lblTitulo.setText(libro.getTitulo());
-            lblAutor.setText(libro.getUnAutor().getNombre());
-            lblPrecio.setText(String.valueOf(libro.getPrecio()));
-            lblTematica.setText(libro.getUnTematica().getNombre());
-            lblIdioma.setText(libro.getUnIdioma().getNombre());
-            lblEditorial.setText(libro.getUnEditorial().getNombre());
-        }
-    }
+
 
     public void setDatosCopia(Copia copia) {
         this.copia = copia;
@@ -180,10 +110,12 @@ public class CopiaAbmController {
         Button boton = (Button) event.getSource();
         Stage stage = (Stage) boton.getScene().getWindow();
 
+        if (!lblIsbn.getText().contains("xxxx") && cmbRack.getValue() != null && cmbEstado.getValue() != null) {
+        /*
         var item = tblLibro.getSelectionModel().getSelectedItem();
 
         if (boton.equals(btnGuardar)) {
-            if (!lblIsbn.getText().contains("xxxx") && item != null && cmbTipo.getValue() != null && cmbRack.getValue() != null) {
+            if (!lblIsbn.getText().contains("xxxx") && item != null  && cmbRack.getValue() != null) {
 
 
                 String isbn = lblIsbn.getText();
@@ -209,12 +141,21 @@ public class CopiaAbmController {
                     System.out.println("Llamaremos al servicio");
                     servicio.insertarCopia(libro, cantidad, tipo, rack, referencia, estado);
                     System.out.println("Llamamos al servicio");
-                }
+                } else {
+
+         */
+                String rackDescripcion = cmbRack.getValue();
+                boolean referencia = chkReferencia.isSelected();
+                String estadoNombre = cmbEstado.getValue();
+
+                Rack rack = servicio.buscarRackPorDescripcion(rackDescripcion);
+                CopiaEstado estado = servicio.buscarEstadoPorNombre(estadoNombre);
+
+                    int id = Integer.parseInt(lblId.getText());
+                    servicio.modificarCopia(id, rack, referencia, estado);
+
                 stage.close();
-            } else {
-                Alerta.mostrarAlerta(Alert.AlertType.WARNING, "Datos incompletos", "Por favor, complete los campos requeridos.",
-                        "Los campos son obligatorios, por lo que no pueden estar vacíos.");
-            }
+
         } else {
             stage.close();
         }

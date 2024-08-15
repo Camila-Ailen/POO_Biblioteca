@@ -299,13 +299,12 @@ public class Servicio {
     }
 
     //Modificar una copia
-    public void modificarCopia(int id, CopiaTipo tipo, Rack rack, boolean referencia, CopiaEstado estado) {
+    public void modificarCopia(int id, Rack rack, boolean referencia, CopiaEstado estado) {
         try {
             this.repositorio.iniciarTransaccion();
             var copia = this.repositorio.buscar(Copia.class, id);
             if (copia != null) {
                 copia.setReferencia(referencia);
-                copia.setTipo(tipo);
                 copia.setUnRack(rack);
                 copia.setEstado(estado);
                 this.repositorio.modificar(copia);

@@ -50,7 +50,7 @@
                   <Insets top="5.0" />
                </VBox.margin>
                 </Button>
-                <Button fx:id="btnNavPrestamos" mnemonicParsing="false" onAction="#navegar" pickOnBounds="false" prefHeight="40.0" prefWidth="120.0" style="-fx-background-color: #4682b4; -fx-border-radius: 5px; -fx-background-radius: 5px;" text="Préstamos" textFill="WHITE">
+                <Button fx:id="btnNavPrestamos" disable="true" mnemonicParsing="false" onAction="#navegar" pickOnBounds="false" prefHeight="40.0" prefWidth="120.0" style="-fx-background-color: #4682b4; -fx-border-radius: 5px; -fx-background-radius: 5px;" text="Préstamos" textFill="WHITE">
                <VBox.margin>
                   <Insets top="5.0" />
                </VBox.margin>
@@ -68,7 +68,7 @@
                   <Insets top="5.0" />
                </VBox.margin>
                 </Button>
-                <Button fx:id="btnNavParametros" mnemonicParsing="false" onAction="#navegar" pickOnBounds="false" prefHeight="40.0" prefWidth="120.0" style="-fx-background-color: #4682b4; -fx-border-radius: 5px; -fx-background-radius: 5px;" text="Parámetros" textFill="WHITE">
+                <Button fx:id="btnNavParametros" disable="true" mnemonicParsing="false" onAction="#navegar" pickOnBounds="false" prefHeight="40.0" prefWidth="120.0" style="-fx-background-color: #4682b4; -fx-border-radius: 5px; -fx-background-radius: 5px;" text="Parámetros" textFill="WHITE">
                <VBox.margin>
                   <Insets top="5.0" />
                </VBox.margin>
