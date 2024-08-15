@@ -3,7 +3,9 @@ package com.unam.biblioteca.modelo;
 import java.io.Serializable;
 import java.util.ArrayList;
 
+import com.unam.biblioteca.controlador.Alerta;
 import jakarta.persistence.*;
+import javafx.scene.control.Alert;
 
 @Entity
 public class Libro implements Serializable {
@@ -45,7 +47,7 @@ public class Libro implements Serializable {
     public Libro() {
     }
 
-    public Libro(String titulo, String isbn, double precio, boolean activo, Tematica unTematica, Autor unAutor, Idioma unIdioma, Editorial unEditorial, ArrayList<Copia> listaCopias) {
+    public Libro(String titulo, String isbn, double precio, boolean activo, Tematica unTematica, Autor unAutor, Idioma unIdioma, Editorial unEditorial) {
         // validaciones
         titulo = titulo.trim().toUpperCase();
         if (titulo.isEmpty()) {
@@ -53,6 +55,11 @@ public class Libro implements Serializable {
         }
         if (titulo.length() > 100) {
             throw new IllegalArgumentException("El nombre no puede tener más de 100 caracteres");
+        }
+
+        if (isbn.length() != 13 && isbn.length() != 10) {
+            Alerta.mostrarAlerta(Alert.AlertType.INFORMATION, "ISBN incorrecto", "El ISBN debe tener 10 o 13 caracteres", "Por favor, verifique el ISBN ingresado.");
+            throw new IllegalArgumentException("El ISBN debe tener 10 o 13 caracteres");
         }
 
         this.titulo = titulo;
@@ -63,7 +70,7 @@ public class Libro implements Serializable {
         this.unAutor = unAutor;
         this.unIdioma = unIdioma;
         this.unEditorial = unEditorial;
-        this.listaCopias = listaCopias;
+        //this.listaCopias = listaCopias;
     }
 
     public int getId() {

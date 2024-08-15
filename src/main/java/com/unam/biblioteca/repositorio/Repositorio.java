@@ -3,6 +3,7 @@ package com.unam.biblioteca.repositorio;
 import com.unam.biblioteca.modelo.*;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
+import jakarta.persistence.NoResultException;
 import jakarta.persistence.TypedQuery;
 import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;
@@ -120,9 +121,13 @@ public class Repositorio {
     }
 
     public Libro buscarLibroPorIsbn(String isbn) {
-        TypedQuery<Libro> consulta = em.createQuery("SELECT l FROM Libro l WHERE l.isbn = :isbn", Libro.class);
-        consulta.setParameter("isbn", isbn);
-        return consulta.getSingleResult();
+        try {
+            return em.createQuery("SELECT l FROM Libro l WHERE l.isbn = :isbn", Libro.class)
+                    .setParameter("isbn", isbn)
+                    .getSingleResult();
+        } catch (NoResultException e) {
+            return null; // Return null if no result is found
+        }
     }
 
     public List<Libro> buscarLibroPorTitulo(String titulo) {

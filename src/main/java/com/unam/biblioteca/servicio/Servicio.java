@@ -1,8 +1,10 @@
 package com.unam.biblioteca.servicio;
 
 
+import com.unam.biblioteca.controlador.Alerta;
 import com.unam.biblioteca.modelo.*;
 import com.unam.biblioteca.repositorio.Repositorio;
+import javafx.scene.control.Alert;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -188,14 +190,43 @@ public class Servicio {
 
     //Insertar un libro
     public void insertarLibro(String titulo, String isbn, double precio, Tematica unTematica, Autor unAutor, Idioma unIdioma, Editorial unEditorial) {
+        if (isbn.isEmpty()){
+            Alerta.mostrarAlerta(Alert.AlertType.INFORMATION, "ISBN incorrecto", "El ISBN no puede estar vacío", "Por favor, verifique el ISBN ingresado.");
+            throw new RuntimeException("ISBN no válido");
+        }
+        if (buscarLibroPorIsbn(isbn) != null){
+            Alerta.mostrarAlerta(Alert.AlertType.INFORMATION, "ISBN duplicado", "El ISBN ya existe", "Por favor, verifique el ISBN ingresado.");
+            throw new RuntimeException("El libro se encuentra en la biblioteca");
+        }
+        if (unAutor == null){
+            Alerta.mostrarAlerta(Alert.AlertType.INFORMATION, "Autor no válido", "Debe indicar al menos un autor", "Por favor, verifique el autor ingresado.");
+            throw new RuntimeException("Debe indicar al menos un autor");
+        }
+        if (unTematica == null){
+            Alerta.mostrarAlerta(Alert.AlertType.INFORMATION, "Tematica no válida", "Debe indicar al menos una temática", "Por favor, verifique la temática ingresada.");
+            throw new RuntimeException("Debe indicar al menos una temática");
+        }
+        if (unIdioma == null){
+            Alerta.mostrarAlerta(Alert.AlertType.INFORMATION, "Idioma no válido", "Debe indicar al menos un idioma", "Por favor, verifique el idioma ingresado.");
+            throw new RuntimeException("Debe indicar al menos un idioma");
+        }
+        if (unEditorial == null){
+            Alerta.mostrarAlerta(Alert.AlertType.INFORMATION, "Editorial no válida", "Debe indicar al menos una editorial", "Por favor, verifique la editorial ingresada.");
+            throw new RuntimeException("Debe indicar al menos una editorial");
+        }
+        if (precio <= 0){
+            Alerta.mostrarAlerta(Alert.AlertType.INFORMATION, "Precio no válido", "El precio debe ser mayor a 0", "Por favor, verifique el precio ingresado.");
+            throw new RuntimeException("Precio no válido");
+        }
+
+        // Insert the new book
+        Libro libro = new Libro(titulo, isbn, precio, true, unTematica, unAutor, unIdioma, unEditorial);
+        repositorio.iniciarTransaccion();
         try {
-            this.repositorio.iniciarTransaccion();
-            var libro = new Libro(titulo, isbn, precio, true, unTematica, unAutor, unIdioma, unEditorial, null);
-            this.repositorio.insertar(libro);
-            this.repositorio.confirmarTransaccion();
+            repositorio.insertar(libro);
+            repositorio.confirmarTransaccion();
         } catch (Exception e) {
-            this.repositorio.descartarTransaccion();
-            // lanzo nuevamente la excepción para que sea manejada en la capa superior
+            repositorio.descartarTransaccion();
             throw e;
         }
     }
@@ -711,6 +742,12 @@ public class Servicio {
         return this.repositorio.buscarPorNombre(Rol.class, nombre);
     }
 
+
+
+
+    protected boolean contieneNumeros(String string){
+        return string.chars().anyMatch(Character::isDigit);
+    }
 
 
 }
