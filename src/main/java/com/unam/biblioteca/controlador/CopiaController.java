@@ -3,6 +3,7 @@ package com.unam.biblioteca.controlador;
 import com.unam.biblioteca.App;
 import com.unam.biblioteca.modelo.Copia;
 import com.unam.biblioteca.modelo.CopiaEstado;
+import com.unam.biblioteca.modelo.Libro;
 import com.unam.biblioteca.servicio.Servicio;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -46,6 +47,33 @@ public class CopiaController {
     @FXML
     private TableColumn<Copia, CopiaEstado> colEstado;
 
+    //etiquetas
+    @FXML
+    private Label lblId;
+    @FXML
+    private Label lblIsbn;
+    @FXML
+    private Label lblTitulo;
+    @FXML
+    private Label lblAutor;
+    @FXML
+    private Label lblPrecio;
+    @FXML
+    private Label lblRack;
+    @FXML
+    private Label lblTipo;
+    @FXML
+    private Label lblReferencia;
+    @FXML
+    private Label lblEstado;
+    @FXML
+    private Label lblEditorial;
+    @FXML
+    private Label lblTematica;
+    @FXML
+    private Label lblIdioma;
+
+
     private Servicio servicio;
 
     @FXML
@@ -62,6 +90,8 @@ public class CopiaController {
             colTipo.setCellValueFactory(new PropertyValueFactory<>("tipo"));
             colReferencia.setCellValueFactory(new PropertyValueFactory<>("referencia"));
             colEstado.setCellValueFactory(new PropertyValueFactory<>("estado"));
+
+            tblVista.getSelectionModel().selectedItemProperty().addListener(e -> cargarDatos());
 
             colEstado.setCellFactory(column -> new TableCell<Copia, CopiaEstado>(){
                 @Override
@@ -176,6 +206,25 @@ public class CopiaController {
 
         } catch (IOException e) {
             Alerta.mostrarAlerta(Alert.AlertType.ERROR, "Error al cargar la ventana", "Ocurrió un error al cargar la ventana de Historial de Copia.", e.getMessage());
+        }
+    }
+
+    private void cargarDatos() {
+        if (tblVista.getSelectionModel().getSelectedItem() != null) {
+            Copia copia = tblVista.getSelectionModel().getSelectedItem();
+            lblId.setText(String.valueOf(copia.getId()));
+            lblIsbn.setText(copia.getUnLibro().getIsbn());
+            lblTitulo.setText(copia.getUnLibro().getTitulo());
+            lblAutor.setText(copia.getUnLibro().getUnAutor().getNombre());
+            lblPrecio.setText(String.valueOf(copia.getUnLibro().getPrecio()));
+            lblTipo.setText(copia.getTipo().name());
+            lblRack.setText(copia.getUnRack().getDescripcion());
+            lblReferencia.setText(copia.getReferencia());
+            lblEstado.setText(copia.getEstado().name());
+            lblEditorial.setText(copia.getUnLibro().getUnEditorial().getNombre());
+            lblTematica.setText(copia.getUnLibro().getUnTematica().getNombre());
+            lblIdioma.setText(copia.getUnLibro().getUnIdioma().getNombre());
+
         }
     }
 }
