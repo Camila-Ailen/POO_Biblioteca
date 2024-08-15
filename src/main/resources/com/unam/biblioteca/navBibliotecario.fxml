@@ -35,7 +35,7 @@
                   <Insets top="5.0" />
                </VBox.margin>
                 </Button>
-                <Button fx:id="btnNavUsuario" mnemonicParsing="false" onAction="#navegar" prefHeight="40.0" prefWidth="120.0" style="-fx-background-color: #e5e8e8; -fx-border-color: WHITE; -fx-border-radius: 5px; -fx-background-radius: 5px;" text="Usuario">
+                <Button fx:id="btnNavBibliotecario" mnemonicParsing="false" onAction="#navegar" prefHeight="40.0" prefWidth="120.0" style="-fx-background-color: #e5e8e8; -fx-border-color: WHITE; -fx-border-radius: 5px; -fx-background-radius: 5px;" text="Usuario">
                <VBox.margin>
                   <Insets top="5.0" />
                </VBox.margin>

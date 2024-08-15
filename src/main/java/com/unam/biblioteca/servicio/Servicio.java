@@ -30,7 +30,6 @@ public class Servicio {
     public void devolverPrestamo (int idPrestamo) {
         Prestamo prestamo = repositorio.buscar(Prestamo.class, idPrestamo);
         if (prestamo != null){
-            //prestamo.setFechaDevolucion(new Date());
             prestamo.calcularMulta();
             repositorio.actualizarPrestamo(prestamo);
         }
@@ -63,7 +62,7 @@ public class Servicio {
     public boolean puedeSacarPrestamo(int idMiembro) {
         long prestamosActivos = repositorio.contarPrestamosActivosPorMiembro(idMiembro);
         boolean tieneVencidos = repositorio.tienePrestamosVencidos(idMiembro);
-        return prestamosActivos < 6 && !tieneVencidos;
+        return prestamosActivos < 5 && !tieneVencidos;
     }
 
     //Busca un miembro segun su id y devuelve el objeto
@@ -106,8 +105,11 @@ public class Servicio {
     public void modificarMiembro(int id, String clave, String apellido, String nombre, String telefono, String email, Boolean activo, Rol unRol) {
         try {
             this.repositorio.iniciarTransaccion();
+            System.out.println("modificando 1");
             var miembro = this.repositorio.buscar(Miembro.class, id);
+            System.out.println("modificando 2, miembro es: " + miembro);
             if (miembro != null) {
+                System.out.println("entramos al if");
                 miembro.setClave(clave);
                 miembro.setApellido(apellido);
                 miembro.setNombre(nombre);

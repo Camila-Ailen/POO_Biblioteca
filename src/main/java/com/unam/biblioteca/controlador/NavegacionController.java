@@ -25,13 +25,13 @@ public class NavegacionController {
     @FXML
     private Button btnNavCopias;
     @FXML
-    private Button btnNavPrestamos;
-    @FXML
     private Button btnNavRegistro;
     @FXML
     private Button btnNavDevolucion;
     @FXML
     private Button btnNavUsuario;
+    @FXML
+    private Button btnNavBibliotecario;
     @FXML
     private Button btnNavAutor;
     @FXML
@@ -65,6 +65,7 @@ public class NavegacionController {
     private GridPane rootCopia;
     private GridPane rootRegistro;
     private GridPane rootDevolucion;
+    private GridPane rootHistorial;
 
     private Servicio servicio;
 
@@ -100,6 +101,9 @@ public class NavegacionController {
                 rootDevolucion.setVisible(true);
                 break;
             case "btnNavUsuario":
+                rootHistorial.setVisible(true);
+                break;
+            case "btnNavBibliotecario":
                 rootUsuario.setVisible(true);
                 break;
             case "btnNavAutor":
@@ -124,7 +128,7 @@ public class NavegacionController {
     public void navegar(ActionEvent e) throws IOException {
         Object evt = e.getSource();
 
-        mostrarPanel((Button) evt, rootPrincipal, rootLibros, rootAutor, rootTematica, rootEditorial, rootRack, rootIdioma, rootUsuario, rootCopia, rootRegistro, rootDevolucion);
+        mostrarPanel((Button) evt, rootPrincipal, rootLibros, rootAutor, rootTematica, rootEditorial, rootRack, rootIdioma, rootUsuario, rootHistorial, rootCopia, rootRegistro, rootDevolucion);
     }
 
 
@@ -134,31 +138,31 @@ public class NavegacionController {
         Miembro miembro = (Miembro) UsrLogueado.getInstancia().getVariableGlobal();
         if (miembro != null) {
             lblNombreUsuario.setText("Bienvenido " + miembro.getNombre());
-        }
+            try {
+                rootPrincipal = loadForm("/com/unam/biblioteca/vistaPrincipal.fxml");
+                rootAutor = loadForm("/com/unam/biblioteca/vistaAutor.fxml");
+                rootTematica = loadForm("/com/unam/biblioteca/vistaTematica.fxml");
+                rootLibros = loadForm("/com/unam/biblioteca/vistaLibros.fxml");
+                rootEditorial = loadForm("/com/unam/biblioteca/vistaEditorial.fxml");
+                rootRack = loadForm("/com/unam/biblioteca/vistaRack.fxml");
+                rootIdioma = loadForm("/com/unam/biblioteca/vistaIdioma.fxml");
+                rootHistorial = loadForm("/com/unam/biblioteca/crudHistorialUsuario.fxml");
+                rootUsuario = loadForm("/com/unam/biblioteca/vistaMiembro.fxml");
+                rootCopia = loadForm("/com/unam/biblioteca/vistaCopia.fxml");
+                rootRegistro = loadForm("/com/unam/biblioteca/vistaRegistrarPrestamo.fxml");
+                rootDevolucion = loadForm("/com/unam/biblioteca/vistaRegistrarDevolucion.fxml");
 
-        try {
-            rootPrincipal = loadForm("/com/unam/biblioteca/vistaPrincipal.fxml");
-            rootAutor = loadForm("/com/unam/biblioteca/vistaAutor.fxml");
-            rootTematica = loadForm("/com/unam/biblioteca/vistaTematica.fxml");
-            rootLibros = loadForm("/com/unam/biblioteca/vistaLibros.fxml");
-            rootEditorial = loadForm("/com/unam/biblioteca/vistaEditorial.fxml");
-            rootRack = loadForm("/com/unam/biblioteca/vistaRack.fxml");
-            rootIdioma = loadForm("/com/unam/biblioteca/vistaIdioma.fxml");
-            rootUsuario = loadForm("/com/unam/biblioteca/vistaMiembro.fxml");
-            rootCopia = loadForm("/com/unam/biblioteca/vistaCopia.fxml");
-            rootRegistro = loadForm("/com/unam/biblioteca/vistaRegistrarPrestamo.fxml");
-            rootDevolucion = loadForm("/com/unam/biblioteca/vistaRegistrarDevolucion.fxml");
+                contenedor.getChildren().addAll(rootAutor, rootTematica, rootLibros, rootEditorial, rootRack, rootIdioma, rootUsuario, rootHistorial, rootCopia, rootRegistro, rootDevolucion, rootPrincipal);
 
-            contenedor.getChildren().addAll(rootAutor, rootTematica, rootLibros, rootEditorial, rootRack, rootIdioma, rootUsuario, rootCopia, rootRegistro, rootDevolucion, rootPrincipal);
+                //asegura ingresar con un panel a la vista
+                for (GridPane panel : new GridPane[]{rootAutor, rootTematica, rootLibros, rootEditorial, rootRack, rootIdioma, rootUsuario, rootHistorial, rootCopia, rootRegistro, rootDevolucion, rootLibros}) {
+                    panel.setVisible(false);
+                }
+                rootPrincipal.setVisible(true);
 
-            //asegura ingresar con un panel a la vista
-            for (GridPane panel : new GridPane[]{rootAutor, rootTematica, rootLibros, rootEditorial, rootRack, rootIdioma, rootUsuario, rootCopia, rootRegistro, rootDevolucion, rootLibros}) {
-                panel.setVisible(false);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
             }
-            rootPrincipal.setVisible(true);
-
-        } catch (IOException e) {
-            throw new RuntimeException(e);
         }
     }
 

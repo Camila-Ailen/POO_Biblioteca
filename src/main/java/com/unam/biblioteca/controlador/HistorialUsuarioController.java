@@ -44,6 +44,8 @@ public class HistorialUsuarioController {
     private TableColumn<Prestamo, String> colFechaDevolucion;
     @FXML
     private TableColumn<Prestamo, Double> colMulta;
+    @FXML
+    private TableColumn<Prestamo, Integer> colCantDias;
 
     private Servicio servicio;
     private Miembro miembro;
@@ -62,11 +64,13 @@ public class HistorialUsuarioController {
         colFechaRetiro.setCellValueFactory(cellData -> new ReadOnlyObjectWrapper<>(formatearFecha(cellData.getValue().getFechaRetiro())));
         colFechaDevolucion.setCellValueFactory(cellData -> new ReadOnlyObjectWrapper<>(cellData.getValue().getFechaDevolucion() != null ? formatearFecha(cellData.getValue().getFechaDevolucion()) : ""));
         colMulta.setCellValueFactory(cellData -> new ReadOnlyObjectWrapper<>(cellData.getValue().getMulta()));
-
-        colFechaRetiro.setCellValueFactory(cellData -> {
+        colCantDias.setCellValueFactory(cellData -> {
             Prestamo prestamo = cellData.getValue();
-            return new ReadOnlyObjectWrapper<>(prestamo.getFormatoFecha(prestamo.getFechaRetiro()));
+            int numDias = servicio.contarDiasDePrestamo(prestamo);
+            return new ReadOnlyObjectWrapper<>(numDias);
         });
+
+
     }
 
     private String formatearFecha(Date fecha) {
@@ -76,7 +80,6 @@ public class HistorialUsuarioController {
 
     private void actualizarTabla(){
         if (miembro != null) {
-            System.out.println("Updating table for member ID: " + miembro.getId());
             tblVista.getItems().clear();
             tblVista.getItems().addAll(servicio.listarPrestamosPorMiembro(miembro.getId()));
         }else {

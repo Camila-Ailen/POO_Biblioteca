@@ -8,15 +8,13 @@
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<?import javafx.scene.layout.Region?>
-<?import javafx.scene.control.Separator?>
-<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1200.0"
-          xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.unam.biblioteca.controlador.NavegacionController">
+<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.unam.biblioteca.controlador.NavegacionController">
     <columnConstraints>
         <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" percentWidth="15.0" />
         <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" percentWidth="85.0" prefWidth="100.0" />
@@ -25,21 +23,14 @@
         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
     </rowConstraints>
     <children>
-        <VBox alignment="BASELINE_CENTER" prefHeight="200.0" prefWidth="100.0" style="-fx-background-color: #4682b4; -fx-border-color: transparent;">
+        <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0" style="-fx-background-color: #4682b4;">
             <children>
-                <Separator prefWidth="200.0" style="-fx-background-color: transparent;">
+                <Button fx:id="btnNavPrincipal" mnemonicParsing="false" onAction="#navegar" prefHeight="40.0" prefWidth="120.0" style="-fx-background-color: #e5e8e8; -fx-border-color: WHITE; -fx-border-radius: 5px; -fx-background-radius: 5px;" text="Principal">
                     <VBox.margin>
-                        <Insets top="45.0" />
-                    </VBox.margin>
-                </Separator>
-                <Button mnemonicParsing="false" prefHeight="26.0" prefWidth="112.0" style="-fx-background-color: #e5e8e8; -fx-border-color: WHITE; -fx-border-radius: 5px; -fx-background-radius: 5px;"
-                        text="Usuario" fx:id="btnNavUsuario">
-                    <VBox.margin>
-                        <Insets top="35.0" />
+                        <Insets top="5.0" />
                     </VBox.margin>
                 </Button>
-                <Button mnemonicParsing="false" prefHeight="26.0" prefWidth="112.0" style="-fx-background-color: #e5e8e8; -fx-border-color: WHITE; -fx-border-radius: 5px; -fx-background-radius: 5px;"
-                        text="Libros" fx:id="btnNavLibro">
+                <Button fx:id="btnNavUsuario" mnemonicParsing="false" onAction="#navegar" prefHeight="40.0" prefWidth="120.0" style="-fx-background-color: #e5e8e8; -fx-border-color: WHITE; -fx-border-radius: 5px; -fx-background-radius: 5px;" text="Usuario">
                     <VBox.margin>
                         <Insets top="5.0" />
                     </VBox.margin>
@@ -48,6 +39,9 @@
             <opaqueInsets>
                 <Insets />
             </opaqueInsets>
+         <padding>
+            <Insets top="100.0" />
+         </padding>
         </VBox>
         <GridPane GridPane.columnIndex="1">
             <columnConstraints>
@@ -58,7 +52,7 @@
                 <RowConstraints maxHeight="398.8000091552734" minHeight="10.0" percentHeight="90.0" prefHeight="398.8000091552734" vgrow="ALWAYS" />
             </rowConstraints>
             <children>
-                <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" style="-fx-background-color: #4682b4; -fx-border-color: WHITE;">
+                <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" style="-fx-background-color: #4682b4;">
                     <children>
                         <Label fx:id="lblNombreUsuario" text="Bienvenido" textFill="#fcf9f9">
                             <font>
@@ -89,8 +83,7 @@
                         </FontAwesomeIcon>
                     </children>
                 </HBox>
-                <StackPane GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS"
-                            fx:id="contenedor"/>
+                <StackPane fx:id="contenedor" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS" />
             </children>
         </GridPane>
     </children>
