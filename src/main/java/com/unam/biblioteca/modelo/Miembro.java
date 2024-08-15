@@ -116,13 +116,17 @@ public class Miembro implements Serializable {
     }
 
     public void setTelefono(String telefono) {
-        if (telefono != null && !telefono.matches("[0-9]+")) {
-            throw new IllegalArgumentException("El numero de telefono solo puede contener números");
+        if (telefono != null){
+            if (!telefono.matches("[0-9]+") ) {
+                throw new IllegalArgumentException("El numero de telefono solo puede contener números");
+            }
+            if (telefono.length() > 15) {
+                throw new IllegalArgumentException("El telefono no puede tener más de 15 caracteres");
+            }
+            this.telefono = telefono;
+        } else {
+            this.telefono = null;
         }
-        if (telefono != null && telefono.length() > 15) {
-            throw new IllegalArgumentException("El telefono no puede tener más de 15 caracteres");
-        }
-        this.telefono = telefono;
     }
 
     public String getEmail() {

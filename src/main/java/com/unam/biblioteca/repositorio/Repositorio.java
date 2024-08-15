@@ -277,6 +277,29 @@ public class Repositorio {
         return consulta.getResultList();
     }
 
+    public boolean emailExiste(String email) {
+        try {
+            em.createQuery("SELECT m FROM Miembro m WHERE m.email = :email", Miembro.class)
+                    .setParameter("email", email)
+                    .getSingleResult();
+            return true;
+        } catch (NoResultException e) {
+            return false;
+        }
+    }
+
+    public boolean emailExisteParaOtroUsuario(int id, String email) {
+        try {
+            em.createQuery("SELECT m FROM Miembro m WHERE m.email = :email AND m.id != :id", Miembro.class)
+                    .setParameter("email", email)
+                    .setParameter("id", id)
+                    .getSingleResult();
+            return true;
+        } catch (NoResultException e) {
+            return false;
+        }
+    }
+
 }
 
 

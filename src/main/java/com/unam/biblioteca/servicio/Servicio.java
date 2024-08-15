@@ -97,12 +97,16 @@ public class Servicio {
                 Alerta.mostrarAlerta(Alert.AlertType.INFORMATION, "Email incorrecto", "El email no es válido", "Por favor, verifique el email ingresado.");
                 throw new IllegalArgumentException("El email no es válido");
             }
-            this.repositorio.iniciarTransaccion();
+            if (repositorio.emailExiste(email)){
+                Alerta.mostrarAlerta(Alert.AlertType.INFORMATION, "Email duplicado", "El email ya existe", "Por favor, verifique el email ingresado.");
+                throw new RuntimeException("El email ya existe");
+            }
+            repositorio.iniciarTransaccion();
             var miembro = new Miembro(clave, apellido, nombre, telefono, email, activo, unRol);
-            this.repositorio.insertar(miembro);
-            this.repositorio.confirmarTransaccion();
+            repositorio.insertar(miembro);
+            repositorio.confirmarTransaccion();
         } catch (Exception e) {
-            this.repositorio.descartarTransaccion();
+            repositorio.descartarTransaccion();
             // lanzo nuevamente la excepción para que sea manejada en la capa superior
             throw e;
         }
@@ -115,12 +119,13 @@ public class Servicio {
                 Alerta.mostrarAlerta(Alert.AlertType.INFORMATION, "Email incorrecto", "El email no es válido", "Por favor, verifique el email ingresado.");
                 throw new IllegalArgumentException("El email no es válido");
             }
-            this.repositorio.iniciarTransaccion();
-            System.out.println("modificando 1");
+            if (repositorio.emailExisteParaOtroUsuario(id, email)){
+                Alerta.mostrarAlerta(Alert.AlertType.INFORMATION, "Email duplicado", "El email ya existe", "Por favor, verifique el email ingresado.");
+                throw new RuntimeException("El email ya existe");
+            }
+            repositorio.iniciarTransaccion();
             var miembro = this.repositorio.buscar(Miembro.class, id);
-            System.out.println("modificando 2, miembro es: " + miembro);
             if (miembro != null) {
-                System.out.println("entramos al if");
                 miembro.setClave(clave);
                 miembro.setApellido(apellido);
                 miembro.setNombre(nombre);
@@ -128,10 +133,11 @@ public class Servicio {
                 miembro.setEmail(email);
                 miembro.setActivo(activo);
                 miembro.setUnRol(unRol);
-                this.repositorio.modificar(miembro);
-                this.repositorio.confirmarTransaccion();
+                //this.repositorio.modificar(miembro);
+                repositorio.confirmarTransaccion();
             } else {
                 this.repositorio.descartarTransaccion();
+                throw new RuntimeException("El miembro no existe");
             }
         } catch (Exception e) {
             this.repositorio.descartarTransaccion();
