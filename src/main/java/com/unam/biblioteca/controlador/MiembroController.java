@@ -142,4 +142,29 @@ public class MiembroController {
     private void recargar(ActionEvent event) {
         actualizarTabla();
     }
+
+    @FXML
+    private void historial(ActionEvent event){
+        try {
+            Miembro miembroSeleccionado = tblVista.getSelectionModel().getSelectedItem();
+            if (miembroSeleccionado != null) {
+                FXMLLoader loader = new FXMLLoader(App.class.getResource("crudHistorialUsuario.fxml"));
+                Parent root = loader.load();
+
+                HistorialUsuarioController controlador = loader.getController();
+                controlador.setIdMiembro(miembroSeleccionado);
+
+                Stage stage = new Stage();
+                stage.initModality(Modality.APPLICATION_MODAL);
+                stage.setTitle("Historial Usuario");
+                stage.setScene(new Scene(root));
+                stage.showAndWait();
+            } else {
+                Alerta.mostrarAlerta(Alert.AlertType.ERROR, "Error al cargar la ventana", "Ocurrió un error al cargar la ventana de Historial de Usuario.", "Debe seleccionar un Miembro");
+            }
+
+        } catch (IOException e) {
+            Alerta.mostrarAlerta(Alert.AlertType.ERROR, "Error al cargar la ventana", "Ocurrió un error al cargar la ventana de Historial de Usuario.", e.getMessage());
+        }
+    }
 }

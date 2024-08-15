@@ -260,6 +260,11 @@ public class Repositorio {
         return consulta.getResultList();
     }
 
+    public List<Prestamo> listarPrestamosPorMiembro(int idMiembro) {
+        TypedQuery<Prestamo> consulta = em.createQuery("SELECT p FROM Prestamo p WHERE p.unMiembro.id = :idMiembro", Prestamo.class);
+        consulta.setParameter("idMiembro", idMiembro);
+        return consulta.getResultList();
+    }
 
 }
 
