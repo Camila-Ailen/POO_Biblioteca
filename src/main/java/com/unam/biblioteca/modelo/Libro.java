@@ -46,6 +46,15 @@ public class Libro implements Serializable {
     }
 
     public Libro(String titulo, String isbn, double precio, boolean activo, Tematica unTematica, Autor unAutor, Idioma unIdioma, Editorial unEditorial, ArrayList<Copia> listaCopias) {
+        // validaciones
+        titulo = titulo.trim().toUpperCase();
+        if (titulo.isEmpty()) {
+            throw new IllegalArgumentException("El nombre no puede estar vacío");
+        }
+        if (titulo.length() > 100) {
+            throw new IllegalArgumentException("El nombre no puede tener más de 100 caracteres");
+        }
+
         this.titulo = titulo;
         this.isbn = isbn;
         this.precio = precio;
