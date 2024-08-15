@@ -51,40 +51,19 @@
                         <Insets left="10.0" top="10.0" />
                     </VBox.margin>
                 </Label>
-                <HBox alignment="CENTER_LEFT" minHeight="0.0" prefHeight="50.0" prefWidth="200.0">
+                <HBox alignment="CENTER_RIGHT">
                     <VBox.margin>
                         <Insets left="10.0" right="10.0" />
                     </VBox.margin>
                     <children>
-                  <HBox alignment="CENTER_LEFT" prefWidth="380.0">
-                     <children>
-                              <Label text="ISBN:">
-                                  <font>
-                                      <Font name="System Bold" size="12.0" />
-                                  </font>
-                                  <HBox.margin>
-                                      <Insets />
-                                  </HBox.margin>
-                              </Label>
-                        <TextField fx:id="txtIsbn" promptText="1234567890123">
-                           <HBox.margin>
-                              <Insets left="5.0" />
-                           </HBox.margin>
-                        </TextField>
-                     </children>
-                  </HBox>
-                  <HBox alignment="CENTER_RIGHT" prefWidth="380.0">
-                     <children>
-                        <Button fx:id="btnAgregarLibro" mnemonicParsing="false" prefHeight="26.0" prefWidth="112.0" style="-fx-background-color: #3498db; -fx-border-color: white; -fx-border-radius: 5px; -fx-background-radius: 5px;" text="Agregar Libro" textFill="WHITE">
-                           <font>
-                              <Font name="System Bold" size="12.0" />
-                           </font>
-                           <HBox.margin>
-                              <Insets />
-                           </HBox.margin>
-                        </Button>
-                     </children>
-                  </HBox>
+                  <Button fx:id="btnAgregarLibro" mnemonicParsing="false" onAction="#agregarLibro" prefHeight="26.0" prefWidth="112.0" style="-fx-background-color: #3498db; -fx-border-color: white; -fx-border-radius: 5px; -fx-background-radius: 5px;" text="Agregar Libro" textFill="WHITE">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets bottom="10.0" />
+                     </HBox.margin>
+                  </Button>
                     </children>
                 </HBox>
                 <TableView fx:id="tblLibro" prefHeight="226.0" prefWidth="760.0">
@@ -212,7 +191,7 @@
                   </HBox>
                   <HBox alignment="CENTER_RIGHT" prefHeight="0.0" prefWidth="390.0">
                      <children>
-                              <Button fx:id="btnAgregarRack" mnemonicParsing="false" prefHeight="26.0" prefWidth="112.0" style="-fx-background-color: #3498db; -fx-border-color: white; -fx-border-radius: 5px; -fx-background-radius: 5px;" text="Agregar Rack" textFill="WHITE">
+                              <Button fx:id="btnAgregarRack" mnemonicParsing="false" onAction="#agregarRack" prefHeight="26.0" prefWidth="112.0" style="-fx-background-color: #3498db; -fx-border-color: white; -fx-border-radius: 5px; -fx-background-radius: 5px;" text="Agregar Rack" textFill="WHITE">
                                   <font>
                                       <Font name="System Bold" size="12.0" />
                                   </font>
@@ -249,8 +228,7 @@
                 </HBox>
                 <HBox alignment="CENTER" prefHeight="50.0" prefWidth="200.0">
                     <children>
-                        <Button mnemonicParsing="false" prefHeight="26.0" prefWidth="112.0" style="-fx-background-color: #2ecc71; -fx-border-color: white; -fx-border-radius: 5px; -fx-background-radius: 5px;"
-                                text="Confirmar" textFill="WHITE" fx:id="btnGuardar" onAction="#click">
+                        <Button fx:id="btnGuardar" mnemonicParsing="false" onAction="#click" prefHeight="26.0" prefWidth="112.0" style="-fx-background-color: #2ecc71; -fx-border-color: white; -fx-border-radius: 5px; -fx-background-radius: 5px;" text="Confirmar" textFill="WHITE">
                             <font>
                                 <Font name="System Bold" size="12.0" />
                             </font>
@@ -258,8 +236,7 @@
                                 <Insets right="20.0" />
                             </HBox.margin>
                         </Button>
-                        <Button mnemonicParsing="false" prefHeight="26.0" prefWidth="112.0" style="-fx-background-color: #e74c3c; -fx-border-color: white; -fx-border-radius: 5px; -fx-background-radius: 5px;"
-                                text="Cancelar" textFill="WHITE" fx:id="btnCancelar" onAction="#click">
+                        <Button fx:id="btnCancelar" mnemonicParsing="false" onAction="#click" prefHeight="26.0" prefWidth="112.0" style="-fx-background-color: #e74c3c; -fx-border-color: white; -fx-border-radius: 5px; -fx-background-radius: 5px;" text="Cancelar" textFill="WHITE">
                             <font>
                                 <Font name="System Bold" size="12.0" />
                             </font>

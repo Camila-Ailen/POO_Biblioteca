@@ -227,4 +227,22 @@ public class CopiaAbmController {
             stage.close();
         }
     }
+
+    @FXML
+    private void agregarLibro(ActionEvent event) {
+        try {
+            App.setRoot("crudLibro");
+        } catch (Exception e) {
+            Alerta.mostrarAlerta(Alert.AlertType.ERROR, "Error al cargar la ventana", "Ocurrió un error al cargar la ventana de Libros.", e.getMessage());
+        }
+    }
+
+    @FXML
+    private void agregarRack(ActionEvent event) {
+        try {
+            App.setRoot("crudRack");
+        } catch (Exception e) {
+            Alerta.mostrarAlerta(Alert.AlertType.ERROR, "Error al cargar la ventana", "Ocurrió un error al cargar la ventana de Racks.", e.getMessage());
+        }
+    }
 }

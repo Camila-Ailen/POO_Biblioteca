@@ -30,6 +30,7 @@ public class App extends Application {
         scene = new Scene(fxmlLoader.load());
         stage.setTitle("BLUE LIBRARY");
         stage.setScene(scene);
+        stage.setResizable(false);
         stage.show();
     }
 
@@ -48,7 +49,7 @@ public class App extends Application {
             newStage.initModality(Modality.APPLICATION_MODAL);
             newStage.setTitle("Operaciones de CRUD");
             newStage.setScene(new Scene(root));
-
+            newStage.setResizable(false);
             newStage.showAndWait();
         } else {
 
@@ -59,6 +60,7 @@ public class App extends Application {
             stage.setWidth(root.prefWidth(-1));
             stage.setHeight(root.prefHeight(-1));
             stage.centerOnScreen();
+            stage.setResizable(false);
         }
     }
 
