@@ -219,6 +219,15 @@
               </VBox>
             <HBox alignment="CENTER">
                <children>
+                   <Button fx:id="btnVerHistorial" mnemonicParsing="false" prefHeight="26.0" prefWidth="112.0" style="-fx-background-color: #3498db; -fx-border-color: white; -fx-border-radius: 5px; -fx-background-radius: 5px;"
+                           text="Ver Historial" textFill="WHITE" onAction="#historial">
+                       <font>
+                           <Font name="System Bold" size="12.0" />
+                       </font>
+                       <HBox.margin>
+                           <Insets right="70.0" />
+                       </HBox.margin>
+                   </Button>
                   <Button fx:id="btnCrear" mnemonicParsing="false" onAction="#crear" prefHeight="26.0" prefWidth="112.0" style="-fx-background-color: #2ecc71; -fx-border-color: white; -fx-border-radius: 5px; -fx-background-radius: 5px;" text="Crear" textFill="WHITE">
                      <font>
                         <Font name="System Bold" size="12.0" />

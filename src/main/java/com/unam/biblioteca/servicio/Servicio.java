@@ -149,6 +149,10 @@ public class Servicio {
         return repositorio.listarPrestamosPorMiembro(idMiembro);
     }
 
+    public List<Prestamo> listarPrestamosPorCopia(int idCopia) {
+        return repositorio.listarPrestamosPorCopia(idCopia);
+    }
+
     //LIBRO
     //Busca un libro segun su id y devuelve el objeto
     public Libro buscarLibro(int id) {

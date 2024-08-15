@@ -266,6 +266,12 @@ public class Repositorio {
         return consulta.getResultList();
     }
 
+    public List<Prestamo> listarPrestamosPorCopia(int idCopia) {
+        TypedQuery<Prestamo> consulta = em.createQuery("SELECT p FROM Prestamo p WHERE p.unCopia.id = :idCopia", Prestamo.class);
+        consulta.setParameter("idCopia", idCopia);
+        return consulta.getResultList();
+    }
+
 }
 
 
