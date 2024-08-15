@@ -1,10 +1,7 @@
 package com.unam.biblioteca.controlador;
 
 import com.unam.biblioteca.App;
-import com.unam.biblioteca.modelo.Copia;
-import com.unam.biblioteca.modelo.Libro;
-import com.unam.biblioteca.modelo.Miembro;
-import com.unam.biblioteca.modelo.Prestamo;
+import com.unam.biblioteca.modelo.*;
 import com.unam.biblioteca.servicio.Servicio;
 import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.event.ActionEvent;
@@ -54,6 +51,7 @@ public class HistorialUsuarioController {
     @FXML
     private void initialize() {
         servicio = App.getServicio();
+        Miembro usuarioLogueado = (Miembro) UsrLogueado.getInstancia().getVariableGlobal();
 
         //Inicializar tabla de usuarios
         colIdCopia.setCellValueFactory(cellData -> new ReadOnlyObjectWrapper<>(cellData.getValue().getUnCopia().getId()));
@@ -69,6 +67,13 @@ public class HistorialUsuarioController {
             int numDias = servicio.contarDiasDePrestamo(prestamo);
             return new ReadOnlyObjectWrapper<>(numDias);
         });
+
+        if (usuarioLogueado.getUnRol().getNombre().equals("USUARIO")) {
+            setIdMiembro(usuarioLogueado);
+        } else {
+            setIdMiembro(usuarioLogueado);
+        }
+
 
 
     }
