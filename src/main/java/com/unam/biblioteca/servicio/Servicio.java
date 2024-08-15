@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
+import java.util.regex.Pattern;
 
 public class Servicio {
     private final Repositorio repositorio;
@@ -92,6 +93,10 @@ public class Servicio {
     //Insertar un miembro
     public void insertarMiembro(String clave, String apellido, String nombre, String telefono, String email, Boolean activo, Rol unRol) {
         try {
+            if (!esEmailValido(email)) {
+                Alerta.mostrarAlerta(Alert.AlertType.INFORMATION, "Email incorrecto", "El email no es válido", "Por favor, verifique el email ingresado.");
+                throw new IllegalArgumentException("El email no es válido");
+            }
             this.repositorio.iniciarTransaccion();
             var miembro = new Miembro(clave, apellido, nombre, telefono, email, activo, unRol);
             this.repositorio.insertar(miembro);
@@ -106,6 +111,10 @@ public class Servicio {
     //Modificar un miembro
     public void modificarMiembro(int id, String clave, String apellido, String nombre, String telefono, String email, Boolean activo, Rol unRol) {
         try {
+            if (!esEmailValido(email)) {
+                Alerta.mostrarAlerta(Alert.AlertType.INFORMATION, "Email incorrecto", "El email no es válido", "Por favor, verifique el email ingresado.");
+                throw new IllegalArgumentException("El email no es válido");
+            }
             this.repositorio.iniciarTransaccion();
             System.out.println("modificando 1");
             var miembro = this.repositorio.buscar(Miembro.class, id);
@@ -747,6 +756,17 @@ public class Servicio {
 
     protected boolean contieneNumeros(String string){
         return string.chars().anyMatch(Character::isDigit);
+    }
+
+    private static final Pattern EMAIL_PATTERN = Pattern.compile(
+            "^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$"
+    );
+
+    public boolean esEmailValido(String email) {
+        if (email == null) {
+            return false;
+        }
+        return EMAIL_PATTERN.matcher(email).matches();
     }
 
 
