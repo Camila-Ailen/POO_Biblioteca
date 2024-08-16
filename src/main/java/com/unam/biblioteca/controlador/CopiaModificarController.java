@@ -111,39 +111,7 @@ public class CopiaModificarController {
         Stage stage = (Stage) boton.getScene().getWindow();
 
         if (!lblIsbn.getText().contains("xxxx") && cmbRack.getValue() != null && cmbEstado.getValue() != null) {
-        /*
-        var item = tblLibro.getSelectionModel().getSelectedItem();
 
-        if (boton.equals(btnGuardar)) {
-            if (!lblIsbn.getText().contains("xxxx") && item != null  && cmbRack.getValue() != null) {
-
-
-                String isbn = lblIsbn.getText();
-                int cantidad = Integer.parseInt(txtCantidad.getText());
-                String tipoNombre = cmbTipo.getValue();
-                String rackDescripcion = cmbRack.getValue();
-                boolean referencia = chkReferencia.isSelected();
-                String estadoNombre = cmbEstado.getValue();
-
-                System.out.println("pasada la parte 1");
-                Libro libro = servicio.buscarLibroPorIsbn(isbn);
-                System.out.println("buscamos por isbn");
-                CopiaTipo tipo = servicio.buscarTipoPorNombre(tipoNombre);
-                System.out.println("buscamos por tipo");
-                Rack rack = servicio.buscarRackPorDescripcion(rackDescripcion);
-                System.out.println("buscamos por descripcion");
-                CopiaEstado estado = servicio.buscarEstadoPorNombre(estadoNombre);
-                System.out.println("pasada la parte 2");
-
-                if (lblId.getText().equals("Generado automagicamente")) {
-                    System.out.println("entramos al if");
-                    estado = CopiaEstado.DISPONIBLE;
-                    System.out.println("Llamaremos al servicio");
-                    servicio.insertarCopia(libro, cantidad, tipo, rack, referencia, estado);
-                    System.out.println("Llamamos al servicio");
-                } else {
-
-         */
                 String rackDescripcion = cmbRack.getValue();
                 boolean referencia = chkReferencia.isSelected();
                 String estadoNombre = cmbEstado.getValue();

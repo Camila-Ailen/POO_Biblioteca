@@ -7,6 +7,7 @@ import com.unam.biblioteca.servicio.Servicio;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 
 import java.util.List;
@@ -48,6 +49,12 @@ public class MiembroAbmController {
     @FXML
     private void initialize() {
         servicio = App.getServicio();
+
+        txtTelefono.addEventFilter(KeyEvent.KEY_TYPED, keyEvent -> {
+            if (!keyEvent.getCharacter().matches("\\d")) {
+                keyEvent.consume();}
+        });
+
         cargarRoles();
         chkActivo.setSelected(true);
     }

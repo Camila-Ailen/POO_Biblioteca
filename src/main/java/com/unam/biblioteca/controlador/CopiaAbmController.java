@@ -203,13 +203,13 @@ public class CopiaAbmController {
                 CopiaEstado estado = servicio.buscarEstadoPorNombre(estadoNombre);
                 System.out.println("pasada la parte 2");
 
-                if (lblId.getText().equals("Generado automagicamente")) {
+
                     System.out.println("entramos al if");
                     estado = CopiaEstado.DISPONIBLE;
                     System.out.println("Llamaremos al servicio");
                     servicio.insertarCopia(libro, cantidad, tipo, rack, referencia, estado);
                     System.out.println("Llamamos al servicio");
-                }
+
                 stage.close();
             } else {
                 Alerta.mostrarAlerta(Alert.AlertType.WARNING, "Datos incompletos", "Por favor, complete los campos requeridos.",

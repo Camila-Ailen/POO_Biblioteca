@@ -49,6 +49,11 @@ public class LibroAbmController {
     private void initialize() {
         servicio = App.getServicio();
 
+        txtIsbn.addEventFilter(KeyEvent.KEY_TYPED, keyEvent -> {
+            if (!keyEvent.getCharacter().matches("\\d")) {
+                keyEvent.consume();}
+        });
+
         txtPrecio.addEventFilter(KeyEvent.KEY_TYPED, keyEvent -> {
             if (!keyEvent.getCharacter().matches("\\d")) {
                 keyEvent.consume();}

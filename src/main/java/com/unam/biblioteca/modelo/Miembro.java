@@ -3,7 +3,9 @@ package com.unam.biblioteca.modelo;
 import java.io.Serializable;
 import java.util.ArrayList;
 
+import com.unam.biblioteca.controlador.Alerta;
 import jakarta.persistence.*;
+import javafx.scene.control.Alert;
 
 @Entity
 public class Miembro implements Serializable {
@@ -118,9 +120,11 @@ public class Miembro implements Serializable {
     public void setTelefono(String telefono) {
         if (telefono != null){
             if (!telefono.matches("[0-9]+") ) {
+                Alerta.mostrarAlerta(Alert.AlertType.INFORMATION, "Información", "El numero de telefono solo puede contener números", "El numero de telefono solo puede contener números");
                 throw new IllegalArgumentException("El numero de telefono solo puede contener números");
             }
             if (telefono.length() > 15) {
+                Alerta.mostrarAlerta(Alert.AlertType.INFORMATION, "Información", "El telefono no puede tener más de 15 caracteres", "El telefono no puede tener más de 15 caracteres");
                 throw new IllegalArgumentException("El telefono no puede tener más de 15 caracteres");
             }
             this.telefono = telefono;

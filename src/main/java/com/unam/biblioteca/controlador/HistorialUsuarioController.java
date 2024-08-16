@@ -68,6 +68,29 @@ public class HistorialUsuarioController {
             return new ReadOnlyObjectWrapper<>(numDias);
         });
 
+        colCantDias.setCellFactory(column -> new TableCell<Prestamo, Integer>(){
+            @Override
+            protected void updateItem(Integer item, boolean empty) {
+                super.updateItem(item, empty);
+                if (item == null || empty) {
+                    setText(null);
+                    setStyle("");
+                } else {
+                    setText(String.valueOf(item));
+                    TableRow<Prestamo> currentRow = getTableRow();
+                    if (item <= 6) {
+                        currentRow.setStyle("-fx-background-color: lightgreen");
+                    } else if (item <= 9) {
+                        currentRow.setStyle("-fx-background-color: yellow");
+                    } else if (item == 10) {
+                        currentRow.setStyle("-fx-background-color: orange");
+                    } else if (item > 10) {
+                        currentRow.setStyle("-fx-background-color: red");
+                    }
+                }
+            }
+        });
+
         if (usuarioLogueado.getUnRol().getNombre().equals("USUARIO")) {
             setIdMiembro(usuarioLogueado);
         } else {
